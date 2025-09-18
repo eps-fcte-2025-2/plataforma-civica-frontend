@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Plataforma Cívica Frontend
 
-## Getting Started
+Frontend da Plataforma Cívica desenvolvido com Next.js 15, React 19 e Tailwind CSS.
 
-First, run the development server:
+## Tecnologias
+
+- **Next.js 15** - Framework React com App Router
+- **React 19** - Biblioteca de interface
+- **TypeScript** - Tipagem estática
+- **Tailwind CSS** - Framework CSS utilitário
+- **Docker** - Containerização
+
+## Instalação e Execução
+
+### Desenvolvimento Local
 
 ```bash
+# Instalar dependências
+npm install
+# ou
+yarn install
+
+# Executar servidor de desenvolvimento
 npm run dev
-# or
+# ou
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000) para visualizar a aplicação.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O mesmo Dockerfile funciona para desenvolvimento e produção, apenas muda como você executa.
 
-## Learn More
+#### Desenvolvimento (com hot reload)
+```bash
+# Executar com hot reload
+docker compose up --build
 
-To learn more about Next.js, take a look at the following resources:
+# Executar em background
+docker compose up -d
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Parar containers
+docker compose down
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Ver logs
+docker compose logs -f
+```
 
-## Deploy on Vercel
+**Características do desenvolvimento:**
+- ✅ **Hot reload** - Mudanças no código refletem instantaneamente
+- ✅ **Volumes mapeados** - Código local sincronizado com container
+- ✅ **Logs detalhados** - Mostra erros e warnings
+- ✅ **Desenvolvimento rápido** - Não precisa rebuildar a cada mudança
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Produção
+```bash
+# Build da imagem
+docker build -t plataforma-civica-frontend .
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Executar container de produção
+docker run -p 3000:3000 -e NODE_ENV=production plataforma-civica-frontend
+```
+
+**Características da produção:**
+- ✅ **Otimizado** - Código compilado e minificado
+- ✅ **Sem hot reload** - Aplicação estática
+- ✅ **Logs mínimos** - Apenas erros críticos
+- ✅ **Performance máxima** - Sem overhead de desenvolvimento
+
+#### Diferenças Práticas
+
+| Aspecto | Desenvolvimento | Produção |
+|---------|----------------|----------|
+| **Hot Reload** | ✅ Sim | ❌ Não |
+| **Volumes** | ✅ Mapeados | ❌ Não |
+| **Logs** | 🔍 Detalhados | ⚡ Mínimos |
+| **Performance** | 🐌 Mais lento | 🚀 Otimizada |
+| **Uso** | 👨‍💻 Para codificar | 🌐 Para usuários |
+
+## 🛠️ Scripts Disponíveis
+
+- `npm run dev` - Servidor de desenvolvimento
+- `npm run build` - Build de produção
+- `npm run start` - Servidor de produção
+- `npm run lint` - Verificação de código
+- `npm run format` - Formatação de código
+
+## Docker
+
+A aplicação está configurada com Docker multi-stage para otimização:
+
+- **Dockerfile** - Build otimizado com 3 stages
+- **docker-compose.yml** - Orquestração de containers
+- **.dockerignore** - Exclusão de arquivos desnecessários
