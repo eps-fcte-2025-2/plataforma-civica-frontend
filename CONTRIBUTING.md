@@ -128,9 +128,16 @@ git commit -m "feat(auth): implement social login with Googles"
 ```
 
 ### 5. Open a Pull Request (PR)
-With your changes properly committed, push your branch to the remote repository (git push origin your-branch-name). Then, open a Pull Request (PR) on GitHub so your code can be reviewed and merged into the project.
+With your changes properly committed, push your branch to the remote repository (git push origin your-branch-name). Then, open a Pull Request (PR) to the main branch on GitHub and add a reviewer so your code can be reviewed and merged into the project.
 
-### 6. Keep the Issue Updated
+### 6. Discussion and Changes
+Your participation in this phase is crucial.
+
+* Respond to comments: Engage in the discussion, ask for clarification, and constructively explain your decisions. Communication is welcome!
+* Push new commits: Make the requested changes on the same branch of your PR. The Pull Request will automatically update with the new commits. Do not open a new PR.
+* Resolve conversations: Once a point has been addressed, mark the conversation as "Resolved" in the GitHub UI.
+
+### 7. Keep the Issue Updated
 Communication is key. Please add comments to the original issue to keep everyone informed about your progress. This helps maintainers track the status of your work and allows others to offer help or feedback.
 
 It's good practice to comment when you:
@@ -138,3 +145,13 @@ It's good practice to comment when you:
 * Run into a problem or have a question.
 * Would like feedback on your approach.
 * Finish the work and are about to open a Pull Request.
+
+## Reviewer Workflow
+When the developer opens a pull request a maintener have to review the PR, as a reviewer you need to look at things like:
+
+* Does the solution effectively solve the problem from the original issue?
+* Is the code clear, readable, and maintainable?
+* Does the change follow the project's architecture and best practices?
+* Has the documentation (if applicable) been updated?
+
+Fell free to leave comments and suggestions directly on your PR.
