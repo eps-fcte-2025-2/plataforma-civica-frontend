@@ -1,0 +1,24 @@
+name: 📖 Docs Improvement
+description: Report errors or suggest docs upgrades
+title: "[DOCS] "
+labels: [documentation]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where to Improve?
+      placeholder: "Ex: README.md#installation"
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Content
+      description: "Paste the current text (if applicable)."
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Change
+      description: "How should it be rewritten?"
+    validations:
+      required: true
