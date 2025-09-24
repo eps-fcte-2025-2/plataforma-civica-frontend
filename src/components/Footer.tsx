@@ -3,16 +3,14 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 py-4 px-6">
+    <footer className="bg-gray-100 py-2 px-6">
       <div className="container mx-auto flex flex-col items-center">
         
-        {/* Seção da Logo e Slogan */}
         <div className="flex flex-col items-center mb-6">
-          {/* Substitua a imagem abaixo pelo caminho para o seu arquivo da logo */}
           <Image
             src="/logo-footer.svg" 
             alt="Logo Apita Cidadão"
-            width={500}
+            width={400}
             height={80}
             className="mb-2"
           />
@@ -21,7 +19,6 @@ export default function Footer() {
           </p>
         </div>
         
-        {/* Seção dos Links */}
         <div className="flex space-x-6 text-gray-800 text-sm font-semibold">
           <a href="#" className="hover:text-black transition-colors duration-200">
             Termos de Uso
