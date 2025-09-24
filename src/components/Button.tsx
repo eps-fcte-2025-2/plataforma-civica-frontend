@@ -12,7 +12,11 @@ export default function Button({ children, variant = "primary", ...props }: Butt
     secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400",
   };
   return (
-    <button className={`${base} ${variants[variant]}`} {...props}>
+    <button 
+      className={`${base} ${variants[variant]}`} 
+      data-testid={`button-${variant}`}
+      {...props}
+    >
       {children}
     </button>
   );
