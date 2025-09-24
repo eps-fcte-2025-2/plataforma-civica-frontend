@@ -8,7 +8,7 @@ import {
   UpdateReportStatusDTO,
   UpdateStatusResponse,
   PaginationParams,
-  Municipio
+  UF
 } from '../types/api';
 
 export class DenunciaService {
@@ -94,36 +94,47 @@ export class DenunciaService {
   }
 
   /**
-   * Listar todos os municípios - Busca da API pública do IBGE
-   * GET https://servicodados.ibge.gov.br/api/v1/localidades/municipios
+   * Buscar UFs brasileiros para o formulário
    */
-  static async getMunicipios(): Promise<Municipio[]> {
+  static async getUFs(): Promise<UF[]> {
     try {
-      console.log('🏙️ Buscando municípios da API do IBGE...');
+      console.log('🏛️ Carregando lista de UFs...');
       
-      // Buscar municípios da API do IBGE
-      const ibgeResponse = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/municipios');
+      // Lista estática de UFs brasileiros
+      const ufs: UF[] = [
+        { sigla: 'AC', nome: 'Acre' },
+        { sigla: 'AL', nome: 'Alagoas' },
+        { sigla: 'AP', nome: 'Amapá' },
+        { sigla: 'AM', nome: 'Amazonas' },
+        { sigla: 'BA', nome: 'Bahia' },
+        { sigla: 'CE', nome: 'Ceará' },
+        { sigla: 'DF', nome: 'Distrito Federal' },
+        { sigla: 'ES', nome: 'Espírito Santo' },
+        { sigla: 'GO', nome: 'Goiás' },
+        { sigla: 'MA', nome: 'Maranhão' },
+        { sigla: 'MT', nome: 'Mato Grosso' },
+        { sigla: 'MS', nome: 'Mato Grosso do Sul' },
+        { sigla: 'MG', nome: 'Minas Gerais' },
+        { sigla: 'PA', nome: 'Pará' },
+        { sigla: 'PB', nome: 'Paraíba' },
+        { sigla: 'PR', nome: 'Paraná' },
+        { sigla: 'PE', nome: 'Pernambuco' },
+        { sigla: 'PI', nome: 'Piauí' },
+        { sigla: 'RJ', nome: 'Rio de Janeiro' },
+        { sigla: 'RN', nome: 'Rio Grande do Norte' },
+        { sigla: 'RS', nome: 'Rio Grande do Sul' },
+        { sigla: 'RO', nome: 'Rondônia' },
+        { sigla: 'RR', nome: 'Roraima' },
+        { sigla: 'SC', nome: 'Santa Catarina' },
+        { sigla: 'SP', nome: 'São Paulo' },
+        { sigla: 'SE', nome: 'Sergipe' },
+        { sigla: 'TO', nome: 'Tocantins' }
+      ];
       
-      if (!ibgeResponse.ok) {
-        throw new Error(`Erro ao buscar municípios: ${ibgeResponse.status}`);
-      }
-      
-      const ibgeData = await ibgeResponse.json();
-      
-      // Transformar dados do IBGE para o formato esperado
-      const municipios: Municipio[] = ibgeData.map((municipio: any) => ({
-        id: municipio.id.toString(), // ID do IBGE como string
-        nome: municipio.nome,
-        uf: municipio.microrregiao.mesorregiao.UF.sigla
-      }));
-      
-      // Ordenar por nome do município
-      municipios.sort((a, b) => a.nome.localeCompare(b.nome));
-      
-      console.log('✅ Municípios encontrados:', municipios.length);
-      return municipios;
+      console.log('✅ UFs carregados:', ufs.length);
+      return ufs;
     } catch (error) {
-      console.error('❌ Erro ao buscar municípios:', error);
+      console.error('❌ Erro ao carregar UFs:', error);
       throw error;
     }
   }
@@ -146,8 +157,12 @@ export class DenunciaService {
       errors.push('Descrição não pode exceder 5000 caracteres');
     }
 
-    if (!data.municipioId) {
-      errors.push('Município é obrigatório');
+    if (!data.uf) {
+      errors.push('UF é obrigatório');
+    }
+
+    if (data.uf && !/^[A-Z]{2}$/.test(data.uf)) {
+      errors.push('UF deve ter 2 letras maiúsculas');
     }
 
     if (!data.pessoasEnvolvidas || data.pessoasEnvolvidas.length === 0) {

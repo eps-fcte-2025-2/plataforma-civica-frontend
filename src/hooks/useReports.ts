@@ -9,7 +9,7 @@ import {
   UpdateReportStatusDTO,
   UpdateStatusResponse,
   PaginationParams,
-  Municipio
+  UF
 } from '../types/api';
 
 export interface UseReportsState {
@@ -142,25 +142,25 @@ export const useReports = () => {
   };
 };
 
-// Hook para municípios
-export const useMunicipios = () => {
-  const [municipios, setMunicipios] = useState<Municipio[]>([]);
+// Hook para UFs
+export const useUFs = () => {
+  const [ufs, setUFs] = useState<UF[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchMunicipios = useCallback(async () => {
+  const fetchUFs = useCallback(async () => {
     setLoading(true);
     setError(null);
     
     try {
-      console.log('🔄 Iniciando busca de municípios...');
-      const response = await DenunciaService.getMunicipios();
-      console.log('✅ Municípios carregados:', response.length);
-      setMunicipios(response);
+      console.log('🔄 Iniciando carregamento de UFs...');
+      const response = await DenunciaService.getUFs();
+      console.log('✅ UFs carregados:', response.length);
+      setUFs(response);
       return response;
     } catch (error: any) {
-      const errorMessage = error.message || 'Erro ao buscar municípios';
-      console.error('❌ Erro no hook de municípios:', error);
+      const errorMessage = error.message || 'Erro ao carregar UFs';
+      console.error('❌ Erro no hook de UFs:', error);
       setError(errorMessage);
       throw error;
     } finally {
@@ -169,9 +169,9 @@ export const useMunicipios = () => {
   }, []);
 
   return {
-    municipios,
+    ufs,
     loading,
     error,
-    fetchMunicipios,
+    fetchUFs,
   };
 };

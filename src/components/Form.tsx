@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useReports, useMunicipios } from '../hooks/useReports';
+import { useReports, useUFs } from '../hooks/useReports';
 import {
   CreateReportDTO,
   TipoDenuncia,
@@ -31,17 +31,19 @@ interface FormData extends CreateReportDTO {
 
 const Form: React.FC = () => {
   const { createReport, loading, error } = useReports();
-  const { municipios, loading: municipiosLoading, fetchMunicipios } = useMunicipios();
+  const { ufs, loading: ufsLoading, fetchUFs } = useUFs();
   
   const [currentStep, setCurrentStep] = useState(1);
   const [response, setResponse] = useState<CreateReportResponse | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     tipoDenuncia: TipoDenuncia.PARTIDA_ESPECIFICA,
     descricao: '',
     comoSoube: ComoSoube.OUTROS,
     pontualOuDisseminado: PontualOuDisseminado.PONTUAL,
     frequencia: Frequencia.ISOLADO,
-    municipioId: '',
+    uf: '',
     pessoasEnvolvidas: [{ nomePessoa: '', funcaoPessoa: '' }],
     clubesEnvolvidos: [],
     focosManipulacao: [FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO],
@@ -57,11 +59,28 @@ const Form: React.FC = () => {
   });
 
   useEffect(() => {
-    fetchMunicipios();
-  }, [fetchMunicipios]);
+    fetchUFs();
+  }, [fetchUFs]);
 
   const updateFormData = (updates: Partial<FormData>) => {
     setFormData(prev => ({ ...prev, ...updates }));
+  };
+
+  // Função para converter data local para ISO 8601
+  const formatDateToISO = (dateString: string): string => {
+    if (!dateString) return '';
+    try {
+      // Se a data já está no formato ISO, retorna ela mesma
+      if (dateString.includes('T') && dateString.includes('Z')) {
+        return dateString;
+      }
+      // Converte data local para ISO 8601
+      const date = new Date(dateString);
+      return date.toISOString();
+    } catch (error) {
+      console.error('Erro ao converter data:', error);
+      return dateString;
+    }
   };
 
   const addPessoaEnvolvida = () => {
@@ -126,8 +145,39 @@ const Form: React.FC = () => {
   };
 
   const nextStep = () => {
+    // Validações antes de avançar
+    if (currentStep === 2) {
+      // Validar etapa 2
+      if (!formData.uf) {
+        alert('Por favor, selecione uma UF');
+        return;
+      }
+      if (formData.focosManipulacao.length === 0) {
+        alert('Por favor, selecione pelo menos um foco de manipulação');
+        return;
+      }
+    }
+    
+    if (currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA) {
+      // Validar campos da partida
+      if (!formData.torneio) {
+        alert('Por favor, informe o torneio');
+        return;
+      }
+    }
+    
+    if (currentStep === 4) {
+      // Validar pessoas envolvidas
+      if (formData.pessoasEnvolvidas.some(p => !p.nomePessoa || !p.funcaoPessoa)) {
+        alert('Por favor, preencha todos os campos de pessoas envolvidas');
+        return;
+      }
+    }
+    
     if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === 5) {
+      handleSubmit();
     }
   };
 
@@ -138,7 +188,15 @@ const Form: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    setSubmitError(null);
+    setIsSubmitting(true);
+    
     try {
+      // Validar descrição mínima
+      if (formData.descricao.length < 10) {
+        throw new Error('A descrição deve ter pelo menos 10 caracteres');
+      }
+
       // Preparar dados para envio baseado no tipo de denúncia
       let dadosEnvio: CreateReportDTO;
 
@@ -147,12 +205,12 @@ const Form: React.FC = () => {
           ...formData,
           partidas: [{
             torneio: formData.torneio || '',
-            dataPartida: formData.dataPartida || '',
+            dataPartida: formatDateToISO(formData.dataPartida || ''),
             localPartida: formData.localPartida || '',
             timeA: formData.timeA || '',
             timeB: formData.timeB || '',
             observacoes: formData.observacoesPartida || '',
-            municipioId: formData.municipioId
+            uf: formData.uf
           }]
         };
       } else {
@@ -161,20 +219,24 @@ const Form: React.FC = () => {
           ...formData,
           partidas: (formData.partidasSuspeitas || []).map(partida => ({
             torneio: partida.nome,
-            dataPartida: partida.data,
-            localPartida: '',
-            timeA: '',
-            timeB: '',
-            observacoes: '',
-            municipioId: formData.municipioId
+            dataPartida: formatDateToISO(partida.data),
+            localPartida: 'Local não especificado',
+            timeA: 'Time A',
+            timeB: 'Time B',
+            observacoes: 'Partida suspeita identificada no esquema',
+            uf: formData.uf
           }))
         };
       }
 
       const response = await createReport(dadosEnvio);
       setResponse(response);
-    } catch (error) {
+      setCurrentStep(6); // Ir para tela de sucesso
+    } catch (error: any) {
       console.error('Erro ao enviar denúncia:', error);
+      setSubmitError(error.message || 'Erro ao enviar denúncia. Por favor, tente novamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -185,7 +247,7 @@ const Form: React.FC = () => {
       comoSoube: ComoSoube.OUTROS,
       pontualOuDisseminado: PontualOuDisseminado.PONTUAL,
       frequencia: Frequencia.ISOLADO,
-      municipioId: '',
+      uf: '',
       pessoasEnvolvidas: [{ nomePessoa: '', funcaoPessoa: '' }],
       clubesEnvolvidos: [],
       focosManipulacao: [FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO],
@@ -337,22 +399,22 @@ const Form: React.FC = () => {
             </select>
           </div>
 
-          {/* Município */}
+          {/* UF */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Município *
+              UF *
             </label>
             <select
-              value={formData.municipioId}
-              onChange={(e) => updateFormData({ municipioId: e.target.value })}
+              value={formData.uf}
+              onChange={(e) => updateFormData({ uf: e.target.value })}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              disabled={municipiosLoading}
+              disabled={ufsLoading}
               required
             >
-              <option value="">Selecione um município</option>
-              {municipios.map((municipio) => (
-                <option key={municipio.id} value={municipio.id}>
-                  {municipio.nome} - {municipio.uf}
+              <option value="">Selecione uma UF</option>
+              {ufs.map((uf) => (
+                <option key={uf.sigla} value={uf.sigla}>
+                  {uf.sigla} - {uf.nome}
                 </option>
               ))}
             </select>
@@ -506,12 +568,22 @@ const Form: React.FC = () => {
             </label>
             <textarea
               value={formData.descricao}
-              onChange={(e) => updateFormData({ descricao: e.target.value })}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value.length <= 5000) {
+                  updateFormData({ descricao: value });
+                }
+              }}
               rows={6}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Descreva detalhadamente o esquema de manipulação que você conhece. Seja claro e objetivo."
               required
+              minLength={10}
+              maxLength={5000}
             />
+            <div className="text-sm text-gray-500 mt-1">
+              {formData.descricao.length}/5000 caracteres
+            </div>
           </div>
 
           {/* Partidas Suspeitas */}
@@ -649,12 +721,22 @@ const Form: React.FC = () => {
               </label>
               <textarea
                 value={formData.descricao}
-                onChange={(e) => updateFormData({ descricao: e.target.value })}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= 5000) {
+                    updateFormData({ descricao: value });
+                  }
+                }}
                 rows={6}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Descreva o conteúdo de sua manifestação. Seja claro e objetivo. Informações pessoais, inclusive identificação, não devem ser inseridas a não ser que sejam essenciais para a caracterização da manifestação"
                 required
+                minLength={10}
+                maxLength={5000}
               />
+              <div className="text-sm text-gray-500 mt-1">
+                {formData.descricao.length}/5000 caracteres
+              </div>
             </div>
           )}
 
@@ -685,10 +767,39 @@ const Form: React.FC = () => {
         </div>
       )}
 
-      {/* Etapa 5: Revisão */}
+      {/* Etapa 5: Revisão e Descrição Final */}
       {currentStep === 5 && (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Revisão da Denúncia</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Detalhes finais</h2>
+          
+          {/* Campo de descrição para esquema de manipulação na última etapa */}
+          {formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Descrição detalhada *
+              </label>
+              <textarea
+                value={formData.descricao}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= 5000) {
+                    updateFormData({ descricao: value });
+                  }
+                }}
+                rows={6}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Descreva detalhadamente o esquema de manipulação..."
+                required
+                minLength={10}
+                maxLength={5000}
+              />
+              <div className="text-sm text-gray-500 mt-1">
+                {formData.descricao.length}/5000 caracteres
+              </div>
+            </div>
+          )}
+          
+          <h3 className="text-xl font-bold text-gray-800 mt-6 mb-4">Revisão da Denúncia</h3>
           
           <div className="bg-gray-50 p-6 rounded-lg space-y-4">
             <div>
@@ -706,9 +817,9 @@ const Form: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold text-gray-700 mb-2">Município:</h3>
+              <h3 className="font-semibold text-gray-700 mb-2">UF:</h3>
               <p className="text-gray-600">
-                {municipios.find(m => m.id === formData.municipioId)?.nome || 'Não selecionado'}
+                {ufs.find(u => u.sigla === formData.uf)?.nome || 'Não selecionado'}
               </p>
             </div>
 
@@ -767,8 +878,56 @@ const Form: React.FC = () => {
         </div>
       )}
 
+      {/* Etapa 6: Tela de Sucesso */}
+      {currentStep === 6 && response && (
+        <div className="text-center space-y-6">
+          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          
+          <h2 className="text-3xl font-bold text-gray-900">Denúncia enviada com sucesso!</h2>
+          
+          <div className="bg-green-50 p-6 rounded-lg">
+            <p className="text-lg text-gray-700 mb-2">
+              Sua denúncia foi registrada com o protocolo:
+            </p>
+            <p className="text-2xl font-mono font-bold text-green-700">
+              {response.id}
+            </p>
+          </div>
+          
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Guarde este número de protocolo para acompanhamento futuro. 
+            Sua contribuição é fundamental para combater a manipulação de resultados esportivos.
+          </p>
+          
+          <button
+            type="button"
+            onClick={resetForm}
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+          >
+            Nova Denúncia
+          </button>
+        </div>
+      )}
+
+      {/* Mensagem de Erro */}
+      {submitError && currentStep !== 6 && (
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-700 flex items-center">
+            <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {submitError}
+          </p>
+        </div>
+      )}
+
       {/* Botões de Navegação */}
-      <div className="flex justify-between mt-8">
+      {currentStep !== 6 && (
+        <div className="flex justify-between mt-8">
         <button
           type="button"
           onClick={prevStep}
@@ -782,11 +941,11 @@ const Form: React.FC = () => {
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={loading}
+            disabled={isSubmitting || loading}
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg flex items-center"
           >
-            {loading ? 'Enviando...' : 'Enviar'}
-            <span className="ml-2">→</span>
+            {isSubmitting || loading ? 'Enviando...' : 'Enviar Denúncia'}
+            {!isSubmitting && !loading && <span className="ml-2">→</span>}
           </button>
         ) : (
           <button
@@ -799,6 +958,7 @@ const Form: React.FC = () => {
           </button>
         )}
       </div>
+      )}
     </div>
   );
 };

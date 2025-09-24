@@ -48,10 +48,9 @@ export enum StatusReport {
 }
 
 // Interfaces base
-export interface Municipio {
-  id: string;
+export interface UF {
+  sigla: string;
   nome: string;
-  uf: string;
 }
 
 export interface PessoaEnvolvida {
@@ -90,8 +89,7 @@ export interface Partida {
   timeA?: string;
   timeB?: string;
   observacoes?: string;
-  municipioId: string;
-  municipio?: Municipio;
+  uf: string;
 }
 
 // DTOs de Request
@@ -101,7 +99,7 @@ export interface CreateReportDTO {
   comoSoube?: ComoSoube;
   pontualOuDisseminado?: PontualOuDisseminado;
   frequencia?: Frequencia;
-  municipioId: string;
+  uf: string;
   pessoasEnvolvidas: PessoaEnvolvida[];
   clubesEnvolvidos?: ClubeEnvolvido[];
   focosManipulacao: FocoManipulacao[];
@@ -128,7 +126,7 @@ export interface ReportListItem {
   pontualOuDisseminado: PontualOuDisseminado;
   frequencia: Frequencia;
   dataDenuncia: string;
-  municipio: Municipio;
+  uf: string;
   totalPessoas: number;
   totalClubes: number;
   totalEvidencias: number;
