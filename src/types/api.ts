@@ -89,6 +89,7 @@ export interface Partida {
   timeA?: string;
   timeB?: string;
   observacoes?: string;
+  municipio: string;
   uf: string;
 }
 
@@ -99,6 +100,7 @@ export interface CreateReportDTO {
   comoSoube?: ComoSoube;
   pontualOuDisseminado?: PontualOuDisseminado;
   frequencia?: Frequencia;
+  municipio: string;
   uf: string;
   pessoasEnvolvidas: PessoaEnvolvida[];
   clubesEnvolvidos?: ClubeEnvolvido[];
