@@ -17,15 +17,7 @@ jobs:
       - name: Setup Docker Build
         uses: docker/setup-buildx-action@v3
 
-      - name: Login Docker Hub
-        if: ${{secrets.DOCKERHUB_TOKEN != ' ' }} # Remover quando o secrets DOCKERHUB forem configurados
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build Docker Image
-        if: ${{secrets.DOCKERHUB_TOKEN != ' ' }} # Remover quando o secrets DOCKERHUB forem configurados
+      - name: Build Docker Image (local only)
         uses: docker/build-push-action@v6
         with:
           context: .
