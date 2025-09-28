@@ -138,7 +138,11 @@ describe('Teste de Integração Completa com Backend', () => {
       
       // Verificar que existe pelo menos uma denúncia de esquema
       const esquemaReports = response.body.reports.filter(
-        (report: any) => report.tipoDenuncia === 'ESQUEMA_DE_MANIPULACAO'
+        (report: unknown) =>
+          typeof report === 'object' &&
+          report !== null &&
+          'tipoDenuncia' in report &&
+          (report as { tipoDenuncia: string }).tipoDenuncia === 'ESQUEMA_DE_MANIPULACAO'
       );
       expect(esquemaReports).to.have.length.at.least(1);
       

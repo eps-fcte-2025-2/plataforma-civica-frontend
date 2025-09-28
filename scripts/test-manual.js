@@ -7,7 +7,7 @@
  * sem depender do Cypress, útil para validação rápida.
  */
 
-const axios = require('axios');
+import axios from 'axios';
 
 const API_BASE = 'http://localhost:3333/v1';
 const FRONTEND_URL = 'http://localhost:3002';
@@ -115,7 +115,7 @@ async function testFrontendConnection() {
   console.log('🔍 Testando conexão com o frontend...');
   
   try {
-    const response = await axios.get(FRONTEND_URL);
+    await axios.get(FRONTEND_URL);
     console.log('✅ Frontend conectado com sucesso');
     return true;
   } catch (error) {

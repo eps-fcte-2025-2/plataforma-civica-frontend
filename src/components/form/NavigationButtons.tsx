@@ -2,7 +2,6 @@ import React from 'react';
 
 interface NavigationButtonsProps {
   currentStep: number;
-  maxSteps: number;
   isSubmitting: boolean;
   loading: boolean;
   isLastStep: boolean;
@@ -12,7 +11,7 @@ interface NavigationButtonsProps {
 }
 
 const NavigationButtons: React.FC<NavigationButtonsProps> = ({
-  currentStep, maxSteps, isSubmitting, loading, isLastStep,
+  currentStep, isSubmitting, loading, isLastStep,
   onPrevious, onNext, onSubmit
 }) => {
   return (

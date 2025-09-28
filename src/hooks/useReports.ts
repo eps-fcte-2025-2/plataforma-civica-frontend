@@ -53,12 +53,12 @@ export const useReports = () => {
       const response: ReportsListResponse = await DenunciaService.getReports(params);
       setState(prev => ({
         ...prev,
-        reports: response.reports as any[], // Convertendo para ReportDetail[]
+        reports: response.reports as ReportDetail[], // Convertendo para ReportDetail[]
         pagination: response.pagination,
       }));
       return response;
-    } catch (error: any) {
-      const errorMessage = error.message || 'Erro ao buscar denúncias';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao buscar denúncias';
       setError(errorMessage);
       throw error;
     } finally {
@@ -74,8 +74,8 @@ export const useReports = () => {
     try {
       const report = await DenunciaService.getReportById(id);
       return report;
-    } catch (error: any) {
-      const errorMessage = error.message || 'Erro ao buscar denúncia';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao buscar denúncia';
       setError(errorMessage);
       throw error;
     } finally {
@@ -101,8 +101,8 @@ export const useReports = () => {
       // Atualizar lista após criação
       await fetchReports();
       return response;
-    } catch (error: any) {
-      const errorMessage = error.message || 'Erro ao criar denúncia';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao criar denúncia';
       setError(errorMessage);
       throw error;
     } finally {
@@ -123,8 +123,8 @@ export const useReports = () => {
       // Atualizar lista após atualização
       await fetchReports();
       return response;
-    } catch (error: any) {
-      const errorMessage = error.message || 'Erro ao atualizar status';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao atualizar status';
       setError(errorMessage);
       throw error;
     } finally {
@@ -158,8 +158,8 @@ export const useUFs = () => {
       console.log('✅ UFs carregados:', response.length);
       setUFs(response);
       return response;
-    } catch (error: any) {
-      const errorMessage = error.message || 'Erro ao carregar UFs';
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao carregar UFs';
       console.error('❌ Erro no hook de UFs:', error);
       setError(errorMessage);
       throw error;
