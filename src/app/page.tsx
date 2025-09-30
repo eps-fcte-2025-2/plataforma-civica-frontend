@@ -121,7 +121,7 @@ export default function Home() {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Manipulação de Resultados</h3>
                   <p className="text-sm text-gray-600">
-                    Alteração artificial de resultados, combinação de jogos, "esquemas" entre atletas ou equipes.
+                    Alteração artificial de resultados, combinação de jogos, &quot;esquemas&quot; entre atletas ou equipes.
                   </p>
                 </div>
               </div>

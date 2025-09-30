@@ -189,7 +189,11 @@ export class DenunciaService {
   /**
    * Método utilitário para formatar dados para exibição
    */
-  static formatReportForDisplay(report: ReportDetail): any {
+  static formatReportForDisplay(report: ReportDetail): ReportDetail & {
+  tipoDenunciaFormatted: string;
+  dataDenunciaFormatted: string;
+  descricaoResumida: string;
+} {
     return {
       ...report,
       tipoDenunciaFormatted: report.tipoDenuncia.replace('_', ' ').toLowerCase(),

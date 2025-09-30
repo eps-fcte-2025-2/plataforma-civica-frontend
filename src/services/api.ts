@@ -70,7 +70,7 @@ class ApiService {
   }
 
   // Métodos HTTP
-  async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
+  async get<T>(endpoint: string, params?: Record<string, unknown >): Promise<T> {
     const response = await this.axiosInstance.get<T>(endpoint, { params });
     return response.data;
   }

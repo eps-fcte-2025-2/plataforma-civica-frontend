@@ -1,7 +1,4 @@
-/**
- * Prettier configuration for this project.
- * Includes Tailwind CSS class sorting via prettier-plugin-tailwindcss.
- */
+/* eslint-disable import/no-anonymous-default-export */
 export default {
   plugins: ["prettier-plugin-tailwindcss"],
   semi: true,
@@ -12,4 +9,5 @@ export default {
   bracketSpacing: true,
   arrowParens: "always",
 };
+
 
