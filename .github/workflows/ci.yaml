@@ -54,6 +54,10 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
+      - name: Ensure Next.js, React, TS, Tailwind
+        run: |
+          ${{ steps.detect-package-manager.outputs.manager }} add next@15 react@19 react-dom@19 typescript tailwindcss postcss autoprefixer -D
+          
       - name: Run lint
         run: ${{ steps.detect-package-manager.outputs.runner }} lint
 
