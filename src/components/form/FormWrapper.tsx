@@ -51,6 +51,7 @@ const FormWrapper: React.FC = () => {
   const [response, setResponse] = useState<CreateReportResponse | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   
   const [formData, setFormData] = useState<FormData>({
     tipoDenuncia: TipoDenuncia.PARTIDA_ESPECIFICA,
@@ -81,6 +82,110 @@ const FormWrapper: React.FC = () => {
 
   const updateFormData = (updates: Partial<FormData>) => {
     setFormData(prev => ({ ...prev, ...updates }));
+    // Limpar erros dos campos que foram atualizados
+    const updatedFields = Object.keys(updates);
+    const newErrors = { ...fieldErrors };
+    updatedFields.forEach(field => {
+      delete newErrors[field];
+    });
+    setFieldErrors(newErrors);
+  };
+
+  // Função para validar campos obrigatórios
+  const validateCurrentStep = (): boolean => {
+    const errors: { [key: string]: string } = {};
+    
+    // Validação da etapa 1 - Tipo de denúncia
+    if (currentStep === 1) {
+      if (!formData.tipoDenuncia) {
+        errors.tipoDenuncia = 'Por favor, selecione o tipo de denúncia';
+      }
+    }
+    
+    // Validações para Partida Específica
+    if (formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA) {
+      if (currentStep === 2) {
+        if (!formData.torneio?.trim()) {
+          errors.torneio = 'Por favor, informe o torneio';
+        }
+        if (!formData.localPartida?.trim()) {
+          errors.localPartida = 'Por favor, informe o local da partida';
+        }
+        if (!formData.dataPartida) {
+          errors.dataPartida = 'Por favor, informe a data da partida';
+        }
+        if (!formData.municipio?.trim()) {
+          errors.municipio = 'Por favor, informe o município';
+        }
+        if (!formData.uf) {
+          errors.uf = 'Por favor, selecione uma UF';
+        }
+      }
+      
+      if (currentStep === 3) {
+        formData.pessoasEnvolvidas.forEach((pessoa, index) => {
+          if (!pessoa.nomePessoa?.trim()) {
+            errors[`pessoa_${index}_nome`] = 'Nome obrigatório';
+          }
+          if (!pessoa.funcaoPessoa?.trim()) {
+            errors[`pessoa_${index}_funcao`] = 'Função obrigatória';
+          }
+        });
+      }
+      
+      if (currentStep === 4) {
+        if (!formData.descricao?.trim()) {
+          errors.descricao = 'A descrição é obrigatória';
+        } else if (formData.descricao.length < 10) {
+          errors.descricao = 'A descrição deve ter pelo menos 10 caracteres';
+        }
+      }
+    }
+    
+    // Validações para Esquema de Manipulação
+    if (formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO) {
+      if (currentStep === 2) {
+        if (!formData.municipio?.trim()) {
+          errors.municipio = 'Por favor, informe o município';
+        }
+        if (!formData.uf) {
+          errors.uf = 'Por favor, selecione uma UF';
+        }
+      }
+      
+      if (currentStep === 3) {
+        if (formData.focosManipulacao.length === 0) {
+          errors.focosManipulacao = 'Por favor, selecione pelo menos um foco do esquema';
+        }
+      }
+      
+      if (currentStep === 4) {
+        formData.pessoasEnvolvidas.forEach((pessoa, index) => {
+          if (pessoa.nomePessoa?.trim() && !pessoa.funcaoPessoa?.trim()) {
+            errors[`pessoa_${index}_funcao`] = 'Defina a função da pessoa';
+          }
+        });
+        
+        if (!formData.descricao?.trim()) {
+          errors.descricao = 'A descrição é obrigatória';
+        } else if (formData.descricao.length < 10) {
+          errors.descricao = 'A descrição deve ter pelo menos 10 caracteres';
+        }
+      }
+    }
+    
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Função para verificar se um campo tem erro
+  const hasFieldError = (field: string): boolean => {
+    return field in fieldErrors;
+  };
+
+  // Função para obter mensagem de erro de um campo
+  const getFieldError = (field: string): string | undefined => {
+    return fieldErrors[field];
   };
 
   const getMaxStepsForType = () => {
@@ -148,81 +253,26 @@ const FormWrapper: React.FC = () => {
   };
 
   const nextStep = () => {
-    // Validações para Partida Específica
-    if (currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA) {
-      if (!formData.torneio) {
-        alert('Por favor, informe o torneio');
-        return;
-      }
-      if (!formData.localPartida) {
-        alert('Por favor, informe o local da partida');
-        return;
-      }
-      if (!formData.municipio) {
-        alert('Por favor, informe o município');
-        return;
-      }
-      if (!formData.uf) {
-        alert('Por favor, selecione uma UF');
-        return;
-      }
-    }
-    
-    if (currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA) {
-      if (formData.pessoasEnvolvidas.some(p => !p.nomePessoa || !p.funcaoPessoa)) {
-        alert('Por favor, preencha todos os campos de pessoas envolvidas');
-        return;
-      }
-    }
-    
-    if (currentStep === 4 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA) {
-      if (formData.descricao.length < 10) {
-        alert('A descrição deve ter pelo menos 10 caracteres');
-        return;
-      }
-      // Se é a última etapa, submeter
-      handleSubmit();
+    // Validar a etapa atual
+    if (!validateCurrentStep()) {
+      // Se há erros de validação, parar aqui (os campos já ficaram vermelhos)
       return;
     }
-
-    // Validações para Esquema de Manipulação
-    if (currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO) {
-      if (!formData.municipio) {
-        alert('Por favor, informe o município');
-        return;
-      }
-      if (!formData.uf) {
-        alert('Por favor, selecione uma UF');
-        return;
-      }
-    }
-
-    if (currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO) {
-      if (formData.focosManipulacao.length === 0) {
-        alert('Por favor, selecione pelo menos um foco do esquema');
-        return;
-      }
-    }
-
-    if (currentStep === 4 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO) {
-      if (formData.pessoasEnvolvidas.some(p => p.nomePessoa && !p.funcaoPessoa)) {
-        alert('Por favor, defina a função de todas as pessoas envolvidas');
-        return;
-      }
-      if (formData.descricao.length < 10) {
-        alert('A descrição deve ter pelo menos 10 caracteres');
-        return;
-      }
-      // Se é a última etapa, submeter
+    
+    // Se é a última etapa, submeter
+    if (currentStep === getMaxStepsForType()) {
       handleSubmit();
       return;
     }
     
+    // Avançar para próxima etapa
     setCurrentStep(currentStep + 1);
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
+      // Limpar erros ao voltar para etapa anterior
+      setFieldErrors({});
       setCurrentStep(currentStep - 1);
     }
   };
@@ -332,6 +382,8 @@ const FormWrapper: React.FC = () => {
           <TipoDenunciaStep
             tipoDenuncia={formData.tipoDenuncia}
             onUpdate={updateFormData}
+            hasFieldError={hasFieldError}
+            getFieldError={getFieldError}
           />
         </div>
       )}
@@ -349,6 +401,8 @@ const FormWrapper: React.FC = () => {
           ufs={ufs}
           ufsLoading={ufsLoading}
           onUpdate={updateFormData}
+          hasFieldError={hasFieldError}
+          getFieldError={getFieldError}
         />
       )}
 
@@ -363,6 +417,8 @@ const FormWrapper: React.FC = () => {
           onAddClube={addClubeEnvolvido}
           onUpdateClube={updateClubeEnvolvido}
           onRemoveClube={removeClubeEnvolvido}
+          hasFieldError={hasFieldError}
+          getFieldError={getFieldError}
         />
       )}
 
@@ -373,6 +429,8 @@ const FormWrapper: React.FC = () => {
           titulo="O que aconteceu?"
           placeholder="Descreva o que aconteceu na partida. Seja claro e objetivo. Informações pessoais, inclusive identificação, não devem ser inseridas a não ser que sejam essenciais para a caracterização da manifestação"
           onUpdate={(descricao) => updateFormData({ descricao })}
+          hasFieldError={hasFieldError}
+          getFieldError={getFieldError}
         />
       )}
 
@@ -433,7 +491,6 @@ const FormWrapper: React.FC = () => {
       {/* Botões de Navegação */}
       <NavigationButtons
         currentStep={currentStep}
-        maxSteps={getMaxStepsForType()}
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={currentStep === getMaxStepsForType()}
