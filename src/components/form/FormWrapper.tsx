@@ -449,6 +449,8 @@ const FormWrapper: React.FC = () => {
             ufs={ufs}
             ufsLoading={ufsLoading}
             onUpdate={updateFormData}
+            hasFieldError={hasFieldError}
+            getFieldError={getFieldError}
           />
         </div>
       )}
@@ -458,6 +460,8 @@ const FormWrapper: React.FC = () => {
         <EsquemaFocoStep
           focosManipulacao={formData.focosManipulacao}
           onUpdate={(focosManipulacao) => updateFormData({ focosManipulacao })}
+          hasFieldError={hasFieldError}
+          getFieldError={getFieldError}
         />
       )}
 

@@ -18,6 +18,8 @@ interface EsquemaInfoBasicaStepProps {
     municipio?: string;
     uf?: string;
   }) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
 const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
@@ -29,7 +31,28 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
   ufs,
   ufsLoading,
   onUpdate,
+  hasFieldError,
+  getFieldError,
 }) => {
+  // Helper para obter classes de input baseado em erro
+  const getInputClasses = (fieldName: string) => {
+    const hasError = hasFieldError ? hasFieldError(fieldName) : false;
+    return hasError
+      ? "w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+      : "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+  };
+
+  // Helper para mostrar mensagem de erro
+  const renderFieldError = (fieldName: string) => {
+    const error = getFieldError ? getFieldError(fieldName) : undefined;
+    if (!error) return null;
+    
+    return (
+      <p className="text-sm text-red-600 mt-1">
+        {error}
+      </p>
+    );
+  };
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-800 mb-6">
@@ -130,9 +153,9 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
           value={municipio}
           onChange={(e) => onUpdate({ municipio: e.target.value })}
           placeholder="Digite o município"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          required
+          className={getInputClasses('municipio')}
         />
+        {renderFieldError('municipio')}
       </div>
 
       {/* UF */}
@@ -144,8 +167,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
           id="uf"
           value={uf}
           onChange={(e) => onUpdate({ uf: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          required
+          className={getInputClasses('uf')}
           disabled={ufsLoading}
         >
           <option value="">Selecione uma UF</option>
@@ -158,6 +180,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
         {ufsLoading && (
           <p className="mt-1 text-sm text-gray-500">Carregando estados...</p>
         )}
+        {renderFieldError('uf')}
       </div>
     </div>
   );

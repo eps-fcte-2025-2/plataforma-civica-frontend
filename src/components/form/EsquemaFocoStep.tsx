@@ -6,11 +6,15 @@ import { FocoManipulacao } from '@/types/api';
 interface EsquemaFocoStepProps {
   focosManipulacao: FocoManipulacao[];
   onUpdate: (focos: FocoManipulacao[]) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
 const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
   focosManipulacao,
   onUpdate,
+  hasFieldError,
+  getFieldError,
 }) => {
   const handleFocoChange = (foco: FocoManipulacao, checked: boolean) => {
     if (checked) {
@@ -90,9 +94,9 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
           </label>
         </div>
 
-        {focosManipulacao.length === 0 && (
+        {getFieldError && getFieldError('focosManipulacao') && (
           <p className="text-red-500 text-sm mt-4">
-            Selecione pelo menos um foco para continuar.
+            {getFieldError('focosManipulacao')}
           </p>
         )}
       </div>
