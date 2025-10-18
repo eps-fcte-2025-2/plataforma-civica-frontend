@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useReports, useUFs } from '@/hooks/useReports';
-import { TipoDenuncia, PessoaEnvolvida } from '@/types/api';
+import { TipoDenuncia, PessoaEnvolvida, ComoSoube, PontualOuDisseminado, Frequencia } from '@/types/api';
 
 // Context Providers
 import { FormProvider, useFormData } from './FormDataContext';
@@ -170,9 +170,9 @@ const FormSteps: React.FC = () => {
 
       {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
         <EsquemaInfoBasicaStep
-          comoSoube={formData.comoSoube}
-          pontualOuDisseminado={formData.pontualOuDisseminado}
-          frequencia={formData.frequencia}
+          comoSoube={formData.comoSoube ?? ComoSoube.OUTROS}
+          pontualOuDisseminado={formData.pontualOuDisseminado ?? PontualOuDisseminado.PONTUAL}
+          frequencia={formData.frequencia ?? Frequencia.ISOLADO}
           municipio={formData.municipio}
           uf={formData.uf}
           ufs={ufs}
@@ -243,7 +243,6 @@ const FormSteps: React.FC = () => {
       {/* Navigation Buttons */}
       <NavigationButtons
         currentStep={currentStep}
-        maxSteps={maxSteps}
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={isLastStep}

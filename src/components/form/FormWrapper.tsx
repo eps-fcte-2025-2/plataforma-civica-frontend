@@ -336,8 +336,21 @@ const FormWrapper: React.FC = () => {
       let dadosEnvio: CreateReportDTO;
 
       if (formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA) {
+        const sanitizePessoas = (pessoas: PessoaEnvolvida[] = []) =>
+          pessoas
+            .map(pessoa => ({
+              nomePessoa: (pessoa.nomePessoa || '').trim(),
+              funcaoPessoa: (pessoa.funcaoPessoa || '').trim()
+            }))
+            .filter(pessoa => pessoa.nomePessoa && pessoa.funcaoPessoa);
+        const sanitizeClubes = (clubes: { nomeClube: string }[] = []) =>
+          clubes
+            .map(clube => ({ nomeClube: (clube.nomeClube || '').trim() }))
+            .filter(clube => clube.nomeClube);
         dadosEnvio = {
           ...formData,
+          pessoasEnvolvidas: sanitizePessoas(formData.pessoasEnvolvidas),
+          clubesEnvolvidos: sanitizeClubes(formData.clubesEnvolvidos),
           focosManipulacao: [FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO], // valor padrão para partida específica
           partidas: [{
             torneio: formData.torneio || '',
@@ -352,8 +365,21 @@ const FormWrapper: React.FC = () => {
         };
       } else {
         // Para esquema de manipulação
+        const sanitizePessoas = (pessoas: PessoaEnvolvida[] = []) =>
+          pessoas
+            .map(pessoa => ({
+              nomePessoa: (pessoa.nomePessoa || '').trim(),
+              funcaoPessoa: (pessoa.funcaoPessoa || '').trim()
+            }))
+            .filter(pessoa => pessoa.nomePessoa && pessoa.funcaoPessoa);
+        const sanitizeClubes = (clubes: { nomeClube: string }[] = []) =>
+          clubes
+            .map(clube => ({ nomeClube: (clube.nomeClube || '').trim() }))
+            .filter(clube => clube.nomeClube);
         dadosEnvio = {
           ...formData,
+          pessoasEnvolvidas: sanitizePessoas(formData.pessoasEnvolvidas),
+          clubesEnvolvidos: sanitizeClubes(formData.clubesEnvolvidos),
           partidas: (formData.partidasSuspeitas || []).map(partida => ({
             torneio: partida.nome,
             dataPartida: formatDateToISO(partida.data),
