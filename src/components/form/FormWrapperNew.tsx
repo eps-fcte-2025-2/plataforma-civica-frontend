@@ -199,6 +199,7 @@ const FormSteps: React.FC = () => {
         <EsquemaFocoStep
           focosManipulacao={formData.focosManipulacao}
           onUpdate={(focos) => updateFormData({ focosManipulacao: focos })}
+          // As validações visuais neste wrapper simplificado não usam field map, então omitimos
         />
       )}
 
@@ -223,6 +224,7 @@ const FormSteps: React.FC = () => {
           onUpdateClubes={(clubes) => updateFormData({ clubesEnvolvidos: clubes })}
           onUpdatePartidas={(partidas) => updateFormData({ partidasSuspeitas: partidas })}
           onUpdateDescricao={(descricao) => updateFormData({ descricao })}
+          // Sem exibição de erros campo-a-campo neste wrapper
         />
       )}
 

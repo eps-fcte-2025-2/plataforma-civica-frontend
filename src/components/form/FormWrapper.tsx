@@ -12,6 +12,7 @@ import {
   FocoManipulacao,
   PessoaEnvolvida
 } from '@/types/api';
+import { FormValidator } from './FormValidator';
 
 // Importar os componentes
 import StepHeader from './StepHeader';
@@ -145,6 +146,16 @@ const FormWrapper: React.FC = () => {
     // Validações para Esquema de Manipulação
     if (formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO) {
       if (currentStep === 2) {
+        // Campos obrigatórios: comoSoube, pontualOuDisseminado, frequencia, municipio, uf
+        if (!formData.comoSoube) {
+          errors.comoSoube = 'Por favor, informe como soube do esquema';
+        }
+        if (!formData.pontualOuDisseminado) {
+          errors.pontualOuDisseminado = 'Por favor, selecione se o esquema é pontual ou disseminado';
+        }
+        if (!formData.frequencia) {
+          errors.frequencia = 'Por favor, selecione a frequência do esquema';
+        }
         if (!formData.municipio?.trim()) {
           errors.municipio = 'Por favor, informe o município';
         }
@@ -160,12 +171,40 @@ const FormWrapper: React.FC = () => {
       }
       
       if (currentStep === 4) {
+        // Exigir pessoas por foco selecionado
+        const pessoas = formData.pessoasEnvolvidas || [];
+        const focos = formData.focosManipulacao || [];
+        const sanitize = (v?: string) => (v || '').trim();
+
+        if (focos.includes(FocoManipulacao.JUIZES)) {
+          const juizes = pessoas.filter(p => p.funcaoPessoa === 'Juiz');
+          if (juizes.length === 0 || juizes.every(p => !sanitize(p.nomePessoa))) {
+            errors['pessoas_juizes'] = 'Informe ao menos um juiz envolvido';
+          }
+        }
+
+        if (focos.includes(FocoManipulacao.APOSTADORES)) {
+          const apostadores = pessoas.filter(p => p.funcaoPessoa === 'Apostador');
+          if (apostadores.length === 0 || apostadores.every(p => !sanitize(p.nomePessoa))) {
+            errors['pessoas_apostadores'] = 'Informe ao menos um apostador envolvido';
+          }
+        }
+
+        if (focos.includes(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO)) {
+          const funcoesValidas = ['Atleta', 'Dirigente', 'Comissão Técnica'];
+          const pessoasValidas = pessoas.filter(p => funcoesValidas.includes(p.funcaoPessoa));
+          if (pessoasValidas.length === 0 || pessoasValidas.every(p => !sanitize(p.nomePessoa))) {
+            errors['pessoas_atletas_dirigentes'] = 'Informe ao menos um atleta, dirigente ou membro da comissão técnica envolvido';
+          }
+        }
+
+        // Coerência básica nos registros informados
         formData.pessoasEnvolvidas.forEach((pessoa, index) => {
           if (pessoa.nomePessoa?.trim() && !pessoa.funcaoPessoa?.trim()) {
             errors[`pessoa_${index}_funcao`] = 'Defina a função da pessoa';
           }
         });
-        
+
         if (!formData.descricao?.trim()) {
           errors.descricao = 'A descrição é obrigatória';
         } else if (formData.descricao.length < 10) {
@@ -282,6 +321,12 @@ const FormWrapper: React.FC = () => {
     setIsSubmitting(true);
     
     try {
+      // Validação final abrangente para travar todos os campos obrigatórios
+  const finalValidation = FormValidator.validateForSubmission(formData as unknown as import('./FormDataContext').FormData);
+      if (!finalValidation.isValid) {
+        throw new Error(finalValidation.message || 'Preencha todos os campos obrigatórios');
+      }
+
       // Validar descrição mínima
       if (formData.descricao.length < 10) {
         throw new Error('A descrição deve ter pelo menos 10 caracteres');
@@ -477,6 +522,8 @@ const FormWrapper: React.FC = () => {
           onUpdateClubes={(clubesEnvolvidos) => updateFormData({ clubesEnvolvidos })}
           onUpdatePartidas={(partidasSuspeitas) => updateFormData({ partidasSuspeitas })}
           onUpdateDescricao={(descricao) => updateFormData({ descricao })}
+          hasFieldError={hasFieldError}
+          getFieldError={getFieldError}
         />
       )}
 

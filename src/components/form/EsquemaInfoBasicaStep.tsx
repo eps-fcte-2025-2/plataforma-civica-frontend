@@ -68,7 +68,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
           id="comoSoube"
           value={comoSoube}
           onChange={(e) => onUpdate({ comoSoube: e.target.value as ComoSoube })}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.('comoSoube') ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
           required
         >
           <option value={ComoSoube.VITIMA}>Vítima</option>
@@ -78,6 +78,9 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
           <option value={ComoSoube.OBSERVACAO}>Observação</option>
           <option value={ComoSoube.OUTROS}>Outros</option>
         </select>
+        {getFieldError?.('comoSoube') && (
+          <p className="text-sm text-red-600 mt-1">{getFieldError('comoSoube')}</p>
+        )}
       </div>
 
       {/* É pontual ou disseminado */}
@@ -85,7 +88,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
         <label className="block text-sm font-medium text-gray-700 mb-3">
           É pontual ou disseminado? *
         </label>
-        <div className="space-y-2">
+        <div className={`space-y-2 rounded-md ${hasFieldError?.('pontualOuDisseminado') ? 'border border-red-300 p-3' : ''}`}>
           <label className="flex items-center">
             <input
               type="radio"
@@ -109,6 +112,9 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
             <span className="text-sm text-gray-700">Disseminado</span>
           </label>
         </div>
+        {getFieldError?.('pontualOuDisseminado') && (
+          <p className="text-sm text-red-600 mt-1">{getFieldError('pontualOuDisseminado')}</p>
+        )}
       </div>
 
       {/* Frequência */}
@@ -116,7 +122,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
         <label className="block text-sm font-medium text-gray-700 mb-3">
           Frequência *
         </label>
-        <div className="space-y-2">
+        <div className={`space-y-2 rounded-md ${hasFieldError?.('frequencia') ? 'border border-red-300 p-3' : ''}`}>
           <label className="flex items-center">
             <input
               type="radio"
@@ -140,6 +146,9 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
             <span className="text-sm text-gray-700">Frequente</span>
           </label>
         </div>
+        {getFieldError?.('frequencia') && (
+          <p className="text-sm text-red-600 mt-1">{getFieldError('frequencia')}</p>
+        )}
       </div>
 
       {/* Município */}
