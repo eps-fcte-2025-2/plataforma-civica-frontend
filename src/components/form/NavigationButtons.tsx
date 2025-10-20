@@ -12,7 +12,7 @@ interface NavigationButtonsProps {
 }
 
 const NavigationButtons: React.FC<NavigationButtonsProps> = ({
-  currentStep, isSubmitting, loading, isLastStep,
+  currentStep, maxSteps, isSubmitting, loading, isLastStep,
   onPrevious, onNext, onSubmit
 }) => {
   return (
