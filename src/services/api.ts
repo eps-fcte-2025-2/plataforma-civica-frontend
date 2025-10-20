@@ -59,8 +59,11 @@ class ApiService {
       (error: AxiosError) => {
         console.error('❌ API Error:', error.response?.status, error.message);
         
+        const responseData = error.response?.data as Record<string, unknown>;
+        const errorMessage = responseData?.message as string || error.message || 'Erro desconhecido';
+        
         const apiError: ApiError = {
-          message: error.response?.data?.message || error.message || 'Erro desconhecido',
+          message: errorMessage,
           status: error.response?.status || 0,
         };
         
