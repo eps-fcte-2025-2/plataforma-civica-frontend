@@ -316,9 +316,9 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
       )}
 
       {/* Partidas suspeitas (comum para todos os focos) */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className={`border rounded-lg p-6 ${hasFieldError?.('partidasSuspeitas') ? 'border-red-300' : 'border-gray-200'}`}>
         <h4 className="text-lg font-semibold text-gray-700 mb-4">
-          Partidas Suspeitas
+          Partidas Suspeitas *
         </h4>
         
         <div className="space-y-4">
@@ -337,40 +337,56 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Nome da partida/jogo *</label>
                   <input
                     type="text"
                     placeholder="Nome da partida/jogo"
                     value={partida.nome}
                     onChange={(e) => updatePartida(index, 'nome', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_nome`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_nome`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_nome`)}</p>
+                  )}
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Data e horário *</label>
                   <input
                     type="datetime-local"
                     placeholder="Data e horário"
                     value={partida.data}
                     onChange={(e) => updatePartida(index, 'data', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_data`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_data`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_data`)}</p>
+                  )}
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Local *</label>
                   <input
                     type="text"
                     placeholder="Local"
                     value={partida.local}
                     onChange={(e) => updatePartida(index, 'local', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_local`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_local`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_local`)}</p>
+                  )}
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Município *</label>
                   <input
                     type="text"
                     placeholder="Município"
                     value={partida.municipio}
                     onChange={(e) => updatePartida(index, 'municipio', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_municipio`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_municipio`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_municipio`)}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -383,6 +399,9 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
           >
             + Adicionar Partida Suspeita
           </button>
+          {getFieldError?.('partidasSuspeitas') && (
+            <p className="text-sm text-red-600 mt-2">{getFieldError('partidasSuspeitas')}</p>
+          )}
         </div>
       </div>
 

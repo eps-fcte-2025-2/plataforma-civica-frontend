@@ -31,7 +31,7 @@ const DescricaoStep: React.FC<DescricaoStepProps> = ({
       </p>
     );
   };
-
+  // Mínimo 10 caracteres, máximo 5000 caracteres
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">{titulo}</h2>
@@ -53,13 +53,13 @@ const DescricaoStep: React.FC<DescricaoStepProps> = ({
           placeholder={placeholder}
           maxLength={5000}
         />
+        <p className="mt-1 text-sm text-gray-500">
+          Mínimo 10 caracteres, máximo 5000 caracteres ({descricao.length}/5000)
+        </p>
         
         <div className="flex justify-between items-start mt-1">
           <div>
             {renderFieldError()}
-          </div>
-          <div className="text-sm text-gray-500">
-            {descricao.length}/5000 caracteres
           </div>
         </div>
       </div>

@@ -171,7 +171,7 @@ const FormWrapper: React.FC = () => {
       }
       
       if (currentStep === 4) {
-        // Exigir pessoas por foco selecionado
+  // Exigir pessoas por foco selecionado
         const pessoas = formData.pessoasEnvolvidas || [];
         const focos = formData.focosManipulacao || [];
         const sanitize = (v?: string) => (v || '').trim();
@@ -202,6 +202,30 @@ const FormWrapper: React.FC = () => {
         formData.pessoasEnvolvidas.forEach((pessoa, index) => {
           if (pessoa.nomePessoa?.trim() && !pessoa.funcaoPessoa?.trim()) {
             errors[`pessoa_${index}_funcao`] = 'Defina a função da pessoa';
+          }
+        });
+
+        // Partidas suspeitas obrigatórias para todos os focos
+        const partidas = formData.partidasSuspeitas || [];
+        if (partidas.length === 0) {
+          errors['partidasSuspeitas'] = 'Informe ao menos uma partida suspeita (nome, data, local e município)';
+        }
+        partidas.forEach((p, idx) => {
+          const nome = sanitize(p.nome);
+          const data = sanitize(p.data);
+          const local = sanitize(p.local);
+          const municipio = sanitize(p.municipio);
+          if (!nome) {
+            errors[`partida_${idx}_nome`] = 'Nome da partida é obrigatório';
+          }
+          if (!data) {
+            errors[`partida_${idx}_data`] = 'Data e horário são obrigatórios';
+          }
+          if (!local) {
+            errors[`partida_${idx}_local`] = 'Local é obrigatório';
+          }
+          if (!municipio) {
+            errors[`partida_${idx}_municipio`] = 'Município é obrigatório';
           }
         });
 
@@ -380,16 +404,18 @@ const FormWrapper: React.FC = () => {
           ...formData,
           pessoasEnvolvidas: sanitizePessoas(formData.pessoasEnvolvidas),
           clubesEnvolvidos: sanitizeClubes(formData.clubesEnvolvidos),
-          partidas: (formData.partidasSuspeitas || []).map(partida => ({
-            torneio: partida.nome,
-            dataPartida: formatDateToISO(partida.data),
-            localPartida: partida.local,
-            municipio: partida.municipio,
-            timeA: '',
-            timeB: '',
-            observacoes: '',
-            uf: formData.uf
-          }))
+          partidas: (formData.partidasSuspeitas || [])
+            .filter(p => (p.nome || '').trim() && (p.data || '').trim() && (p.local || '').trim() && (p.municipio || '').trim())
+            .map(partida => ({
+              torneio: partida.nome.trim(),
+              dataPartida: formatDateToISO(partida.data),
+              localPartida: partida.local.trim(),
+              municipio: partida.municipio.trim(),
+              timeA: '',
+              timeB: '',
+              observacoes: '',
+              uf: formData.uf
+            }))
         };
       }
 
