@@ -148,6 +148,7 @@ export class FormValidator {
 
     const pessoas = formData.pessoasEnvolvidas || [];
     const focosSelecionados = formData.focosManipulacao || [];
+    const partidas = formData.partidasSuspeitas || [];
 
     const sanitize = (value: string) => value?.trim() || '';
 
@@ -180,6 +181,17 @@ export class FormValidator {
           message: 'Informe ao menos um atleta, dirigente ou membro da comissão técnica envolvido'
         };
       }
+    }
+
+    // Partidas suspeitas obrigatórias em todos os focos
+    const partidasValidas = partidas.filter(p =>
+      sanitize(p.nome) && sanitize(p.data) && sanitize(p.local) && sanitize(p.municipio)
+    );
+    if (partidasValidas.length === 0) {
+      return {
+        isValid: false,
+        message: 'Informe ao menos uma partida suspeita (nome, data, local e município)'
+      };
     }
 
     return { isValid: true };

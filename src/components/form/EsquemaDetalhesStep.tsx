@@ -20,6 +20,8 @@ interface EsquemaDetalhesStepProps {
   onUpdateClubes: (clubes: Array<{ nomeClube: string }>) => void;
   onUpdatePartidas: (partidas: PartidaSuspeita[]) => void;
   onUpdateDescricao: (descricao: string) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
 const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
@@ -32,6 +34,8 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
   onUpdateClubes,
   onUpdatePartidas,
   onUpdateDescricao,
+  hasFieldError,
+  getFieldError,
 }) => {
   // Funções para pessoas envolvidas
   const addPessoa = (funcaoPadrao?: string) => {
@@ -101,7 +105,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
 
       {/* Seção para Juízes */}
       {focosManipulacao.includes(FocoManipulacao.JUIZES) && (
-        <div className="border border-gray-200 rounded-lg p-6">
+        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_juizes') ? 'border-red-300' : 'border-gray-200'}`}>
           <h4 className="text-lg font-semibold text-gray-700 mb-4">
             Informações sobre Juízes Envolvidos
           </h4>
@@ -147,13 +151,16 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             >
               + Adicionar Juiz
             </button>
+            {getFieldError?.('pessoas_juizes') && (
+              <p className="text-sm text-red-600 mt-2">{getFieldError('pessoas_juizes')}</p>
+            )}
           </div>
         </div>
       )}
 
       {/* Seção para Apostadores */}
       {focosManipulacao.includes(FocoManipulacao.APOSTADORES) && (
-        <div className="border border-gray-200 rounded-lg p-6">
+        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_apostadores') ? 'border-red-300' : 'border-gray-200'}`}>
           <h4 className="text-lg font-semibold text-gray-700 mb-4">
             Informações sobre Apostadores Envolvidos
           </h4>
@@ -199,13 +206,16 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             >
               + Adicionar Apostador
             </button>
+            {getFieldError?.('pessoas_apostadores') && (
+              <p className="text-sm text-red-600 mt-2">{getFieldError('pessoas_apostadores')}</p>
+            )}
           </div>
         </div>
       )}
 
       {/* Seção para Atletas, Dirigentes ou Comissão Técnica */}
       {focosManipulacao.includes(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO) && (
-        <div className="border border-gray-200 rounded-lg p-6">
+        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_atletas_dirigentes') ? 'border-red-300' : 'border-gray-200'}`}>
           <h4 className="text-lg font-semibold text-gray-700 mb-4">
             Informações sobre Atletas, Dirigentes ou Comissão Técnica
           </h4>
@@ -262,6 +272,9 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             >
               + Adicionar Pessoa
             </button>
+            {getFieldError?.('pessoas_atletas_dirigentes') && (
+              <p className="text-sm text-red-600 mt-2">{getFieldError('pessoas_atletas_dirigentes')}</p>
+            )}
           </div>
 
           {/* Clubes implicados */}
@@ -303,9 +316,9 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
       )}
 
       {/* Partidas suspeitas (comum para todos os focos) */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className={`border rounded-lg p-6 ${hasFieldError?.('partidasSuspeitas') ? 'border-red-300' : 'border-gray-200'}`}>
         <h4 className="text-lg font-semibold text-gray-700 mb-4">
-          Partidas Suspeitas
+          Partidas Suspeitas *
         </h4>
         
         <div className="space-y-4">
@@ -324,40 +337,56 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Nome da partida/jogo *</label>
                   <input
                     type="text"
                     placeholder="Nome da partida/jogo"
                     value={partida.nome}
                     onChange={(e) => updatePartida(index, 'nome', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_nome`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_nome`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_nome`)}</p>
+                  )}
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Data e horário *</label>
                   <input
                     type="datetime-local"
                     placeholder="Data e horário"
                     value={partida.data}
                     onChange={(e) => updatePartida(index, 'data', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_data`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_data`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_data`)}</p>
+                  )}
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Local *</label>
                   <input
                     type="text"
                     placeholder="Local"
                     value={partida.local}
                     onChange={(e) => updatePartida(index, 'local', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_local`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_local`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_local`)}</p>
+                  )}
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Município *</label>
                   <input
                     type="text"
                     placeholder="Município"
                     value={partida.municipio}
                     onChange={(e) => updatePartida(index, 'municipio', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_municipio`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                   />
+                  {getFieldError?.(`partida_${index}_municipio`) && (
+                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_municipio`)}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -370,6 +399,9 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
           >
             + Adicionar Partida Suspeita
           </button>
+          {getFieldError?.('partidasSuspeitas') && (
+            <p className="text-sm text-red-600 mt-2">{getFieldError('partidasSuspeitas')}</p>
+          )}
         </div>
       </div>
 
@@ -383,7 +415,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
           value={descricao}
           onChange={(e) => onUpdateDescricao(e.target.value)}
           placeholder="Descreva detalhadamente o esquema de manipulação. Seja claro e objetivo. Informações pessoais, inclusive identificação, não devem ser inseridas a não ser que sejam essenciais para a caracterização da manifestação"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.('descricao') ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
           rows={6}
           minLength={10}
           maxLength={5000}
@@ -392,6 +424,9 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
         <p className="mt-1 text-sm text-gray-500">
           Mínimo 10 caracteres, máximo 5000 caracteres ({descricao.length}/5000)
         </p>
+        {getFieldError?.('descricao') && (
+          <p className="text-sm text-red-600 mt-1">{getFieldError('descricao')}</p>
+        )}
       </div>
     </div>
   );

@@ -10,13 +10,35 @@ interface PartidaEnvolvidosStepProps {
   onAddClube: () => void;
   onUpdateClube: (index: number, value: string) => void;
   onRemoveClube: (index: number) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
 const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
   pessoasEnvolvidas, clubesEnvolvidos,
   onAddPessoa, onUpdatePessoa, onRemovePessoa,
-  onAddClube, onUpdateClube, onRemoveClube
+  onAddClube, onUpdateClube, onRemoveClube,
+  hasFieldError, getFieldError
 }) => {
+  // Helper para obter classes de input baseado em erro
+  const getInputClasses = (fieldName: string) => {
+    const hasError = hasFieldError ? hasFieldError(fieldName) : false;
+    return hasError
+      ? "flex-1 p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+      : "flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+  };
+
+  // Helper para mostrar mensagem de erro
+  const renderFieldError = (fieldName: string) => {
+    const error = getFieldError ? getFieldError(fieldName) : undefined;
+    if (!error) return null;
+    
+    return (
+      <p className="text-sm text-red-600 mt-1">
+        {error}
+      </p>
+    );
+  };
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Envolvidos na Partida</h2>
@@ -59,33 +81,39 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
           Pessoas envolvidas *
         </label>
         {pessoasEnvolvidas.map((pessoa, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
-            <input
-              type="text"
-              value={pessoa.nomePessoa}
-              onChange={(e) => onUpdatePessoa(index, 'nomePessoa', e.target.value)}
-              className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Nome da pessoa"
-              required
-            />
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={pessoa.funcaoPessoa}
-                onChange={(e) => onUpdatePessoa(index, 'funcaoPessoa', e.target.value)}
-                className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Função da pessoa"
-                required
-              />
-              {pessoasEnvolvidas.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => onRemovePessoa(index)}
-                  className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
-                >
-                  🗑️
-                </button>
-              )}
+          <div key={index} className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div>
+                <input
+                  type="text"
+                  value={pessoa.nomePessoa}
+                  onChange={(e) => onUpdatePessoa(index, 'nomePessoa', e.target.value)}
+                  className={getInputClasses(`pessoa_${index}_nome`)}
+                  placeholder="Nome da pessoa"
+                />
+                {renderFieldError(`pessoa_${index}_nome`)}
+              </div>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    value={pessoa.funcaoPessoa}
+                    onChange={(e) => onUpdatePessoa(index, 'funcaoPessoa', e.target.value)}
+                    className={getInputClasses(`pessoa_${index}_funcao`)}
+                    placeholder="Função da pessoa"
+                  />
+                  {renderFieldError(`pessoa_${index}_funcao`)}
+                </div>
+                {pessoasEnvolvidas.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => onRemovePessoa(index)}
+                    className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                  >
+                    🗑️
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         ))}

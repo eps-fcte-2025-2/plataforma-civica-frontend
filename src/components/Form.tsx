@@ -1,8 +1,8 @@
 import React from 'react';
-import FormWrapperNew from './form/FormWrapperNew';
+import FormWrapper from './form/FormWrapper';
 
 const Form: React.FC = () => {
-  return <FormWrapperNew />;
+  return <FormWrapper />;
 };
 
 export default Form;

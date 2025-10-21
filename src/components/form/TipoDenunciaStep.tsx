@@ -4,9 +4,32 @@ import { TipoDenuncia } from '@/types/api';
 interface TipoDenunciaStepProps {
   tipoDenuncia: TipoDenuncia;
   onUpdate: (updates: { tipoDenuncia: TipoDenuncia }) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
-const TipoDenunciaStep: React.FC<TipoDenunciaStepProps> = ({ tipoDenuncia, onUpdate }) => {
+const TipoDenunciaStep: React.FC<TipoDenunciaStepProps> = ({ 
+  tipoDenuncia, 
+  onUpdate, 
+  hasFieldError, 
+  getFieldError 
+}) => {
+  // Helper para mostrar mensagem de erro
+  const renderFieldError = () => {
+    const error = getFieldError ? getFieldError('tipoDenuncia') : undefined;
+    if (!error) return null;
+    
+    return (
+      <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+        <p className="text-sm text-red-600">
+          {error}
+        </p>
+      </div>
+    );
+  };
+
+  const hasError = hasFieldError ? hasFieldError('tipoDenuncia') : false;
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center mb-6">
@@ -17,7 +40,9 @@ const TipoDenunciaStep: React.FC<TipoDenunciaStepProps> = ({ tipoDenuncia, onUpd
       </div>
       
       <div className="space-y-4">
-        <label className="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+        <label className={`flex items-start p-4 border rounded-lg hover:bg-gray-50 cursor-pointer ${
+          hasError ? 'border-red-300' : 'border-gray-200'
+        }`}>
           <input
             type="radio"
             name="tipoDenuncia"
@@ -33,7 +58,9 @@ const TipoDenunciaStep: React.FC<TipoDenunciaStepProps> = ({ tipoDenuncia, onUpd
           </div>
         </label>
 
-        <label className="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+        <label className={`flex items-start p-4 border rounded-lg hover:bg-gray-50 cursor-pointer ${
+          hasError ? 'border-red-300' : 'border-gray-200'
+        }`}>
           <input
             type="radio"
             name="tipoDenuncia"
@@ -49,6 +76,8 @@ const TipoDenunciaStep: React.FC<TipoDenunciaStepProps> = ({ tipoDenuncia, onUpd
           </div>
         </label>
       </div>
+      
+      {renderFieldError()}
     </div>
   );
 };
