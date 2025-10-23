@@ -3,20 +3,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  FaUserSecret, FaTimes
+  FaUserSecret, 
+  FaTimes,
+  FaUniversalAccess,  // <--- Ícone para 'Acessibilidade' 
 } from 'react-icons/fa';
-
 export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (isOpen: boolean) => void }) {
   const navItems = [
     { name: 'Faça sua denúncia', icon: <FaUserSecret />, href: '/denuncia', active: false },
+    { name: 'Portal de dados', icon: <Image src="/Chart.svg" alt="Portal de dados" width={25.6} height={24}/>, href: '/portal' },
+    { name: 'Acessibilidade', icon: <FaUniversalAccess/>, href: '/acessibilidade' },
+    { name: 'Sobre', icon: <Image src="/Activity.svg" alt="Sobre" width={25.6} height={24}/>, href: '/sobre' }
   ];
 
   return (
     <nav 
       className={`
         flex flex-col w-48 bg-white p-4 z-[60]
-        md:relative md:translate-x-0 md:h-screen
-        fixed top-0 left-0 h-full transition-transform duration-300
+        md:relative md:translate-x-0 
+        fixed top-0 left-0 h-screen transition-transform duration-300
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}
     >
@@ -37,6 +41,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
           height={40}
         />
       </div>
+      
 
       <ul className="space-y-4">
         {navItems.map((item, index) => (
