@@ -43,11 +43,7 @@ export class DenunciaService {
       console.log('📋 Buscando denúncias com parâmetros:', params);
       const response = await apiService.get<ReportsListResponse>(
         `${this.REPORTS_ENDPOINT}/`,
-<<<<<<< HEAD
-        params as Record<string, unknown>
-=======
         params as unknown as Record<string, unknown>
->>>>>>> main
       );
       console.log('✅ Denúncias encontradas:', response.reports.length);
       return response;

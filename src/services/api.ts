@@ -70,11 +70,7 @@ class ApiService {
         const errorMessage = responseData?.message as string || error.message || 'Erro desconhecido';
         
         const apiError: ApiError = {
-<<<<<<< HEAD
-          message: errorMessage,
-=======
           message: responseData?.message || error.message || 'Erro desconhecido',
->>>>>>> main
           status: error.response?.status || 0,
         };
         
