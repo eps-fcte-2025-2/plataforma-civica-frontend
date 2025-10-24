@@ -36,51 +36,42 @@ class ApiService {
     // Request interceptor
     this.axiosInstance.interceptors.request.use(
       (config) => {
-        // Adiciona API key se disponível
         if (this.apiKey) {
           config.headers.Authorization = `Bearer ${this.apiKey}`;
         }
-        
-        // Log apenas em desenvolvimento
         if (process.env.NODE_ENV === 'development') {
-          console.log(`� API Request: ${config.method?.toUpperCase()} ${config.url}`);
+          console.log(`📡 API Request: ${config.method?.toUpperCase()} ${config.url}`);
         }
         return config;
       },
-      (error) => {
-
-        return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
     );
 
     // Response interceptor
     this.axiosInstance.interceptors.response.use(
-      (response: AxiosResponse) => {
-        return response;
-      },
+      (response: AxiosResponse) => response,
       (error: AxiosError) => {
-        const responseData = error.response?.data as { message?: string } | undefined;
-        
-        // Para erro 422, não mostrar mensagem genérica - deixar o frontend tratar
+        const responseData = error.response?.data as Record<string, unknown> | undefined;
+
+        // Para erro 422, deixa o frontend tratar
         if (error.response?.status === 422) {
           return Promise.reject(error);
         }
-        
-        const responseData = error.response?.data as Record<string, unknown>;
-        const errorMessage = responseData?.message as string || error.message || 'Erro desconhecido';
-        
+
+        const errorMessage = (responseData?.message as string) || error.message || 'Erro desconhecido';
+
         const apiError: ApiError = {
-          message: responseData?.message || error.message || 'Erro desconhecido',
+          message: errorMessage,
           status: error.response?.status || 0,
         };
-        
+
         return Promise.reject(apiError);
       }
     );
   }
 
   // Métodos HTTP
-  async get<T>(endpoint: string, params?: Record<string, unknown >): Promise<T> {
+  async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
     const response = await this.axiosInstance.get<T>(endpoint, { params });
     return response.data;
   }
@@ -105,7 +96,6 @@ class ApiService {
     return response.data;
   }
 
-  // Método para obter a instância do axios (caso precise de configurações específicas)
   getAxiosInstance(): AxiosInstance {
     return this.axiosInstance;
   }
@@ -115,6 +105,4 @@ class ApiService {
 export const apiService = new ApiService();
 
 // Hook para uso em componentes React
-export const useApi = () => {
-  return apiService;
-};
+export const useApi = () => apiService;

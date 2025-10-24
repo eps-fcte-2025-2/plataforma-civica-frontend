@@ -1,15 +1,15 @@
 /// <reference types="cypress" />
 
 // Custom commands for testing the platform
+export {};
+
 declare global {
-  namespace Cypress {
-    interface Chainable {
-      limparBancoDeDados(): Chainable<void>;
-      selecionarUF(uf: string): Chainable<void>;
-      selecionarFocoManipulacao(foco: string): Chainable<void>;
-      preencherPessoaEnvolvida(index: number, nome: string, funcao: string): Chainable<void>;
-      verificarSucesso(): Chainable<void>;
-    }
+  interface Chainable {
+    limparBancoDeDados(): Cypress.Chainable;
+    selecionarUF(uf: string): Cypress.Chainable;
+    selecionarFocoManipulacao(foco: string): Cypress.Chainable;
+    preencherPessoaEnvolvida(index: number, nome: string, funcao: string): Cypress.Chainable;
+    verificarSucesso(): Cypress.Chainable;
   }
 }
 
@@ -40,5 +40,3 @@ Cypress.Commands.add('verificarSucesso', () => {
   cy.contains('Denúncia enviada com sucesso').should('be.visible');
   cy.contains('Protocolo').should('be.visible');
 });
-
-export {};
