@@ -43,7 +43,11 @@ export class DenunciaService {
       console.log('📋 Buscando denúncias com parâmetros:', params);
       const response = await apiService.get<ReportsListResponse>(
         `${this.REPORTS_ENDPOINT}/`,
+<<<<<<< HEAD
         params as Record<string, unknown>
+=======
+        params as unknown as Record<string, unknown>
+>>>>>>> main
       );
       console.log('✅ Denúncias encontradas:', response.reports.length);
       return response;
@@ -144,6 +148,7 @@ export class DenunciaService {
    */
   static validateReportData(data: CreateReportDTO): string[] {
     const errors: string[] = [];
+    const isPartidaEspecifica = data.tipoDenuncia === 'PARTIDA_ESPECIFICA';
 
     if (!data.tipoDenuncia) {
       errors.push('Tipo de denúncia é obrigatório');
@@ -165,23 +170,31 @@ export class DenunciaService {
       errors.push('UF deve ter 2 letras maiúsculas');
     }
 
-    if (!data.pessoasEnvolvidas || data.pessoasEnvolvidas.length === 0) {
-      errors.push('Pelo menos uma pessoa envolvida deve ser informada');
-    }
-
     if (!data.focosManipulacao || data.focosManipulacao.length === 0) {
       errors.push('Pelo menos um foco de manipulação deve ser informado');
     }
 
-    // Validar pessoas envolvidas
-    data.pessoasEnvolvidas?.forEach((pessoa, index) => {
-      if (!pessoa.nomePessoa || pessoa.nomePessoa.trim().length === 0) {
-        errors.push(`Nome da pessoa ${index + 1} é obrigatório`);
+    // Sanitizar e validar pessoas envolvidas
+    const pessoasSanitizadas = (data.pessoasEnvolvidas || [])
+      .map(p => ({
+        nomePessoa: (p.nomePessoa || '').trim(),
+        funcaoPessoa: (p.funcaoPessoa || '').trim()
+      }))
+      .filter(p => p.nomePessoa || p.funcaoPessoa);
+
+    if (isPartidaEspecifica) {
+      if (pessoasSanitizadas.length === 0) {
+        errors.push('Pelo menos uma pessoa deve estar envolvida');
       }
-      if (!pessoa.funcaoPessoa || pessoa.funcaoPessoa.trim().length === 0) {
-        errors.push(`Função da pessoa ${index + 1} é obrigatória`);
-      }
-    });
+      pessoasSanitizadas.forEach((pessoa, index) => {
+        if (!pessoa.nomePessoa) {
+          errors.push(`Nome da pessoa ${index + 1} é obrigatório`);
+        }
+        if (!pessoa.funcaoPessoa) {
+          errors.push(`Função da pessoa ${index + 1} é obrigatória`);
+        }
+      });
+    }
 
     return errors;
   }

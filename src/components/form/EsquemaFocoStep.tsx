@@ -6,11 +6,15 @@ import { FocoManipulacao } from '@/types/api';
 interface EsquemaFocoStepProps {
   focosManipulacao: FocoManipulacao[];
   onUpdate: (focos: FocoManipulacao[]) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
 const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
   focosManipulacao,
   onUpdate,
+  hasFieldError,
+  getFieldError,
 }) => {
   const handleFocoChange = (foco: FocoManipulacao, checked: boolean) => {
     if (checked) {
@@ -23,6 +27,8 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
       onUpdate(focosManipulacao.filter(f => f !== foco));
     }
   };
+
+  const hasError = hasFieldError ? hasFieldError('focosManipulacao') : false;
 
   return (
     <div className="space-y-6">
@@ -38,14 +44,14 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
           Você pode selecionar múltiplas opções conforme aplicável ao caso.
         </p>
 
-        <div className="space-y-4">
+        <div className={`space-y-4 rounded-md ${hasError ? 'border border-red-300 p-4' : ''}`}>
           {/* Juízes */}
           <label className="flex items-start">
             <input
               type="checkbox"
               checked={focosManipulacao.includes(FocoManipulacao.JUIZES)}
               onChange={(e) => handleFocoChange(FocoManipulacao.JUIZES, e.target.checked)}
-              className="mr-3 mt-1"
+              className={`mr-3 mt-1 ${hasError ? 'ring-1 ring-red-400' : ''}`}
             />
             <div>
               <span className="text-sm font-medium text-gray-700">Juízes</span>
@@ -61,7 +67,7 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
               type="checkbox"
               checked={focosManipulacao.includes(FocoManipulacao.APOSTADORES)}
               onChange={(e) => handleFocoChange(FocoManipulacao.APOSTADORES, e.target.checked)}
-              className="mr-3 mt-1"
+              className={`mr-3 mt-1 ${hasError ? 'ring-1 ring-red-400' : ''}`}
             />
             <div>
               <span className="text-sm font-medium text-gray-700">Apostadores</span>
@@ -77,7 +83,7 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
               type="checkbox"
               checked={focosManipulacao.includes(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO)}
               onChange={(e) => handleFocoChange(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO, e.target.checked)}
-              className="mr-3 mt-1"
+              className={`mr-3 mt-1 ${hasError ? 'ring-1 ring-red-400' : ''}`}
             />
             <div>
               <span className="text-sm font-medium text-gray-700">
@@ -90,9 +96,9 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
           </label>
         </div>
 
-        {focosManipulacao.length === 0 && (
+        {getFieldError && getFieldError('focosManipulacao') && (
           <p className="text-red-500 text-sm mt-4">
-            Selecione pelo menos um foco para continuar.
+            {getFieldError('focosManipulacao')}
           </p>
         )}
       </div>

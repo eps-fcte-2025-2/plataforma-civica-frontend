@@ -170,9 +170,9 @@ const FormSteps: React.FC = () => {
 
       {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
         <EsquemaInfoBasicaStep
-          comoSoube={formData.comoSoube || ComoSoube.OUTROS}
-          pontualOuDisseminado={formData.pontualOuDisseminado || PontualOuDisseminado.PONTUAL}
-          frequencia={formData.frequencia || Frequencia.ISOLADO}
+          comoSoube={formData.comoSoube ?? ComoSoube.OUTROS}
+          pontualOuDisseminado={formData.pontualOuDisseminado ?? PontualOuDisseminado.PONTUAL}
+          frequencia={formData.frequencia ?? Frequencia.ISOLADO}
           municipio={formData.municipio}
           uf={formData.uf}
           ufs={ufs}
@@ -199,6 +199,7 @@ const FormSteps: React.FC = () => {
         <EsquemaFocoStep
           focosManipulacao={formData.focosManipulacao}
           onUpdate={(focos) => updateFormData({ focosManipulacao: focos })}
+          // As validações visuais neste wrapper simplificado não usam field map, então omitimos
         />
       )}
 
@@ -223,6 +224,7 @@ const FormSteps: React.FC = () => {
           onUpdateClubes={(clubes) => updateFormData({ clubesEnvolvidos: clubes })}
           onUpdatePartidas={(partidas) => updateFormData({ partidasSuspeitas: partidas })}
           onUpdateDescricao={(descricao) => updateFormData({ descricao })}
+          // Sem exibição de erros campo-a-campo neste wrapper
         />
       )}
 
@@ -241,7 +243,6 @@ const FormSteps: React.FC = () => {
       {/* Navigation Buttons */}
       <NavigationButtons
         currentStep={currentStep}
-        maxSteps={maxSteps}
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={isLastStep}

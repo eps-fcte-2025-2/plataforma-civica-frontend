@@ -24,12 +24,34 @@ interface PartidaDadosStepProps {
     timeA: string;
     timeB: string;
   }>) => void;
+  hasFieldError?: (field: string) => boolean;
+  getFieldError?: (field: string) => string | undefined;
 }
 
 const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
   torneio, localPartida, dataPartida, municipio, uf, timeA, timeB,
-  ufs, ufsLoading, onUpdate
+  ufs, ufsLoading, onUpdate, hasFieldError, getFieldError
 }) => {
+  // Helper para obter classes de input baseado em erro
+  const getInputClasses = (fieldName: string) => {
+    const hasError = hasFieldError ? hasFieldError(fieldName) : false;
+    return hasError
+      ? "w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+      : "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+  };
+
+  // Helper para mostrar mensagem de erro
+  const renderFieldError = (fieldName: string) => {
+    const error = getFieldError ? getFieldError(fieldName) : undefined;
+    if (!error) return null;
+    
+    return (
+      <p className="text-sm text-red-600 mt-1">
+        {error}
+      </p>
+    );
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Dados da Partida</h2>
@@ -43,10 +65,10 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
           type="text"
           value={torneio}
           onChange={(e) => onUpdate({ torneio: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={getInputClasses('torneio')}
           placeholder="Digite o nome do torneio"
-          required
         />
+        {renderFieldError('torneio')}
       </div>
 
       {/* Local da Partida */}
@@ -58,23 +80,24 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
           type="text"
           value={localPartida}
           onChange={(e) => onUpdate({ localPartida: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={getInputClasses('localPartida')}
           placeholder="Digite o local da partida"
-          required
         />
+        {renderFieldError('localPartida')}
       </div>
 
       {/* Data e Horário da Partida */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Data e horário da partida
+          Data e horário da partida *
         </label>
         <input
           type="datetime-local"
           value={dataPartida}
           onChange={(e) => onUpdate({ dataPartida: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={getInputClasses('dataPartida')}
         />
+        {renderFieldError('dataPartida')}
       </div>
 
       {/* Município */}
@@ -86,10 +109,10 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
           type="text"
           value={municipio}
           onChange={(e) => onUpdate({ municipio: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={getInputClasses('municipio')}
           placeholder="Digite o nome do município"
-          required
         />
+        {renderFieldError('municipio')}
       </div>
 
       {/* UF */}
@@ -100,7 +123,11 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
         <select
           value={uf}
           onChange={(e) => onUpdate({ uf: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className={`w-full p-3 border rounded-lg focus:ring-2 focus:border-transparent ${
+            hasFieldError?.('uf') 
+              ? 'border-red-300 focus:ring-red-500' 
+              : 'border-gray-300 focus:ring-blue-500'
+          }`}
           disabled={ufsLoading}
           required
         >
@@ -111,6 +138,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
             </option>
           ))}
         </select>
+        {renderFieldError('uf')}
       </div>
 
       {/* Times (Opcionais) */}
@@ -123,9 +151,10 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
             type="text"
             value={timeA}
             onChange={(e) => onUpdate({ timeA: e.target.value })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className={getInputClasses('timeA')}
             placeholder="Nome do time A"
           />
+          {renderFieldError('timeA')}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -135,9 +164,10 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
             type="text"
             value={timeB}
             onChange={(e) => onUpdate({ timeB: e.target.value })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className={getInputClasses('timeB')}
             placeholder="Nome do time B"
           />
+          {renderFieldError('timeB')}
         </div>
       </div>
     </div>

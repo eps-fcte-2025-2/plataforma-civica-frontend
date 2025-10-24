@@ -41,11 +41,14 @@ class ApiService {
           config.headers.Authorization = `Bearer ${this.apiKey}`;
         }
         
-        console.log(`🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`);
+        // Log apenas em desenvolvimento
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`� API Request: ${config.method?.toUpperCase()} ${config.url}`);
+        }
         return config;
       },
       (error) => {
-        console.error('❌ Request Error:', error);
+
         return Promise.reject(error);
       }
     );
@@ -53,17 +56,25 @@ class ApiService {
     // Response interceptor
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => {
-        console.log(`✅ API Response: ${response.status} ${response.config.url}`);
         return response;
       },
       (error: AxiosError) => {
-        console.error('❌ API Error:', error.response?.status, error.message);
+        const responseData = error.response?.data as { message?: string } | undefined;
+        
+        // Para erro 422, não mostrar mensagem genérica - deixar o frontend tratar
+        if (error.response?.status === 422) {
+          return Promise.reject(error);
+        }
         
         const responseData = error.response?.data as Record<string, unknown>;
         const errorMessage = responseData?.message as string || error.message || 'Erro desconhecido';
         
         const apiError: ApiError = {
+<<<<<<< HEAD
           message: errorMessage,
+=======
+          message: responseData?.message || error.message || 'Erro desconhecido',
+>>>>>>> main
           status: error.response?.status || 0,
         };
         
