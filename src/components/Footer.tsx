@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -21,15 +22,27 @@ export default function Footer() {
         </div>
         
         <div className="flex space-x-6 text-gray-800 text-sm font-semibold">
-          <a href="#" className="hover:text-black transition-colors duration-200">
+          <Link
+            href="/termos-de-uso"
+            className="hover:text-black transition-colors duration-200"
+            aria-label="Termos de Uso"
+          >
             Termos de Uso
-          </a>
-          <a href="#" className="hover:text-black transition-colors duration-200">
+          </Link>
+          <Link
+            href="/politica-de-privacidade"
+            className="hover:text-black transition-colors duration-200"
+            aria-label="Política de Privacidade"
+          >
             Política de Privacidade
-          </a>
-          <a href="#" className="hover:text-black transition-colors duration-200">
+          </Link>
+          <Link
+            href="/ajuda"
+            className="hover:text-black transition-colors duration-200"
+            aria-label="Ajuda"
+          >
             Ajuda
-          </a>
+          </Link>
         </div>
 
       </div>
