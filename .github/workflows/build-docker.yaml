@@ -10,6 +10,11 @@ on:
 jobs:
   build-image-Docker:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
