@@ -8,13 +8,15 @@ export default function Footer() {
       <div className="container mx-auto flex flex-col items-center font-[Poppins]">
         
         <div className="flex flex-col items-center mb-6">
-          <Image
-            src="/logo-footer.svg" 
-            alt="Logo Apita Cidadão"
-            width={400}
-            height={80}
-            className="mb-2"
-          />
+          <Link href="/">
+            <Image
+              src="/logo-footer.svg" 
+              alt="Logo Apita Cidadão"
+              width={400}
+              height={80}
+              className="mb-2 cursor-pointer"
+            />
+          </Link>
           <p className="mt-2 text-gray-700 text-lg text-center max-w-4xl mx-auto">
              Uma iniciativa da Polícia Federal para combater a corrupção no esporte brasileiro
           </p>
