@@ -597,7 +597,7 @@ const FormWrapper: React.FC = () => {
       {/* Botões de Navegação */}
       <NavigationButtons
         currentStep={currentStep}
-        maxSteps={maxSteps}
+        maxSteps={getMaxStepsForType()}
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={currentStep === getMaxStepsForType()}
