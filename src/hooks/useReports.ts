@@ -1,6 +1,7 @@
 // src/hooks/useReports.ts
-import { useState, useCallback } from 'react';
-import DenunciaService from '../services/denunciaService';
+import { useState, useCallback } from "react";
+import logger from "@/lib/appLogger";
+import DenunciaService from "../services/denunciaService";
 import {
   CreateReportDTO,
   CreateReportResponse,
@@ -9,8 +10,8 @@ import {
   UpdateReportStatusDTO,
   UpdateStatusResponse,
   PaginationParams,
-  UF
-} from '../types/api';
+  UF,
+} from "../types/api";
 
 export interface UseReportsState {
   loading: boolean;
@@ -33,104 +34,113 @@ export const useReports = () => {
   });
 
   const setLoading = useCallback((loading: boolean) => {
-    setState(prev => ({ ...prev, loading }));
+    setState((prev) => ({ ...prev, loading }));
   }, []);
 
   const setError = useCallback((error: string | null) => {
-    setState(prev => ({ ...prev, error }));
+    setState((prev) => ({ ...prev, error }));
   }, []);
 
   const clearError = useCallback(() => {
-    setState(prev => ({ ...prev, error: null }));
+    setState((prev) => ({ ...prev, error: null }));
   }, []);
 
   // Buscar denúncias com paginação
-  const fetchReports = useCallback(async (params?: PaginationParams) => {
-    setLoading(true);
-    clearError();
-    
-    try {
-      const response: ReportsListResponse = await DenunciaService.getReports(params);
-      setState(prev => ({
-        ...prev,
-        reports: response.reports as ReportDetail[], // Convertendo para ReportDetail[]
-        pagination: response.pagination,
-      }));
-      return response;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao buscar denúncias';
-      setError(errorMessage);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, [setLoading, clearError, setError]);
+  const fetchReports = useCallback(
+    async (params?: PaginationParams) => {
+      setLoading(true);
+      clearError();
+
+      try {
+        const response: ReportsListResponse = await DenunciaService.getReports(params);
+        setState((prev) => ({
+          ...prev,
+          reports: response.reports as ReportDetail[], // Convertendo para ReportDetail[]
+          pagination: response.pagination,
+        }));
+        return response;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Erro ao buscar denúncias";
+        setError(errorMessage);
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, clearError, setError],
+  );
 
   // Buscar denúncia por ID
-  const fetchReportById = useCallback(async (id: string): Promise<ReportDetail> => {
-    setLoading(true);
-    clearError();
-    
-    try {
-      const report = await DenunciaService.getReportById(id);
-      return report;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao buscar denúncia';
-      setError(errorMessage);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, [setLoading, clearError, setError]);
+  const fetchReportById = useCallback(
+    async (id: string): Promise<ReportDetail> => {
+      setLoading(true);
+      clearError();
+
+      try {
+        const report = await DenunciaService.getReportById(id);
+        return report;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Erro ao buscar denúncia";
+        setError(errorMessage);
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, clearError, setError],
+  );
 
   // Criar nova denúncia
-  const createReport = useCallback(async (data: CreateReportDTO): Promise<CreateReportResponse> => {
-    setLoading(true);
-    clearError();
-    
-    try {
-      // Validar dados antes do envio
-      const validationErrors = DenunciaService.validateReportData(data);
-      if (validationErrors.length > 0) {
-        const errorMessage = `Erros de validação: ${validationErrors.join(', ')}`;
-        setError(errorMessage);
-        throw new Error(errorMessage);
-      }
+  const createReport = useCallback(
+    async (data: CreateReportDTO): Promise<CreateReportResponse> => {
+      setLoading(true);
+      clearError();
 
-      const response = await DenunciaService.createReport(data);
-      // Atualizar lista após criação
-      await fetchReports();
-      return response;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao criar denúncia';
-      setError(errorMessage);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, [setLoading, clearError, setError, fetchReports]);
+      try {
+        // Validar dados antes do envio
+        const validationErrors = DenunciaService.validateReportData(data);
+        if (validationErrors.length > 0) {
+          const errorMessage = `Erros de validação: ${validationErrors.join(", ")}`;
+          setError(errorMessage);
+          throw new Error(errorMessage);
+        }
+
+        const response = await DenunciaService.createReport(data);
+        // Atualizar lista após criação
+        await fetchReports();
+        return response;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Erro ao criar denúncia";
+        setError(errorMessage);
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, clearError, setError, fetchReports],
+  );
 
   // Atualizar status da denúncia
-  const updateReportStatus = useCallback(async (
-    id: string, 
-    data: UpdateReportStatusDTO
-  ): Promise<UpdateStatusResponse> => {
-    setLoading(true);
-    clearError();
-    
-    try {
-      const response = await DenunciaService.updateReportStatus(id, data);
-      // Atualizar lista após atualização
-      await fetchReports();
-      return response;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao atualizar status';
-      setError(errorMessage);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, [setLoading, clearError, setError, fetchReports]);
+  const updateReportStatus = useCallback(
+    async (id: string, data: UpdateReportStatusDTO): Promise<UpdateStatusResponse> => {
+      setLoading(true);
+      clearError();
+
+      try {
+        const response = await DenunciaService.updateReportStatus(id, data);
+        // Atualizar lista após atualização
+        await fetchReports();
+        return response;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Erro ao atualizar status";
+        setError(errorMessage);
+        throw error;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, clearError, setError, fetchReports],
+  );
 
   return {
     ...state,
@@ -151,16 +161,16 @@ export const useUFs = () => {
   const fetchUFs = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
-      console.log('🔄 Iniciando carregamento de UFs...');
+      logger.debug({}, "Iniciando carregamento de UFs");
       const response = await DenunciaService.getUFs();
-      console.log('✅ UFs carregados:', response.length);
+      logger.info({ count: response.length }, "UFs carregados");
       setUFs(response);
       return response;
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao carregar UFs';
-      console.error('❌ Erro no hook de UFs:', error);
+      const errorMessage = error instanceof Error ? error.message : "Erro ao carregar UFs";
+      logger.error({ error }, "Erro no hook de UFs");
       setError(errorMessage);
       throw error;
     } finally {
