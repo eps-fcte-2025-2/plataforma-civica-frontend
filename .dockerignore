@@ -49,6 +49,9 @@ docker-compose*.yml
 # Testing
 coverage
 .nyc_output
+cypress/
+cypress.config.ts
+**/cypress
 
 # Logs
 logs

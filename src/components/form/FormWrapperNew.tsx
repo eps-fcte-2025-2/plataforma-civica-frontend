@@ -243,6 +243,7 @@ const FormSteps: React.FC = () => {
       {/* Navigation Buttons */}
       <NavigationButtons
         currentStep={currentStep}
+        maxSteps={maxSteps}
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={isLastStep}

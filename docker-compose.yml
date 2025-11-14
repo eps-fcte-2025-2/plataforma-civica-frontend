@@ -3,27 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
+      target: production
     ports:
       - "3000:3000"
-    volumes:
-      # Bind mount apenas o código fonte, excluindo node_modules e .next
-      - ./src:/app/src
-      - ./public:/app/public
-      - ./package.json:/app/package.json
-      - ./package-lock.json:/app/package-lock.json
-      - ./next.config.ts:/app/next.config.ts
-      - ./tailwind.config.ts:/app/tailwind.config.ts
-      - ./tsconfig.json:/app/tsconfig.json
-      - ./postcss.config.js:/app/postcss.config.js
-      - ./postcss.config.mjs:/app/postcss.config.mjs
-      - ./eslint.config.mjs:/app/eslint.config.mjs
-      - ./prettier.config.mjs:/app/prettier.config.mjs
-      # Volumes nomeados para cache
-      - node_modules:/app/node_modules
-      - nextjs_cache:/app/.next
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
       - WATCHPACK_POLLING=true
     restart: unless-stopped
@@ -33,9 +17,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    stdin_open: true
-    tty: true
-
-volumes:
-  node_modules:
-  nextjs_cache:
