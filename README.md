@@ -20,11 +20,16 @@ npm install
 # ou
 yarn install
 
+# Configurar variáveis de ambiente (copiar .env.example para .env)
+cp .env.example .env
+
 # Executar servidor de desenvolvimento
 npm run dev
 # ou
 yarn dev
 ```
+
+**Nota:** A aplicação funciona sem o arquivo `.env` usando valores padrão, mas é recomendado criar o arquivo `.env` a partir do `.env.example` para configurações personalizadas.
 
 Acesse [http://localhost:3000](http://localhost:3000) para visualizar a aplicação.
 
