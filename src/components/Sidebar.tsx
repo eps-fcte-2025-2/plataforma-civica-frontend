@@ -34,12 +34,15 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
 
       {/* Seção do Logo no topo */}
       <div className="mb-8 p-2 flex items-center justify-center">
-        <Image
-          src="/logo.svg"
-          alt="Logo Apita Cidadão"
-          width={150}
-          height={40}
-        />
+        <Link href="/">
+          <Image
+            src="/logo.svg"
+            alt="Logo Apita Cidadão"
+            width={150}
+            height={40}
+            className="cursor-pointer"
+          />
+        </Link>
       </div>
       
 
