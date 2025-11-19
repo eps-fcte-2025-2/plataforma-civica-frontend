@@ -7,12 +7,24 @@ import {
   FaTimes,
   FaUniversalAccess,  // <--- Ícone para 'Acessibilidade' 
 } from 'react-icons/fa';
+
 export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (isOpen: boolean) => void }) {
   const navItems = [
-    { name: 'Faça sua denúncia', icon: <FaUserSecret />, href: '/denuncia', active: false },
-    { name: 'Portal de dados', icon: <Image src="/Chart.svg" alt="Portal de dados" width={25.6} height={24}/>, href: '/portal' },
-    { name: 'Acessibilidade', icon: <FaUniversalAccess/>, href: '/acessibilidade' },
-    { name: 'Sobre', icon: <Image src="/Activity.svg" alt="Sobre" width={25.6} height={24}/>, href: '/sobre' }
+    { name: 'Faça sua denúncia', 
+      icon: <Image src="/icons/denuncia.svg" alt="Faça sua denúncia" width={24} height={25.6}/>,
+      href: '/denuncia', active: false },
+    { name: 'Portal de dados', 
+      icon: <Image src="/icons/portal-de-dados.svg" alt="Portal de dados" width={24} height={25.6}/>, href: '/portal' },
+    { name: 'Perguntas frequentes', 
+      icon: <Image src="/icons/perguntas-frequentes.svg" alt="Perguntas frequentes" width={24} height={25.6}/>, href: '/perguntas-frequentes' },
+    { name: 'Glossário', 
+      icon: <Image src="/icons/glossario.svg" alt="Glossário" width={24} height={25.6}/>, href: '/glossario' },
+    { name: 'Normas legislativas', 
+      icon: <Image src="/icons/normas-legislativas.svg" alt="Normas legislativas" width={24} height={25.6}/>, href: '/normas-legislativas' },
+    { name: 'Acessibilidade', 
+      icon: <Image src="/icons/acessibilidade.svg" alt="Acessibilidade" width={24} height={25.6} />, href: '/acessibilidade' },
+    { name: 'Sobre', 
+      icon: <Image src="/icons/sobre.svg" alt="Sobre" width={24} height={25.6}/>, href: '/sobre' }
   ];
 
   return (
@@ -59,7 +71,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
                   }
                 `}
               >
-                <div className="text-xl">
+                <div className="opacity-40">
                   {item.icon}
                 </div>
                 <span className="font-semibold text-sm">
