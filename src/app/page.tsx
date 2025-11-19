@@ -11,14 +11,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="flex justify-between items-center h-16">
   <div className="flex items-center space-x-3">
-    <Image
-      src="/logo.svg"
-      alt="Logo Apita Cidadão"
-      width={200}
-      height={40}
-      className="h-12 w-auto"
-      priority
-    />
+    <Link href="/">
+      <Image
+        src="/logo.svg"
+        alt="Logo Apita Cidadão"
+        width={200}
+        height={40}
+        className="h-12 w-auto cursor-pointer"
+        priority
+      />
+    </Link>
   </div>
   <nav className="hidden md:flex space-x-6 font-poppins">
     <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
