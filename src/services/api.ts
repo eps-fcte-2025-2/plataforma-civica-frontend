@@ -37,7 +37,6 @@ class ApiService {
     // Request interceptor
     this.axiosInstance.interceptors.request.use(
       (config) => {
-        // Adiciona API key se disponível
         if (this.apiKey) {
           config.headers.Authorization = `Bearer ${this.apiKey}`;
         }
@@ -56,9 +55,7 @@ class ApiService {
 
     // Response interceptor
     this.axiosInstance.interceptors.response.use(
-      (response: AxiosResponse) => {
-        return response;
-      },
+      (response: AxiosResponse) => response,
       (error: AxiosError) => {
         const responseData = error.response?.data as { message?: string } | undefined;
 
@@ -107,7 +104,6 @@ class ApiService {
     return response.data;
   }
 
-  // Método para obter a instância do axios (caso precise de configurações específicas)
   getAxiosInstance(): AxiosInstance {
     return this.axiosInstance;
   }

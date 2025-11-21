@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
-import { BiFontFamily } from "react-icons/bi";
 
 export default function Home() {
   return (

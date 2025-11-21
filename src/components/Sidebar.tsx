@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  FaUserSecret, 
+  FaUserSecret,
   FaTimes,
-  FaUniversalAccess,  // <--- Ícone para 'Acessibilidade' 
+  FaUniversalAccess,
 } from 'react-icons/fa';
 
 export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (isOpen: boolean) => void }) {
@@ -28,7 +28,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
   ];
 
   return (
-    <nav 
+    <nav
       className={`
         flex flex-col w-48 bg-white p-4 z-[60]
         md:relative md:translate-x-0 
@@ -36,7 +36,6 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}
     >
-      
       <button
         onClick={() => setIsOpen(false)}
         className="md:hidden absolute top-4 right-4 text-gray-700 text-2xl"
@@ -44,7 +43,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
         <FaTimes />
       </button>
 
-      {/* Seção do Logo no topo */}
+      {/* Logo */}
       <div className="mb-8 p-2 flex items-center justify-center">
         <Link href="/">
           <Image
@@ -56,20 +55,13 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
           />
         </Link>
       </div>
-      
 
       <ul className="space-y-4">
         {navItems.map((item, index) => (
           <li key={index}>
             <Link href={item.href}>
               <div
-                className={`
-                  flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-200
-                  ${item.active 
-                    ? 'bg-gray-100 text-azul border-l-4 border-azul' 
-                    : 'text-gray-600 hover:bg-gray-50'
-                  }
-                `}
+                className="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-200 text-gray-600 hover:bg-gray-50"
               >
                 <div className="opacity-40">
                   {item.icon}
@@ -82,7 +74,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
           </li>
         ))}
       </ul>
-      
+
     </nav>
   );
 }
