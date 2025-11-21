@@ -1,22 +1,19 @@
 /// <reference types="cypress" />
 
-// Custom commands for testing the platform
-export {};
-
-declare global {
+// Declaração dos tipos dos comandos customizados
+declare namespace Cypress {
   interface Chainable {
-    limparBancoDeDados(): Cypress.Chainable;
-    selecionarUF(uf: string): Cypress.Chainable;
-    selecionarFocoManipulacao(foco: string): Cypress.Chainable;
-    preencherPessoaEnvolvida(index: number, nome: string, funcao: string): Cypress.Chainable;
-    verificarSucesso(): Cypress.Chainable;
+    limparBancoDeDados(): Chainable<void>;
+    selecionarUF(uf: string): Chainable<void>;
+    selecionarFocoManipulacao(foco: string): Chainable<void>;
+    preencherPessoaEnvolvida(index: number, nome: string, funcao: string): Chainable<void>;
+    verificarSucesso(): Chainable<void>;
   }
 }
 
 // Limpar banco de dados (mock)
 Cypress.Commands.add('limparBancoDeDados', () => {
   cy.log('Limpando banco de dados (mock)');
-  // Esta função seria implementada para comunicação com API em testes reais
 });
 
 // Selecionar UF no dropdown
