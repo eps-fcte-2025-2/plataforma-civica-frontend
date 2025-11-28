@@ -1,4 +1,3 @@
-// layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins, Nunito, Inter, Roboto_Slab } from "next/font/google";
@@ -46,7 +45,9 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${poppins.variable} ${nunito.variable} ${inter.variable} ${robotoSlab.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+      </body>
     </html>
   );
 }
