@@ -49,7 +49,6 @@ export default function PerguntasFrequentesPage() {
   return (
     <div className="w-full max-w-5xl mx-auto font-[Poppins] relative">
         
-        {/* HEADER */}
         <header className="mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4 self-start md:self-auto">
                 <Image 
@@ -70,28 +69,19 @@ export default function PerguntasFrequentesPage() {
                     <FaRegQuestionCircle className="cursor-pointer hover:text-gray-700 transition-colors" />
                 </Link>
                 
-                {/* Ícone de contraste apenas decorativo ou link para página de acessibilidade */}
                 <div title="Alto Contraste" className="cursor-pointer hover:text-gray-700 transition-colors">
                     <FaAdjust className="-rotate-90" />
-                </div>
-
-                {/* --- BOTÃO AZUL FIXO (VLIBRAS ) --- */}
-                <div title="Acessibilidade em Libras" className="fixed right-0 top-1/2 -translate-y-1/2 z-[9999] cursor-pointer">
-                <div className="flex h-14 w-12 bg-[#003399] items-center justify-center rounded-l-xl hover:bg-blue-700 transition-colors shadow-lg border-y border-l border-white/20">
-                    <FaUniversalAccess className="text-white text-3xl" />
-                </div>
                 </div>
             </div>
         </header>
 
-        {/* CONTAINER PRINCIPAL */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2 md:p-6">
             <div className="space-y-2">
                 {faqData.map((item, index) => {
                     const isOpen = openIndex === index;
                     
                     return (
-                        <div key={index} className="border-b border-gray-100 last:border-0">
+                        <div key={item.question} className="border-b border-gray-100 last:border-0">
                             <div className="flex justify-between items-start gap-4 py-4 md:py-5 px-2">
                                 <div className="flex-1 pt-1">
                                     <button 
@@ -102,7 +92,7 @@ export default function PerguntasFrequentesPage() {
                                     </button>
                                     
                                     {!isOpen && (
-                                       <p className="text-gray-500 text-sm font-medium line-clamp-2 cursor-pointer leading-relaxed" onClick={() => toggleFaq(index)}>
+                                       <p className="text-gray-500 text-sm font-medium line-clamp-2 leading-relaxed">
                                          {item.answer}
                                        </p>
                                     )}
@@ -113,8 +103,8 @@ export default function PerguntasFrequentesPage() {
                                             
                                             {item.hasList && item.listItems && (
                                                 <ul className="list-disc pl-6 space-y-2 mt-2">
-                                                    {item.listItems.map((li, i) => (
-                                                        <li key={i}>{li}</li>
+                                                    {item.listItems.map((li) => (
+                                                        <li key={li}>{li}</li>
                                                     ))}
                                                 </ul>
                                             )}
@@ -140,6 +130,16 @@ export default function PerguntasFrequentesPage() {
                 })}
             </div>
         </div>
+
+        <div 
+            title="Acessibilidade em Libras"
+            className="fixed right-0 top-1/2 -translate-y-1/2 z-[9999] cursor-pointer"
+        >
+            <div className="flex h-14 w-12 bg-[#003399] items-center justify-center rounded-l-xl hover:bg-blue-700 transition-colors shadow-lg border-y border-l border-white/20">
+                <FaUniversalAccess className="text-white text-3xl" />
+            </div>
+        </div>
+
     </div>
   );
 }
