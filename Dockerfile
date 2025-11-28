@@ -66,6 +66,9 @@ COPY . .
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Remova referências ao Cypress para evitar problemas de build
+RUN rm -rf cypress cypress.config.ts
+
 RUN npm run build
 
 # Production stage

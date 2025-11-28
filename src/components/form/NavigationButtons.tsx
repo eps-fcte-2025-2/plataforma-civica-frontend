@@ -2,6 +2,7 @@ import React from 'react';
 
 interface NavigationButtonsProps {
   currentStep: number;
+  maxSteps: number;    
   isSubmitting: boolean;
   loading: boolean;
   isLastStep: boolean;

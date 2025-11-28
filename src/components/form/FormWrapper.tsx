@@ -478,6 +478,9 @@ const FormWrapper: React.FC = () => {
     return <SuccessScreen response={response} onNewReport={resetForm} />;
   }
 
+  const maxSteps = getMaxStepsForType();
+
+
   return (
     <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg">
       <StepHeader currentStep={currentStep} maxSteps={getMaxStepsForType()} error={error} />
@@ -605,6 +608,7 @@ const FormWrapper: React.FC = () => {
       {/* Botões de Navegação */}
       <NavigationButtons
         currentStep={currentStep}
+        maxSteps={maxSteps} 
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={currentStep === getMaxStepsForType()}
