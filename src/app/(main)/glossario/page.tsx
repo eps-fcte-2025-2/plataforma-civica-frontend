@@ -124,7 +124,9 @@ export default function Glossario() {
             )}
             {card.quote && (
               <div className="flex flex-col h-full justify-center">
-                <p className="text-gray-800 font-medium mb-3 text-sm italic">"{card.quote}"</p>
+                <p className="text-gray-800 font-medium mb-3 text-sm italic">
+                  &ldquo;{card.quote}&rdquo;
+                </p>
                 <p className="text-gray-600 text-xs">— {card.author}</p>
               </div>
             )}
