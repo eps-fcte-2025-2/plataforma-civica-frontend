@@ -22,7 +22,7 @@ export default function Home() {
     </Link>
   </div>
   <nav className="hidden md:flex space-x-6 font-poppins">
-    <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+    <Link href="/ajuda" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
       <Image
         src="/icons/ajuda.svg"
         alt="Ajuda"
@@ -30,7 +30,7 @@ export default function Home() {
         height={20}
       />
       Ajuda
-    </button>
+    </Link>
     <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
       <Image
         src="/icons/contraste.svg"
