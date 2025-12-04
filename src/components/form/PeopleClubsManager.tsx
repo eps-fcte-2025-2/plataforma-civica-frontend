@@ -26,18 +26,18 @@ const PeopleClubsManager: React.FC<PeopleClubsManagerProps> = ({
     <div className="space-y-8">
       {/* Pessoas Envolvidas */}
       <div>
-        <label className="block text-lg font-medium text-gray-700 mb-4">
+        <label className="block text-lg font-medium text-foreground mb-4">
           Pessoas Envolvidas *
         </label>
         
         {pessoasEnvolvidas.map((pessoa, index) => (
-          <div key={index} className="flex gap-4 mb-4 p-4 border border-gray-200 rounded-lg">
+          <div key={index} className="flex gap-4 mb-4 p-4 border border-border rounded-lg">
             <div className="flex-1">
               <input
                 type="text"
                 value={pessoa.nomePessoa}
                 onChange={(e) => onUpdatePessoa(index, 'nomePessoa', e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent"
                 placeholder="Nome da pessoa"
                 required
               />
@@ -47,7 +47,7 @@ const PeopleClubsManager: React.FC<PeopleClubsManagerProps> = ({
                 type="text"
                 value={pessoa.funcaoPessoa}
                 onChange={(e) => onUpdatePessoa(index, 'funcaoPessoa', e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent"
                 placeholder="Função (ex: jogador, técnico, árbitro)"
                 required
               />
@@ -56,7 +56,7 @@ const PeopleClubsManager: React.FC<PeopleClubsManagerProps> = ({
               <button
                 type="button"
                 onClick={() => onRemovePessoa(index)}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                className="px-4 py-2 bg-destructive0 text-white rounded-lg hover:bg-red-600 transition-colors"
               >
                 Remover
               </button>
@@ -75,7 +75,7 @@ const PeopleClubsManager: React.FC<PeopleClubsManagerProps> = ({
 
       {/* Clubes Envolvidos */}
       <div>
-        <label className="block text-lg font-medium text-gray-700 mb-4">
+        <label className="block text-lg font-medium text-foreground mb-4">
           Clubes Envolvidos (Opcional)
         </label>
         
@@ -86,14 +86,14 @@ const PeopleClubsManager: React.FC<PeopleClubsManagerProps> = ({
                 type="text"
                 value={clube.nomeClube}
                 onChange={(e) => onUpdateClube(index, e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent"
                 placeholder="Nome do clube"
               />
             </div>
             <button
               type="button"
               onClick={() => onRemoveClube(index)}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              className="px-4 py-2 bg-destructive0 text-white rounded-lg hover:bg-red-600 transition-colors"
             >
               Remover
             </button>

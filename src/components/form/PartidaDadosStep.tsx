@@ -36,8 +36,8 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
   const getInputClasses = (fieldName: string) => {
     const hasError = hasFieldError ? hasFieldError(fieldName) : false;
     return hasError
-      ? "w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-      : "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+      ? "w-full p-3 border border-destructive rounded-lg focus:ring-2 focus:ring-destructive focus:border-transparent bg-input-bg text-foreground"
+      : "w-full p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent bg-input-bg text-foreground";
   };
 
   // Helper para mostrar mensagem de erro
@@ -46,7 +46,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
     if (!error) return null;
     
     return (
-      <p className="text-sm text-red-600 mt-1">
+      <p className="text-sm text-destructive mt-1">
         {error}
       </p>
     );
@@ -54,11 +54,11 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Dados da Partida</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-6">Dados da Partida</h2>
       
       {/* Torneio */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Qual foi o torneio? *
         </label>
         <input
@@ -73,7 +73,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
 
       {/* Local da Partida */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Local da partida *
         </label>
         <input
@@ -88,7 +88,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
 
       {/* Data e Horário da Partida */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Data e horário da partida *
         </label>
         <input
@@ -102,7 +102,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
 
       {/* Município */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Município *
         </label>
         <input
@@ -117,16 +117,16 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
 
       {/* UF */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           UF *
         </label>
         <select
           value={uf}
           onChange={(e) => onUpdate({ uf: e.target.value })}
-          className={`w-full p-3 border rounded-lg focus:ring-2 focus:border-transparent ${
+          className={`w-full p-3 border rounded-lg focus:ring-2 focus:border-transparent bg-input-bg text-foreground ${
             hasFieldError?.('uf') 
-              ? 'border-red-300 focus:ring-red-500' 
-              : 'border-gray-300 focus:ring-blue-500'
+              ? 'border-destructive focus:ring-destructive' 
+              : 'border-input-border focus:ring-input-focus'
           }`}
           disabled={ufsLoading}
           required
@@ -144,7 +144,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
       {/* Times (Opcionais) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             Time A (opcional)
           </label>
           <input
@@ -157,7 +157,7 @@ const PartidaDadosStep: React.FC<PartidaDadosStepProps> = ({
           {renderFieldError('timeA')}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             Time B (opcional)
           </label>
           <input

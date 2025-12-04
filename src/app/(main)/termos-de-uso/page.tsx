@@ -8,9 +8,9 @@ export const metadata = {
 export default function TermosDeUsoPage() {
   return (
     <main className="container mx-auto py-12 px-4 font-[Poppins]">
-      <h1 className="text-3xl font-bold mb-6">Termos de Uso</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Termos de Uso</h1>
 
-      <div className="prose prose-lg max-w-none text-gray-700">
+      <div className="prose prose-lg max-w-none text-muted">
         <p className="mb-6">
           Bem-vindo ao Apita Cidadão, uma plataforma desenvolvida pela Polícia Federal para promover
           a integridade no esporte brasileiro. Ao utilizar nossos serviços, você concorda com estes
@@ -18,7 +18,7 @@ export default function TermosDeUsoPage() {
         </p>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">1. Aceitação dos Termos</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">1. Aceitação dos Termos</h2>
           <p className="mb-4">
             Ao acessar ou utilizar a plataforma Apita Cidadão, você confirma que leu, entendeu e
             concorda com estes termos de uso. Se você não concordar com qualquer parte destes termos,
@@ -27,7 +27,7 @@ export default function TermosDeUsoPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">2. Uso Aceitável</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">2. Uso Aceitável</h2>
           <ul className="list-disc pl-6 mb-4">
             <li className="mb-2">Fornecer informações verdadeiras e precisas nas denúncias</li>
             <li className="mb-2">Respeitar a confidencialidade das investigações em andamento</li>
@@ -37,7 +37,7 @@ export default function TermosDeUsoPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">3. Responsabilidades do Usuário</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">3. Responsabilidades do Usuário</h2>
           <p className="mb-4">
             O usuário é inteiramente responsável pela veracidade das informações fornecidas e pela
             legitimidade dos documentos enviados através da plataforma.
@@ -45,7 +45,7 @@ export default function TermosDeUsoPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">4. Limitação de Responsabilidade</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">4. Limitação de Responsabilidade</h2>
           <p className="mb-4">
             A plataforma Apita Cidadão é uma ferramenta para recebimento de denúncias e não substitui
             os canais oficiais de investigação. A Polícia Federal se reserva o direito de:
@@ -58,7 +58,7 @@ export default function TermosDeUsoPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">5. Modificações dos Termos</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">5. Modificações dos Termos</h2>
           <p className="mb-4">
             Estes termos podem ser atualizados periodicamente. Recomendamos que você os revise
             regularmente. O uso continuado da plataforma após alterações constitui aceitação dos
@@ -66,11 +66,11 @@ export default function TermosDeUsoPage() {
           </p>
         </section>
 
-        <div className="mt-8 pt-4 border-t border-gray-200">
-          <p className="text-sm text-gray-600 mb-4">
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-sm text-muted mb-4">
             Última atualização: 26 de outubro de 2025
           </p>
-          <Link href="/" className="text-blue-600 hover:underline">
+          <Link href="/" className="text-primary hover:underline">
             Voltar ao início
           </Link>
         </div>
@@ -78,3 +78,4 @@ export default function TermosDeUsoPage() {
     </main>
   );
 }
+

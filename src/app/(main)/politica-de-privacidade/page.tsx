@@ -8,9 +8,9 @@ export const metadata = {
 export default function PoliticaDePrivacidadePage() {
   return (
     <main className="container mx-auto py-12 px-4 font-[Poppins]">
-      <h1 className="text-3xl font-bold mb-6">Política de Privacidade</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Política de Privacidade</h1>
 
-      <div className="prose prose-lg max-w-none text-gray-700">
+      <div className="prose prose-lg max-w-none text-muted">
         <p className="mb-6">
           O Apita Cidadão está comprometido com a proteção da sua privacidade. Esta política
           detalha como coletamos, usamos, protegemos e, quando necessário, compartilhamos as
@@ -19,7 +19,7 @@ export default function PoliticaDePrivacidadePage() {
         </p>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">1. Dados que Coletamos</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">1. Dados que Coletamos</h2>
           <p className="mb-4">Podemos coletar os seguintes tipos de informações:</p>
           <ul className="list-disc pl-6 mb-4">
             <li className="mb-2">Dados de identificação pessoal (quando fornecidos voluntariamente)</li>
@@ -31,7 +31,7 @@ export default function PoliticaDePrivacidadePage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">2. Como Usamos seus Dados</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">2. Como Usamos seus Dados</h2>
           <p className="mb-4">Suas informações são utilizadas para:</p>
           <ul className="list-disc pl-6 mb-4">
             <li className="mb-2">Processar e investigar as denúncias recebidas</li>
@@ -42,7 +42,7 @@ export default function PoliticaDePrivacidadePage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">3. Proteção de Dados</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">3. Proteção de Dados</h2>
           <p className="mb-4">
             Implementamos medidas de segurança técnicas e organizacionais para proteger suas
             informações, incluindo:
@@ -55,7 +55,7 @@ export default function PoliticaDePrivacidadePage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">4. Compartilhamento de Informações</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">4. Compartilhamento de Informações</h2>
           <p className="mb-4">
             Suas informações poderão ser compartilhadas apenas com:
           </p>
@@ -67,7 +67,7 @@ export default function PoliticaDePrivacidadePage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">5. Seus Direitos</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">5. Seus Direitos</h2>
           <p className="mb-4">
             Você tem direito a:
           </p>
@@ -79,11 +79,11 @@ export default function PoliticaDePrivacidadePage() {
           </ul>
         </section>
 
-        <div className="mt-8 pt-4 border-t border-gray-200">
-          <p className="text-sm text-gray-600 mb-4">
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-sm text-muted mb-4">
             Última atualização: 26 de outubro de 2025
           </p>
-          <Link href="/" className="text-blue-600 hover:underline">
+          <Link href="/" className="text-primary hover:underline">
             Voltar ao início
           </Link>
         </div>
@@ -91,3 +91,4 @@ export default function PoliticaDePrivacidadePage() {
     </main>
   );
 }
+

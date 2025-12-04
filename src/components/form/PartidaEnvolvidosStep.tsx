@@ -24,8 +24,8 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
   const getInputClasses = (fieldName: string) => {
     const hasError = hasFieldError ? hasFieldError(fieldName) : false;
     return hasError
-      ? "flex-1 p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-      : "flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+      ? "flex-1 p-3 border border-destructive rounded-lg focus:ring-2 focus:ring-destructive focus:border-transparent bg-input-bg text-foreground"
+      : "flex-1 p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent bg-input-bg text-foreground";
   };
 
   // Helper para mostrar mensagem de erro
@@ -34,18 +34,18 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
     if (!error) return null;
     
     return (
-      <p className="text-sm text-red-600 mt-1">
+      <p className="text-sm text-destructive mt-1">
         {error}
       </p>
     );
   };
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Envolvidos na Partida</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-6">Envolvidos na Partida</h2>
       
       {/* Clubes Envolvidos */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Clubes envolvidos (opcional)
         </label>
         {clubesEnvolvidos.map((clube, index) => (
@@ -54,13 +54,13 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
               type="text"
               value={clube.nomeClube}
               onChange={(e) => onUpdateClube(index, e.target.value)}
-              className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent"
               placeholder="Nome do clube"
             />
             <button
               type="button"
               onClick={() => onRemoveClube(index)}
-              className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+              className="px-3 py-2 bg-destructive0 hover:bg-red-600 text-white rounded-lg"
             >
               🗑️
             </button>
@@ -77,7 +77,7 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
 
       {/* Pessoas Envolvidas */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Pessoas envolvidas *
         </label>
         {pessoasEnvolvidas.map((pessoa, index) => (
@@ -108,7 +108,7 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
                   <button
                     type="button"
                     onClick={() => onRemovePessoa(index)}
-                    className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                    className="px-3 py-2 bg-destructive0 hover:bg-red-600 text-white rounded-lg"
                   >
                     🗑️
                   </button>

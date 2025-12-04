@@ -38,8 +38,8 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
   const getInputClasses = (fieldName: string) => {
     const hasError = hasFieldError ? hasFieldError(fieldName) : false;
     return hasError
-      ? "w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-      : "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+      ? "w-full p-3 border border-destructive rounded-lg focus:ring-2 focus:ring-destructive focus:border-transparent bg-input-bg text-foreground"
+      : "w-full p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent bg-input-bg text-foreground";
   };
 
   // Helper para mostrar mensagem de erro
@@ -48,27 +48,27 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
     if (!error) return null;
     
     return (
-      <p className="text-sm text-red-600 mt-1">
+      <p className="text-sm text-destructive mt-1">
         {error}
       </p>
     );
   };
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-gray-800 mb-6">
+      <h3 className="text-xl font-semibold text-foreground mb-6">
         Informações Básicas do Esquema
       </h3>
 
       {/* Como soube do esquema */}
       <div>
-        <label htmlFor="comoSoube" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="comoSoube" className="block text-sm font-medium text-foreground mb-2">
           Como soube do esquema? *
         </label>
         <select
           id="comoSoube"
           value={comoSoube}
           onChange={(e) => onUpdate({ comoSoube: e.target.value as ComoSoube })}
-          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.('comoSoube') ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent bg-input-bg text-foreground ${hasFieldError?.('comoSoube') ? 'border-destructive focus:ring-destructive' : 'border-input-border focus:ring-input-focus'}`}
           required
         >
           <option value={ComoSoube.VITIMA}>Vítima</option>
@@ -79,16 +79,16 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
           <option value={ComoSoube.OUTROS}>Outros</option>
         </select>
         {getFieldError?.('comoSoube') && (
-          <p className="text-sm text-red-600 mt-1">{getFieldError('comoSoube')}</p>
+          <p className="text-sm text-destructive mt-1">{getFieldError('comoSoube')}</p>
         )}
       </div>
 
       {/* É pontual ou disseminado */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium text-foreground mb-3">
           É pontual ou disseminado? *
         </label>
-        <div className={`space-y-2 rounded-md ${hasFieldError?.('pontualOuDisseminado') ? 'border border-red-300 p-3' : ''}`}>
+        <div className={`space-y-2 rounded-md ${hasFieldError?.('pontualOuDisseminado') ? 'border border-destructive p-3' : ''}`}>
           <label className="flex items-center">
             <input
               type="radio"
@@ -96,9 +96,9 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
               value={PontualOuDisseminado.PONTUAL}
               checked={pontualOuDisseminado === PontualOuDisseminado.PONTUAL}
               onChange={(e) => onUpdate({ pontualOuDisseminado: e.target.value as PontualOuDisseminado })}
-              className="mr-2"
+              className="mr-2 accent-primary"
             />
-            <span className="text-sm text-gray-700">Pontual</span>
+            <span className="text-sm text-foreground">Pontual</span>
           </label>
           <label className="flex items-center">
             <input
@@ -107,22 +107,22 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
               value={PontualOuDisseminado.DISSEMINADO}
               checked={pontualOuDisseminado === PontualOuDisseminado.DISSEMINADO}
               onChange={(e) => onUpdate({ pontualOuDisseminado: e.target.value as PontualOuDisseminado })}
-              className="mr-2"
+              className="mr-2 accent-primary"
             />
-            <span className="text-sm text-gray-700">Disseminado</span>
+            <span className="text-sm text-foreground">Disseminado</span>
           </label>
         </div>
         {getFieldError?.('pontualOuDisseminado') && (
-          <p className="text-sm text-red-600 mt-1">{getFieldError('pontualOuDisseminado')}</p>
+          <p className="text-sm text-destructive mt-1">{getFieldError('pontualOuDisseminado')}</p>
         )}
       </div>
 
       {/* Frequência */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium text-foreground mb-3">
           Frequência *
         </label>
-        <div className={`space-y-2 rounded-md ${hasFieldError?.('frequencia') ? 'border border-red-300 p-3' : ''}`}>
+        <div className={`space-y-2 rounded-md ${hasFieldError?.('frequencia') ? 'border border-destructive p-3' : ''}`}>
           <label className="flex items-center">
             <input
               type="radio"
@@ -130,9 +130,9 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
               value={Frequencia.ISOLADO}
               checked={frequencia === Frequencia.ISOLADO}
               onChange={(e) => onUpdate({ frequencia: e.target.value as Frequencia })}
-              className="mr-2"
+              className="mr-2 accent-primary"
             />
-            <span className="text-sm text-gray-700">Isolado</span>
+            <span className="text-sm text-foreground">Isolado</span>
           </label>
           <label className="flex items-center">
             <input
@@ -141,19 +141,19 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
               value={Frequencia.FREQUENTE}
               checked={frequencia === Frequencia.FREQUENTE}
               onChange={(e) => onUpdate({ frequencia: e.target.value as Frequencia })}
-              className="mr-2"
+              className="mr-2 accent-primary"
             />
-            <span className="text-sm text-gray-700">Frequente</span>
+            <span className="text-sm text-foreground">Frequente</span>
           </label>
         </div>
         {getFieldError?.('frequencia') && (
-          <p className="text-sm text-red-600 mt-1">{getFieldError('frequencia')}</p>
+          <p className="text-sm text-destructive mt-1">{getFieldError('frequencia')}</p>
         )}
       </div>
 
       {/* Município */}
       <div>
-        <label htmlFor="municipio" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="municipio" className="block text-sm font-medium text-foreground mb-2">
           Município *
         </label>
         <input
@@ -169,7 +169,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
 
       {/* UF */}
       <div>
-        <label htmlFor="uf" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="uf" className="block text-sm font-medium text-foreground mb-2">
           UF (Estado) *
         </label>
         <select
@@ -187,7 +187,7 @@ const EsquemaInfoBasicaStep: React.FC<EsquemaInfoBasicaStepProps> = ({
           ))}
         </select>
         {ufsLoading && (
-          <p className="mt-1 text-sm text-gray-500">Carregando estados...</p>
+          <p className="mt-1 text-sm text-muted">Carregando estados...</p>
         )}
         {renderFieldError('uf')}
       </div>
