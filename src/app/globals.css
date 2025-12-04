@@ -3,12 +3,64 @@
 :root {
   --background: #FAFAFA;
   --foreground: #000000;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --card-bg: #ffffff;
+  --border: #e5e7eb;
+  --muted: #6b7280;
+  --accent: #f3f4f6;
+  --destructive: #ef4444;
+  --success: #10b981;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-focus: #2563eb;
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --button-secondary: #f9fafb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+}
+
+:root.high-contrast {
+  --background: #000000;
+  --foreground: #ffffff;
+  --primary: #FFCD07;
+  --primary-hover: #e6b800;
+  --card-bg: #000000;
+  --border: #ffffff;
+  --muted: #ffffff;
+  --accent: #1a1a1a;
+  --destructive: #ff4444;
+  --success: #00ff00;
+  --input-bg: #000000;
+  --input-border: #ffffff;
+  --input-focus: #FFCD07;
+  --sidebar-bg: #000000;
+  --sidebar-border: #ffffff;
+  --button-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-card-bg: var(--card-bg);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-input-focus: var(--input-focus);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-button-secondary: var(--button-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
 }
 
 body {
@@ -17,4 +69,67 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji";
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Form Elements */
+input, textarea, select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--foreground);
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--input-focus);
+  outline-color: var(--input-focus);
+}
+
+/* Checkbox and Radio */
+input[type="checkbox"], input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+/* Placeholder text */
+input::placeholder, textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* Buttons */
+button {
+  transition: all 0.3s ease;
+}
+
+/* High contrast specific adjustments */
+:root.high-contrast input,
+:root.high-contrast textarea,
+:root.high-contrast select {
+  border-width: 2px;
+}
+
+:root.high-contrast input:focus,
+:root.high-contrast textarea:focus,
+:root.high-contrast select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Tornar ícones da sidebar brancos 100% no modo alto contraste */
+:root.high-contrast .sidebar-icon img {
+  filter: brightness(0) invert(1);
+}
+
+/* Exceção para o logo principal que não deve ser invertido */
+:root.high-contrast nav img[alt*="Logo"] {
+  filter: none;
+}
+
+/* Melhorar visibilidade dos ícones no hover */
+:root.high-contrast nav .sidebar-icon {
+  transition: opacity 0.2s ease;
+}
+
+:root.high-contrast nav div:hover .sidebar-icon {
+  opacity: 0.8 !important;
 }

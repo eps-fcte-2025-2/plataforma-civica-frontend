@@ -99,19 +99,19 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
 
   return (
     <div className="space-y-8">
-      <h3 className="text-xl font-semibold text-gray-800 mb-6">
+      <h3 className="text-xl font-semibold text-foreground mb-6">
         Detalhes do Esquema
       </h3>
 
       {/* Seção para Juízes */}
       {focosManipulacao.includes(FocoManipulacao.JUIZES) && (
-        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_juizes') ? 'border-red-300' : 'border-gray-200'}`}>
-          <h4 className="text-lg font-semibold text-gray-700 mb-4">
+        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_juizes') ? 'border-destructive' : 'border-border'}`}>
+          <h4 className="text-lg font-semibold text-foreground mb-4">
             Informações sobre Juízes Envolvidos
           </h4>
           
           <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Juízes envolvidos *
             </label>
             
@@ -126,7 +126,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                       placeholder="Nome do juiz"
                       value={pessoa.nomePessoa}
                       onChange={(e) => updatePessoa(index, 'nomePessoa', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input-border rounded-md focus:outline-none focus:ring-2 focus:ring-input-focus"
                     />
                   </div>
                   <input
@@ -137,7 +137,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                   <button
                     type="button"
                     onClick={() => removePessoa(index)}
-                    className="px-3 py-2 text-red-600 hover:text-red-800"
+                    className="px-3 py-2 text-destructive hover:text-destructive"
                   >
                     Remover
                   </button>
@@ -147,12 +147,12 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             <button
               type="button"
               onClick={() => addPessoa('Juiz')}
-              className="text-blue-600 hover:text-blue-800 text-sm"
+              className="text-primary hover:text-blue-800 text-sm"
             >
               + Adicionar Juiz
             </button>
             {getFieldError?.('pessoas_juizes') && (
-              <p className="text-sm text-red-600 mt-2">{getFieldError('pessoas_juizes')}</p>
+              <p className="text-sm text-destructive mt-2">{getFieldError('pessoas_juizes')}</p>
             )}
           </div>
         </div>
@@ -160,13 +160,13 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
 
       {/* Seção para Apostadores */}
       {focosManipulacao.includes(FocoManipulacao.APOSTADORES) && (
-        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_apostadores') ? 'border-red-300' : 'border-gray-200'}`}>
-          <h4 className="text-lg font-semibold text-gray-700 mb-4">
+        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_apostadores') ? 'border-destructive' : 'border-border'}`}>
+          <h4 className="text-lg font-semibold text-foreground mb-4">
             Informações sobre Apostadores Envolvidos
           </h4>
           
           <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Apostadores envolvidos *
             </label>
             
@@ -181,7 +181,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                       placeholder="Nome do apostador"
                       value={pessoa.nomePessoa}
                       onChange={(e) => updatePessoa(index, 'nomePessoa', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input-border rounded-md focus:outline-none focus:ring-2 focus:ring-input-focus"
                     />
                   </div>
                   <input
@@ -192,7 +192,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                   <button
                     type="button"
                     onClick={() => removePessoa(index)}
-                    className="px-3 py-2 text-red-600 hover:text-red-800"
+                    className="px-3 py-2 text-destructive hover:text-destructive"
                   >
                     Remover
                   </button>
@@ -202,12 +202,12 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             <button
               type="button"
               onClick={() => addPessoa('Apostador')}
-              className="text-blue-600 hover:text-blue-800 text-sm"
+              className="text-primary hover:text-blue-800 text-sm"
             >
               + Adicionar Apostador
             </button>
             {getFieldError?.('pessoas_apostadores') && (
-              <p className="text-sm text-red-600 mt-2">{getFieldError('pessoas_apostadores')}</p>
+              <p className="text-sm text-destructive mt-2">{getFieldError('pessoas_apostadores')}</p>
             )}
           </div>
         </div>
@@ -215,14 +215,14 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
 
       {/* Seção para Atletas, Dirigentes ou Comissão Técnica */}
       {focosManipulacao.includes(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO) && (
-        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_atletas_dirigentes') ? 'border-red-300' : 'border-gray-200'}`}>
-          <h4 className="text-lg font-semibold text-gray-700 mb-4">
+        <div className={`border rounded-lg p-6 ${hasFieldError?.('pessoas_atletas_dirigentes') ? 'border-destructive' : 'border-border'}`}>
+          <h4 className="text-lg font-semibold text-foreground mb-4">
             Informações sobre Atletas, Dirigentes ou Comissão Técnica
           </h4>
           
           {/* Pessoas envolvidas */}
           <div className="space-y-4 mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Pessoas envolvidas *
             </label>
             
@@ -240,14 +240,14 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                       placeholder="Nome da pessoa"
                       value={pessoa.nomePessoa}
                       onChange={(e) => updatePessoa(index, 'nomePessoa', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input-border rounded-md focus:outline-none focus:ring-2 focus:ring-input-focus"
                     />
                   </div>
                   <div className="flex-1">
                     <select
                       value={pessoa.funcaoPessoa}
                       onChange={(e) => updatePessoa(index, 'funcaoPessoa', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-input-border rounded-md focus:outline-none focus:ring-2 focus:ring-input-focus"
                     >
                       <option value="">Selecione a função</option>
                       <option value="Atleta">Atleta</option>
@@ -258,7 +258,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                   <button
                     type="button"
                     onClick={() => removePessoa(index)}
-                    className="px-3 py-2 text-red-600 hover:text-red-800"
+                    className="px-3 py-2 text-destructive hover:text-destructive"
                   >
                     Remover
                   </button>
@@ -268,18 +268,18 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             <button
               type="button"
               onClick={() => addPessoa()}
-              className="text-blue-600 hover:text-blue-800 text-sm"
+              className="text-primary hover:text-blue-800 text-sm"
             >
               + Adicionar Pessoa
             </button>
             {getFieldError?.('pessoas_atletas_dirigentes') && (
-              <p className="text-sm text-red-600 mt-2">{getFieldError('pessoas_atletas_dirigentes')}</p>
+              <p className="text-sm text-destructive mt-2">{getFieldError('pessoas_atletas_dirigentes')}</p>
             )}
           </div>
 
           {/* Clubes implicados */}
           <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Clubes implicados (opcional)
             </label>
             
@@ -291,13 +291,13 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
                     placeholder="Nome do clube"
                     value={clube.nomeClube}
                     onChange={(e) => updateClube(index, e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-input-border rounded-md focus:outline-none focus:ring-2 focus:ring-input-focus"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={() => removeClube(index)}
-                  className="px-3 py-2 text-red-600 hover:text-red-800"
+                  className="px-3 py-2 text-destructive hover:text-destructive"
                 >
                   Remover
                 </button>
@@ -307,7 +307,7 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
             <button
               type="button"
               onClick={addClube}
-              className="text-blue-600 hover:text-blue-800 text-sm"
+              className="text-primary hover:text-blue-800 text-sm"
             >
               + Adicionar Clube
             </button>
@@ -316,20 +316,20 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
       )}
 
       {/* Partidas suspeitas (comum para todos os focos) */}
-      <div className={`border rounded-lg p-6 ${hasFieldError?.('partidasSuspeitas') ? 'border-red-300' : 'border-gray-200'}`}>
-        <h4 className="text-lg font-semibold text-gray-700 mb-4">
+      <div className={`border rounded-lg p-6 ${hasFieldError?.('partidasSuspeitas') ? 'border-destructive' : 'border-border'}`}>
+        <h4 className="text-lg font-semibold text-foreground mb-4">
           Partidas Suspeitas *
         </h4>
         
         <div className="space-y-4">
           {partidasSuspeitas.map((partida, index) => (
-            <div key={index} className="border border-gray-100 rounded-md p-4 space-y-3">
+            <div key={index} className="border border-border rounded-md p-4 space-y-3">
               <div className="flex justify-between items-center">
-                <h5 className="font-medium text-gray-700">Partida {index + 1}</h5>
+                <h5 className="font-medium text-foreground">Partida {index + 1}</h5>
                 <button
                   type="button"
                   onClick={() => removePartida(index)}
-                  className="text-red-600 hover:text-red-800 text-sm"
+                  className="text-destructive hover:text-destructive text-sm"
                 >
                   Remover
                 </button>
@@ -337,55 +337,55 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Nome da partida/jogo *</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Nome da partida/jogo *</label>
                   <input
                     type="text"
                     placeholder="Nome da partida/jogo"
                     value={partida.nome}
                     onChange={(e) => updatePartida(index, 'nome', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_nome`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_nome`) ? 'border-destructive focus:ring-destructive' : 'border-input-border focus:ring-input-focus'}`}
                   />
                   {getFieldError?.(`partida_${index}_nome`) && (
-                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_nome`)}</p>
+                    <p className="text-sm text-destructive mt-1">{getFieldError(`partida_${index}_nome`)}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Data e horário *</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Data e horário *</label>
                   <input
                     type="datetime-local"
                     placeholder="Data e horário"
                     value={partida.data}
                     onChange={(e) => updatePartida(index, 'data', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_data`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_data`) ? 'border-destructive focus:ring-destructive' : 'border-input-border focus:ring-input-focus'}`}
                   />
                   {getFieldError?.(`partida_${index}_data`) && (
-                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_data`)}</p>
+                    <p className="text-sm text-destructive mt-1">{getFieldError(`partida_${index}_data`)}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Local *</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Local *</label>
                   <input
                     type="text"
                     placeholder="Local"
                     value={partida.local}
                     onChange={(e) => updatePartida(index, 'local', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_local`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_local`) ? 'border-destructive focus:ring-destructive' : 'border-input-border focus:ring-input-focus'}`}
                   />
                   {getFieldError?.(`partida_${index}_local`) && (
-                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_local`)}</p>
+                    <p className="text-sm text-destructive mt-1">{getFieldError(`partida_${index}_local`)}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Município *</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Município *</label>
                   <input
                     type="text"
                     placeholder="Município"
                     value={partida.municipio}
                     onChange={(e) => updatePartida(index, 'municipio', e.target.value)}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_municipio`) ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.(`partida_${index}_municipio`) ? 'border-destructive focus:ring-destructive' : 'border-input-border focus:ring-input-focus'}`}
                   />
                   {getFieldError?.(`partida_${index}_municipio`) && (
-                    <p className="text-sm text-red-600 mt-1">{getFieldError(`partida_${index}_municipio`)}</p>
+                    <p className="text-sm text-destructive mt-1">{getFieldError(`partida_${index}_municipio`)}</p>
                   )}
                 </div>
               </div>
@@ -395,19 +395,19 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
           <button
             type="button"
             onClick={addPartida}
-            className="text-blue-600 hover:text-blue-800 text-sm"
+            className="text-primary hover:text-blue-800 text-sm"
           >
             + Adicionar Partida Suspeita
           </button>
           {getFieldError?.('partidasSuspeitas') && (
-            <p className="text-sm text-red-600 mt-2">{getFieldError('partidasSuspeitas')}</p>
+            <p className="text-sm text-destructive mt-2">{getFieldError('partidasSuspeitas')}</p>
           )}
         </div>
       </div>
 
       {/* Descrição */}
       <div>
-        <label htmlFor="descricao" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="descricao" className="block text-sm font-medium text-foreground mb-2">
           Descrição *
         </label>
         <textarea
@@ -415,17 +415,17 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
           value={descricao}
           onChange={(e) => onUpdateDescricao(e.target.value)}
           placeholder="Descreva detalhadamente o esquema de manipulação. Seja claro e objetivo. Informações pessoais, inclusive identificação, não devem ser inseridas a não ser que sejam essenciais para a caracterização da manifestação"
-          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.('descricao') ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent ${hasFieldError?.('descricao') ? 'border-destructive focus:ring-destructive' : 'border-input-border focus:ring-input-focus'}`}
           rows={6}
           minLength={10}
           maxLength={5000}
           required
         />
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-muted">
           Mínimo 10 caracteres, máximo 5000 caracteres ({descricao.length}/5000)
         </p>
         {getFieldError?.('descricao') && (
-          <p className="text-sm text-red-600 mt-1">{getFieldError('descricao')}</p>
+          <p className="text-sm text-destructive mt-1">{getFieldError('descricao')}</p>
         )}
       </div>
     </div>
@@ -433,3 +433,4 @@ const EsquemaDetalhesStep: React.FC<EsquemaDetalhesStepProps> = ({
 };
 
 export default EsquemaDetalhesStep;
+

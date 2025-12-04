@@ -21,7 +21,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         type="button"
         onClick={onPrevious}
         disabled={currentStep === 1}
-        className="px-6 py-3 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg flex items-center"
+        className="px-6 py-3 bg-muted hover:bg-foreground disabled:bg-border disabled:cursor-not-allowed text-background rounded-lg flex items-center"
       >
         ← Anterior
       </button>
@@ -31,7 +31,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           type="button"
           onClick={onSubmit}
           disabled={isSubmitting || loading}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg flex items-center"
+          className="px-6 py-3 bg-primary hover:bg-primary-hover disabled:opacity-50 text-black rounded-lg flex items-center"
         >
           {isSubmitting || loading ? 'Enviando...' : 'Enviar Denúncia'}
           {!isSubmitting && !loading && <span className="ml-2">📤</span>}
@@ -40,7 +40,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         <button
           type="button"
           onClick={onNext}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center"
+          className="px-6 py-3 bg-primary hover:bg-primary-hover text-black rounded-lg flex items-center"
         >
           Próximo
           <span className="ml-2">→</span>
@@ -51,3 +51,4 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
 };
 
 export default NavigationButtons;
+

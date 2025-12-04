@@ -32,30 +32,30 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-gray-800 mb-6">
+      <h3 className="text-xl font-semibold text-foreground mb-6">
         Foco do Esquema
       </h3>
 
       <div>
-        <p className="text-sm font-medium text-gray-700 mb-4">
+        <p className="text-sm font-medium text-foreground mb-4">
           Selecione o(s) foco(s) do esquema de manipulação: *
         </p>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-muted mb-6">
           Você pode selecionar múltiplas opções conforme aplicável ao caso.
         </p>
 
-        <div className={`space-y-4 rounded-md ${hasError ? 'border border-red-300 p-4' : ''}`}>
+        <div className={`space-y-4 rounded-md ${hasError ? 'border border-destructive p-4' : ''}`}>
           {/* Juízes */}
           <label className="flex items-start">
             <input
               type="checkbox"
               checked={focosManipulacao.includes(FocoManipulacao.JUIZES)}
               onChange={(e) => handleFocoChange(FocoManipulacao.JUIZES, e.target.checked)}
-              className={`mr-3 mt-1 ${hasError ? 'ring-1 ring-red-400' : ''}`}
+              className={`mr-3 mt-1 accent-primary ${hasError ? 'ring-1 ring-destructive' : ''}`}
             />
             <div>
-              <span className="text-sm font-medium text-gray-700">Juízes</span>
-              <p className="text-xs text-gray-500 mt-1">
+              <span className="text-sm font-medium text-foreground">Juízes</span>
+              <p className="text-xs text-muted mt-1">
                 Esquema envolvendo árbitros ou outros membros da arbitragem
               </p>
             </div>
@@ -67,11 +67,11 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
               type="checkbox"
               checked={focosManipulacao.includes(FocoManipulacao.APOSTADORES)}
               onChange={(e) => handleFocoChange(FocoManipulacao.APOSTADORES, e.target.checked)}
-              className={`mr-3 mt-1 ${hasError ? 'ring-1 ring-red-400' : ''}`}
+              className={`mr-3 mt-1 accent-primary ${hasError ? 'ring-1 ring-destructive' : ''}`}
             />
             <div>
-              <span className="text-sm font-medium text-gray-700">Apostadores</span>
-              <p className="text-xs text-gray-500 mt-1">
+              <span className="text-sm font-medium text-foreground">Apostadores</span>
+              <p className="text-xs text-muted mt-1">
                 Esquema envolvendo apostadores ou casas de apostas
               </p>
             </div>
@@ -83,13 +83,13 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
               type="checkbox"
               checked={focosManipulacao.includes(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO)}
               onChange={(e) => handleFocoChange(FocoManipulacao.ATLETAS_DIRIGENTES_COMISSAO, e.target.checked)}
-              className={`mr-3 mt-1 ${hasError ? 'ring-1 ring-red-400' : ''}`}
+              className={`mr-3 mt-1 accent-primary ${hasError ? 'ring-1 ring-destructive' : ''}`}
             />
             <div>
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-foreground">
                 Atletas, dirigentes ou comissão técnica
               </span>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-muted mt-1">
                 Esquema envolvendo jogadores, dirigentes, técnicos ou outros membros dos clubes
               </p>
             </div>
@@ -97,7 +97,7 @@ const EsquemaFocoStep: React.FC<EsquemaFocoStepProps> = ({
         </div>
 
         {getFieldError && getFieldError('focosManipulacao') && (
-          <p className="text-red-500 text-sm mt-4">
+          <p className="text-destructive text-sm mt-4">
             {getFieldError('focosManipulacao')}
           </p>
         )}

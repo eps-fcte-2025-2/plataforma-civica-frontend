@@ -8,9 +8,9 @@ export const metadata = {
 export default function AjudaPage() {
   return (
     <main className="container mx-auto py-12 px-4 font-[Poppins]">
-      <h1 className="text-3xl font-bold mb-6">Central de Ajuda</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Central de Ajuda</h1>
 
-      <div className="prose prose-lg max-w-none text-gray-700">
+      <div className="prose prose-lg max-w-none text-muted">
         <p className="mb-6">
           Bem-vindo à Central de Ajuda do Apita Cidadão. Aqui você encontrará informações
           detalhadas sobre como utilizar nossa plataforma e fazer denúncias de forma segura
@@ -18,7 +18,7 @@ export default function AjudaPage() {
         </p>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Como Enviar uma Denúncia</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Como Enviar uma Denúncia</h2>
           <ol className="list-decimal space-y-4 pl-6">
             <li>
               <strong>Escolha o tipo de denúncia</strong>
@@ -70,7 +70,7 @@ export default function AjudaPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Dicas Importantes</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Dicas Importantes</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>Seja preciso e objetivo nas descrições</li>
             <li>Mantenha sigilo sobre sua denúncia</li>
@@ -80,7 +80,7 @@ export default function AjudaPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Perguntas Frequentes</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Perguntas Frequentes</h2>
           <div className="space-y-4">
             <div>
               <h3 className="font-semibold mb-2">Posso fazer uma denúncia anônima?</h3>
@@ -106,11 +106,11 @@ export default function AjudaPage() {
           </div>
         </section>
 
-        <div className="mt-8 pt-4 border-t border-gray-200">
-          <p className="text-sm text-gray-600 mb-4">
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-sm text-muted mb-4">
             Última atualização: 26 de outubro de 2025
           </p>
-          <Link href="/" className="text-blue-600 hover:underline">
+          <Link href="/" className="text-primary hover:underline">
             Voltar ao início
           </Link>
         </div>
@@ -118,3 +118,4 @@ export default function AjudaPage() {
     </main>
   );
 }
+

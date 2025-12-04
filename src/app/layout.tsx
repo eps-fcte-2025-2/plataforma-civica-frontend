@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins, Nunito, Inter, Roboto_Slab } from "next/font/google";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Plataforma Cívica",
@@ -46,7 +47,11 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${poppins.variable} ${nunito.variable} ${inter.variable} ${robotoSlab.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

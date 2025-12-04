@@ -13,13 +13,13 @@ export default function PerguntasFrequentesAcessibilidade() {
             {/* Placeholder para o ícone de 'Acessibilidade' */}
             <div className="w-6 h-6 bg-red-300 rounded"></div> 
           </span>
-          <h1 className="text-3xl font-bold text-gray-800">Normas legislativas</h1>
+          <h1 className="text-3xl font-bold text-foreground">Normas legislativas</h1>
         </div>
       </div>
 
       {/* ===== 2. CONTEÚDO ===== */}
-      <div className="bg-white p-6 rounded-lg shadow-sm border min-h-[400px]">
-        <p className="text-gray-600">
+      <div className="bg-card-bg p-6 rounded-lg shadow-sm border min-h-[400px]">
+        <p className="text-muted">
             Página de Normas legislativas
         </p>
       </div>
@@ -27,3 +27,4 @@ export default function PerguntasFrequentesAcessibilidade() {
     </div>
   );
 }
+
