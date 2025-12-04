@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 py-2 px-6">
+    <footer className="bg-accent py-2 px-6">
       <div className="container mx-auto flex flex-col items-center font-[Poppins]">
         
         <div className="flex flex-col items-center mb-6">
@@ -17,30 +17,30 @@ export default function Footer() {
               className="mb-2 cursor-pointer"
             />
           </Link>
-          <p className="mt-2 text-gray-700 text-lg text-center max-w-4xl mx-auto">
+          <p className="mt-2 text-muted text-lg text-center max-w-4xl mx-auto">
              Uma iniciativa da Polícia Federal para combater a corrupção no esporte brasileiro
           </p>
 
         </div>
         
-        <div className="flex space-x-6 text-gray-800 text-sm font-semibold">
+        <div className="flex space-x-6 text-foreground text-sm font-semibold">
           <Link
             href="/termos-de-uso"
-            className="hover:text-black transition-colors duration-200"
+            className="hover:text-primary transition-colors duration-200"
             aria-label="Termos de Uso"
           >
             Termos de Uso
           </Link>
           <Link
             href="/politica-de-privacidade"
-            className="hover:text-black transition-colors duration-200"
+            className="hover:text-primary transition-colors duration-200"
             aria-label="Política de Privacidade"
           >
             Política de Privacidade
           </Link>
           <Link
             href="/ajuda"
-            className="hover:text-black transition-colors duration-200"
+            className="hover:text-primary transition-colors duration-200"
             aria-label="Ajuda"
           >
             Ajuda

@@ -8,8 +8,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export default function Button({ children, variant = "primary", ...props }: ButtonProps) {
   const base = "px-4 py-2 rounded font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-400",
-    secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400",
+    primary: "bg-primary text-black hover:bg-primary-hover focus:ring-primary",
+    secondary: "bg-accent text-foreground hover:bg-primary focus:ring-accent",
   };
   return (
     <button 

@@ -9,7 +9,7 @@ interface ExampleCardProps {
 export default function ExampleCard({ title, description, children }: ExampleCardProps) {
   return (
     <div 
-      className="bg-white dark:bg-zinc-900 rounded-xl shadow-md p-6 border border-zinc-200 dark:border-zinc-800 max-w-md w-full"
+      className="bg-card-bg rounded-xl shadow-md p-6 border border-border max-w-md w-full"
       data-testid="example-card"
     >
       <h2 className="text-xl font-bold mb-2 text-blue-600 dark:text-blue-400" data-testid="card-title">{title}</h2>
