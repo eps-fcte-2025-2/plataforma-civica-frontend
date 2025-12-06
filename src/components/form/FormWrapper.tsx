@@ -482,7 +482,7 @@ const FormWrapper: React.FC = () => {
 
 
   return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg">
+    <div className="mx-auto max-w-4xl rounded-lg bg-card-bg p-6 shadow-lg">
       <StepHeader currentStep={currentStep} maxSteps={getMaxStepsForType()} error={error} />
 
       {/* Etapa 1: Tipo de Denúncia */}
@@ -590,8 +590,8 @@ const FormWrapper: React.FC = () => {
 
       {/* Mensagem de Erro */}
       {submitError && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-4">
-          <p className="flex items-center text-red-700">
+        <div className="mt-4 rounded-lg border border-red-200 bg-destructive p-4">
+          <p className="flex items-center text-destructive">
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -621,3 +621,4 @@ const FormWrapper: React.FC = () => {
 };
 
 export default FormWrapper;
+

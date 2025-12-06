@@ -1,4 +1,4 @@
-// components/Sidebar.tsx
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,8 +7,11 @@ import {
   FaTimes,
   FaUniversalAccess,
 } from 'react-icons/fa';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (isOpen: boolean) => void }) {
+  const { toggleTheme } = useTheme();
+
   const navItems = [
     { name: 'Faça sua denúncia', 
       icon: <Image src="/icons/denuncia.svg" alt="Faça sua denúncia" width={24} height={25.6}/>,
@@ -30,7 +33,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
   return (
     <nav
       className={`
-        flex flex-col w-48 bg-white p-4 z-[60]
+        flex flex-col w-48 bg-card-bg p-4 z-[60] border-r border-border
         md:relative md:translate-x-0 
         fixed top-0 left-0 h-screen transition-transform duration-300
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -38,7 +41,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
     >
       <button
         onClick={() => setIsOpen(false)}
-        className="md:hidden absolute top-4 right-4 text-gray-700 text-2xl"
+        className="md:hidden absolute top-4 right-4 text-foreground text-2xl"
       >
         <FaTimes />
       </button>
@@ -61,9 +64,9 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
           <li key={index}>
             <Link href={item.href}>
               <div
-                className="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-200 text-gray-600 hover:bg-gray-50"
+                className="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-200 text-muted hover:bg-accent"
               >
-                <div className="opacity-40">
+                <div className="opacity-40 sidebar-icon">
                   {item.icon}
                 </div>
                 <span className="font-semibold text-sm">
@@ -74,6 +77,26 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
           </li>
         ))}
       </ul>
+
+      {/* Botão Alto Contraste */}
+      <div className="mt-auto">
+        <button
+          onClick={toggleTheme}
+          className="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-200 text-muted hover:bg-accent w-full"
+        >
+          <div className="opacity-40 sidebar-icon">
+            <Image
+              src="/icons/contraste.svg"
+              alt="Alto contraste"
+              width={24}
+              height={25.6}
+            />
+          </div>
+          <span className="font-semibold text-sm">
+            Alto contraste
+          </span>
+        </button>
+      </div>
 
     </nav>
   );

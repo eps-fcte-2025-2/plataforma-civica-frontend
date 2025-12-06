@@ -16,8 +16,8 @@ const DescricaoStep: React.FC<DescricaoStepProps> = ({
   const getInputClasses = () => {
     const hasError = hasFieldError ? hasFieldError('descricao') : false;
     return hasError
-      ? "w-full p-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-      : "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+      ? "w-full p-3 border border-destructive rounded-lg focus:ring-2 focus:ring-destructive focus:border-transparent"
+      : "w-full p-3 border border-input-border rounded-lg focus:ring-2 focus:ring-input-focus focus:border-transparent";
   };
 
   // Helper para mostrar mensagem de erro
@@ -26,7 +26,7 @@ const DescricaoStep: React.FC<DescricaoStepProps> = ({
     if (!error) return null;
     
     return (
-      <p className="text-sm text-red-600 mt-1">
+      <p className="text-sm text-destructive mt-1">
         {error}
       </p>
     );
@@ -34,10 +34,10 @@ const DescricaoStep: React.FC<DescricaoStepProps> = ({
   // Mínimo 10 caracteres, máximo 5000 caracteres
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">{titulo}</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-6">{titulo}</h2>
       
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Descrição da situação *
         </label>
         <textarea
@@ -53,7 +53,7 @@ const DescricaoStep: React.FC<DescricaoStepProps> = ({
           placeholder={placeholder}
           maxLength={5000}
         />
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-muted">
           Mínimo 10 caracteres, máximo 5000 caracteres ({descricao.length}/5000)
         </p>
         

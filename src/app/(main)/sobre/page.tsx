@@ -14,7 +14,7 @@ export default function PaginaSobre() {
             {/* Placeholder para o ícone de 'Sobre' */}
             <div className="w-6 h-6 bg-red-300 rounded"></div> 
           </span>
-          <h1 className="text-3xl font-bold text-gray-800">Sobre</h1>
+          <h1 className="text-3xl font-bold text-foreground">Sobre</h1>
         </div>
         
         {/* Ícones da Direita (Placeholders) */}
@@ -26,10 +26,10 @@ export default function PaginaSobre() {
       </div>
       
       {/* ===== 2. TÍTULO PRINCIPAL ===== */}
-      <h2 className="text-4xl font-bold text-gray-800">APITA CIDADÃO</h2>
+      <h2 className="text-4xl font-bold text-foreground">APITA CIDADÃO</h2>
 
       {/* ===== 3. CARD "VOCÊ SABIA?" ===== */}
-      <div className="bg-white rounded-lg shadow-sm border-l-4 border-yellow-500 overflow-hidden">
+      <div className="bg-card-bg rounded-lg shadow-sm border-l-4 border-yellow-500 overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           {/* Imagem Placeholder */}
           <div className="w-full md:w-1/3 p-6 flex justify-center">
@@ -37,8 +37,8 @@ export default function PaginaSobre() {
           </div>
           {/* Textos */}
           <div className="w-full md:w-2/3 p-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-3">Você sabia?</h3>
-            <div className="text-gray-600 space-y-3">
+            <h3 className="text-xl font-bold text-foreground mb-3">Você sabia?</h3>
+            <div className="text-muted space-y-3">
               <p>
                 O <span className="font-bold">Apita Cidadão</span> é uma iniciativa da Polícia Federal, desenvolvida em parceria com a Universidade de Brasília (UnB), unindo forças entre o setor público e a academia para o avanço da inovação tecnológica e da integridade esportiva.
               </p>
@@ -54,12 +54,12 @@ export default function PaginaSobre() {
       </div>
 
       {/* ===== 4. CARD "NOSSA MISSÃO" ===== */}
-      <div className="bg-white rounded-lg shadow-sm border-l-4 border-blue-500 overflow-hidden">
+      <div className="bg-card-bg rounded-lg shadow-sm border-l-4 border-blue-500 overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           {/* Textos */}
           <div className="w-full md:w-2/3 p-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-3">Nossa missão</h3>
-            <div className="text-gray-600 space-y-3">
+            <h3 className="text-xl font-bold text-foreground mb-3">Nossa missão</h3>
+            <div className="text-muted space-y-3">
               <p>
                 Nossa missão é promover a <span className="font-bold">transparência, segurança e ética</span> no esporte, criando ferramentas que auxiliem na detecção de fraudes e no fortalecimento das boas práticas.
               </p>
@@ -76,7 +76,7 @@ export default function PaginaSobre() {
       </div>
 
       {/* ===== 5. CARD "NOSSOS VALORES" ===== */}
-      <div className="bg-white rounded-lg shadow-sm border-l-4 border-yellow-500 overflow-hidden">
+      <div className="bg-card-bg rounded-lg shadow-sm border-l-4 border-yellow-500 overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           {/* Imagem Placeholder */}
           <div className="w-full md:w-1/3 p-6 flex justify-center">
@@ -84,8 +84,8 @@ export default function PaginaSobre() {
           </div>
           {/* Textos */}
           <div className="w-full md:w-2/3 p-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-3">Nossos valores</h3>
-            <div className="text-gray-600 space-y-3">
+            <h3 className="text-xl font-bold text-foreground mb-3">Nossos valores</h3>
+            <div className="text-muted space-y-3">
               <p>
                 Nossos valores se baseiam na <span className="font-bold">integridade</span>, que orienta cada decisão e ação do projeto; na <span className="font-bold">cooperação</span>, que une diferentes instituições e pessoas em torno de um mesmo propósito; na <span className="font-bold">inovação</span>, que impulsiona o uso de tecnologias de ponta para promover soluções eficazes e transparentes; na <span className="font-bold">inclusão</span>, garantindo que todas as pessoas, independentemente de suas condições, possam acessar e participar; e no <span className="font-bold">compromisso público</span>, que reafirma nossa responsabilidade em desenvolver ferramentas voltadas ao bem comum e ao fortalecimento da confiança social.
               </p>
@@ -97,3 +97,4 @@ export default function PaginaSobre() {
     </div>
   );
 }
+
