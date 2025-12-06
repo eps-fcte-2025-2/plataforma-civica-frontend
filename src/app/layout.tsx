@@ -1,4 +1,3 @@
-// layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins, Nunito, Inter, Roboto_Slab } from "next/font/google";
