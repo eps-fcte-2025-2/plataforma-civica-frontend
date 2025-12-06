@@ -10,85 +10,27 @@ interface Law {
   link?: string;
 }
 
+const createLaw = (title: string, description: string, color: 'blue' | 'green' | 'yellow' | 'red', link = "#"): Law => ({
+  title, description, color, link
+});
+
 export default function NormasLegislativas() {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const lawPages: Law[][] = [
-    [
-      {
-        title: "Lei nº 14.597/2023 — Lei Geral do Esporte (LGE)",
-        description: "Reorganiza o sistema esportivo (Sinesp), princípios, governança e responsabilidades.",
-        color: "blue",
-        link: "#"
-      },
-      {
-        title: "Lei nº 10.671/2003 — Estatuto do Torcedor",
-        description: "Tipifica fraude/manipulação de resultados e protege a lisura das competições.",
-        color: "green",
-        link: "#"
-      },
-      {
-        title: "Portaria SPA/MF nº 827/2024:",
-        description: "Regras e critérios para autorização de operadores de apostas de quota fixa pelo Ministério da Fazenda.",
-        color: "yellow",
-        link: "#"
-      },
-      {
-        title: "Lei nº 13.155/2015 — PROFUT",
-        description: "Programa de modernização, governança e responsabilidade fiscal dos clubes.",
-        color: "red",
-        link: "#"
-      },
-      {
-        title: "Lei nº 9.615/1998 - Lei Pelé",
-        description: "Organiza as regras do esporte no Brasil.",
-        color: "blue",
-        link: "#"
-      },
-      {
-        title: "Lei nº 13.756/2018 – Loterias e apostas esportivas",
-        description: "Regulamenta a exploração de apostas de quota fixa no Brasil.",
-        color: "green",
-        link: "#"
-      },
-      {
-        title: "Lei nº 14.790/2023 – Marco legal das apostas esportivas online",
-        description: "Estabelece regras específicas para casas de apostas digitais.",
-        color: "yellow",
-        link: "#"
-      },
-      {
-        title: "Lei nº 13.709/2018 – LGPD",
-        description: "Lei Geral de Proteção de Dados, que garante privacidade e segurança no uso de informações pessoais.",
-        color: "red",
-        link: "#"
-      },
-      {
-        title: "Decreto nº 8.642/2016 — APFUT",
-        description: "Regulamenta a Autoridade Pública de Governança do Futebol",
-        color: "blue",
-        link: "#"
-      },
-      {
-        title: "CBJD — Código Brasileiro de Justiça Desportiva (Res. CNE)",
-        description: "Regras da Justiça Desportiva aplicáveis às competições.",
-        color: "green",
-        link: "#"
-      },
-      {
-        title: "Convenção de Macolin (Convenção da Europa)",
-        description: "Tratado internacional contra match-fixing",
-        color: "yellow",
-        link: "#"
-      },
-      {
-        title: "Lei nº 12.299/2010 (reforma do EDT)",
-        description: "Medidas de prevenção e repressão à violência em competições esportivas",
-        color: "red",
-        link: "#"
-      }
-    ]
-  ];
+  const lawPages: Law[][] = [[
+    createLaw("Lei nº 14.597/2023 — Lei Geral do Esporte (LGE)", "Reorganiza o sistema esportivo (Sinesp), princípios, governança e responsabilidades.", "blue"),
+    createLaw("Lei nº 10.671/2003 — Estatuto do Torcedor", "Tipifica fraude/manipulação de resultados e protege a lisura das competições.", "green"),
+    createLaw("Portaria SPA/MF nº 827/2024:", "Regras e critérios para autorização de operadores de apostas de quota fixa pelo Ministério da Fazenda.", "yellow"),
+    createLaw("Lei nº 13.155/2015 — PROFUT", "Programa de modernização, governança e responsabilidade fiscal dos clubes.", "red"),
+    createLaw("Lei nº 9.615/1998 - Lei Pelé", "Organiza as regras do esporte no Brasil.", "blue"),
+    createLaw("Lei nº 13.756/2018 – Loterias e apostas esportivas", "Regulamenta a exploração de apostas de quota fixa no Brasil.", "green"),
+    createLaw("Lei nº 14.790/2023 – Marco legal das apostas esportivas online", "Estabelece regras específicas para casas de apostas digitais.", "yellow"),
+    createLaw("Lei nº 13.709/2018 – LGPD", "Lei Geral de Proteção de Dados, que garante privacidade e segurança no uso de informações pessoais.", "red"),
+    createLaw("Decreto nº 8.642/2016 — APFUT", "Regulamenta a Autoridade Pública de Governança do Futebol", "blue"),
+    createLaw("CBJD — Código Brasileiro de Justiça Desportiva (Res. CNE)", "Regras da Justiça Desportiva aplicáveis às competições.", "green"),
+    createLaw("Convenção de Macolin (Convenção da Europa)", "Tratado internacional contra match-fixing", "yellow"),
+    createLaw("Lei nº 12.299/2010 (reforma do EDT)", "Medidas de prevenção e repressão à violência em competições esportivas", "red")
+  ]];
 
   const currentLaws = lawPages[currentPage];
 
