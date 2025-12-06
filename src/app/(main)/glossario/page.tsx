@@ -76,24 +76,24 @@ export default function Glossario() {
   const getColorClasses = (color: string) => {
     switch(color) {
       case 'blue':
-        return 'border-blue-600 border-2';
+        return 'border-primary border-2';
       case 'green':
-        return 'border-green-600 border-2';
+        return 'border-success border-2';
       case 'yellow':
-        return 'border-yellow-400 border-2';
+        return 'border-primary border-2';
       case 'red':
-        return 'border-red-600 border-2';
+        return 'border-destructive border-2';
       default:
-        return 'border-gray-300 border-2';
+        return 'border-border border-2';
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border mb-8 p-6">
+      <div className="bg-card-bg rounded-lg shadow-sm border border-border mb-8 p-6">
         <div className="flex items-center gap-4">
-          <div className="bg-red-100 p-3 rounded-lg">
+          <div className="bg-accent p-3 rounded-lg">
             <Image
               src="/icons/glossario.svg"
               alt="Glossário"
@@ -103,8 +103,8 @@ export default function Glossario() {
             />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{currentPageData.title}</h1>
-            <p className="text-gray-600 mt-1">{currentPageData.subtitle}</p>
+            <h1 className="text-3xl font-bold text-foreground">{currentPageData.title}</h1>
+            <p className="text-muted mt-1">{currentPageData.subtitle}</p>
           </div>
         </div>
       </div>
@@ -114,25 +114,25 @@ export default function Glossario() {
         {currentPageData.cards.map((card, index) => (
           <div
             key={index}
-            className={`bg-white rounded-lg p-6 ${getColorClasses(card.color)} flex flex-col justify-center min-h-[200px]`}
+            className={`bg-card-bg rounded-lg p-6 ${getColorClasses(card.color)} flex flex-col justify-center min-h-[200px]`}
           >
             {card.title && (
               <>
-                <h3 className="font-bold text-lg mb-3 text-gray-800">{card.title}</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">{card.description}</p>
+                <h3 className="font-bold text-lg mb-3 text-foreground">{card.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{card.description}</p>
               </>
             )}
             {card.quote && (
               <div className="flex flex-col h-full justify-center">
-                <p className="text-gray-800 font-medium mb-3 text-sm italic">
+                <p className="text-foreground font-medium mb-3 text-sm italic">
                   &ldquo;{card.quote}&rdquo;
                 </p>
-                <p className="text-gray-600 text-xs">— {card.author}</p>
+                <p className="text-muted text-xs">— {card.author}</p>
               </div>
             )}
             {card.stat && (
               <div className="flex items-center justify-center h-full">
-                <p className="text-gray-800 font-bold text-center text-sm">{card.stat}</p>
+                <p className="text-foreground font-bold text-center text-sm">{card.stat}</p>
               </div>
             )}
           </div>
@@ -142,14 +142,14 @@ export default function Glossario() {
       {/* Navigation */}
       <div className="flex justify-between items-center">
         <button
-          className="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-button-secondary text-foreground rounded-md hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed border border-border"
           onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
           disabled={currentPage === 0}
         >
           Anterior
         </button>
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={() => setCurrentPage(prev => Math.min(glossaryPages.length - 1, prev + 1))}
           disabled={currentPage === glossaryPages.length - 1}
         >

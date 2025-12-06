@@ -1,0 +1,24 @@
+services:
+  plataforma-civica-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      # Montar o código fonte para hot reload
+      - .:/app
+      # Usar volume nomeado para node_modules (melhor performance)
+      - node_modules:/app/node_modules
+      # Preservar cache do Next.js
+      - ./.next:/app/.next
+    restart: unless-stopped
+
+volumes:
+  node_modules:

@@ -12,45 +12,44 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-card-bg shadow-sm border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-  <div className="flex items-center space-x-3">
-    <Link href="/">
-      <Image
-        src="/logo.svg"
-        alt="Logo Apita Cidadão"
-        width={200}
-        height={40}
-        className="h-12 w-auto cursor-pointer"
-        priority
-      />
-    </Link>
-  </div>
-  <nav className="hidden md:flex space-x-6 font-poppins">
-    <Link href="/ajuda" className="flex items-center gap-2 text-muted hover:text-foreground">
-      <Image
-        src="/icons/ajuda.svg"
-        alt="Ajuda"
-        width={20}
-        height={20}
-      />
-      Ajuda
-    </Link>
-    <button 
-      onClick={toggleTheme}
-      className="flex items-center gap-2 text-muted hover:text-foreground"
-    >
-      <Image
-        src="/icons/contraste.svg"
-        alt="Alto contraste"
-        width={20}
-        height={20}
-      />
-      Alto contraste
-    </button>
-  </nav>
-</div>
-
+            <div className="flex items-center space-x-3">
+              <Link href="/">
+                <Image
+                  src="/logo.svg"
+                  alt="Logo Apita Cidadão"
+                  width={200}
+                  height={40}
+                  className="h-12 w-auto cursor-pointer"
+                  priority
+                />
+              </Link>
+            </div>
+            <nav className="hidden md:flex space-x-6 font-poppins">
+              <Link href="/ajuda" className="flex items-center gap-2 text-muted hover:text-foreground">
+                <Image
+                  src="/icons/ajuda.svg"
+                  alt="Ajuda"
+                  width={20}
+                  height={20}
+                />
+                Ajuda
+              </Link>
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 text-muted hover:text-foreground"
+              >
+                <Image
+                  src="/icons/contraste.svg"
+                  alt="Alto contraste"
+                  width={20}
+                  height={20}
+                />
+                Alto contraste
+              </button>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -116,9 +115,9 @@ export default function Home() {
             </div>
           </div>
 
-          <Link 
-            href="/denuncia" 
-            className="inline-flex items-center gap-x-2 justify-center px-8 py-3 bg-primary text-black font-medium rounded-lg hover:bg-primary-hover transition-colors text-lg font-[Roboto_Slab]"
+          <Link
+            href="/denuncia"
+            className="inline-flex items-center gap-x-2 justify-center px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-hover transition-colors text-lg font-[Roboto_Slab]"
           >
             <Image
                 src="/icons/fazer_denuncia_24.svg"
@@ -218,7 +217,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card-bg p-6 rounded-lg shadow-sm border border-l-4 border-l-accent">
+            <div className="bg-card-bg p-6 rounded-lg shadow-sm border border-l-4 border-l-primary">
               <div className="flex items-start gap-4">
                 <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-primary text-sm">
@@ -227,7 +226,7 @@ export default function Home() {
                     alt="corrupcao"
                     width={20}
                     height={20}
-                    /> 
+                    />
 
                   </span>
                 </div>
@@ -240,7 +239,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card-bg p-6 rounded-lg shadow-sm border border-l-4 border-l-accent">
+            <div className="bg-card-bg p-6 rounded-lg shadow-sm border border-l-4 border-l-primary">
               <div className="flex items-start gap-4">
                 <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-primary text-sm">
@@ -249,7 +248,7 @@ export default function Home() {
                       alt="apostasIrregulares"
                       width={20}
                       height={20}
-                    /> 
+                    />
 
                   </span>
                 </div>
@@ -262,7 +261,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card-bg p-6 rounded-lg shadow-sm border border-l-4 border-l-accent">
+            <div className="bg-card-bg p-6 rounded-lg shadow-sm border border-l-4 border-l-primary">
               <div className="flex items-start gap-4">
                 <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                   <span className="text-primary text-sm">

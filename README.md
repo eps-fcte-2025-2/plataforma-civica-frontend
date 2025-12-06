@@ -39,17 +39,17 @@ O mesmo Dockerfile funciona para desenvolvimento e produção, apenas muda como 
 
 #### Desenvolvimento (com hot reload)
 ```bash
-# Executar com hot reload
-docker compose up --build
+# Executar com hot reload usando docker-compose.dev.yml
+docker compose -f docker-compose.dev.yml up --build
 
 # Executar em background
-docker compose up -d
+docker compose -f docker-compose.dev.yml up -d
 
 # Parar containers
-docker compose down
+docker compose -f docker-compose.dev.yml down
 
 # Ver logs
-docker compose logs -f
+docker compose -f docker-compose.dev.yml logs -f
 ```
 
 **Características do desenvolvimento:**
@@ -57,6 +57,7 @@ docker compose logs -f
 - ✅ **Volumes mapeados** - Código local sincronizado com container
 - ✅ **Logs detalhados** - Mostra erros e warnings
 - ✅ **Desenvolvimento rápido** - Não precisa rebuildar a cada mudança
+- ✅ **Polling habilitado** - Detecta mudanças em sistemas de arquivos que não suportam inotify
 
 #### Produção
 ```bash
