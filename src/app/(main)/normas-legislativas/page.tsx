@@ -130,9 +130,9 @@ export default function NormasLegislativas() {
 
       {/* Laws Grid - 4 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {currentLaws.map((law, index) => (
+        {currentLaws.map((law) => (
           <div
-            key={index}
+            key={law.title}
             className={`bg-card-bg rounded-lg p-6 ${getColorClasses(law.color)} flex flex-col justify-between min-h-[250px] shadow-sm`}
           >
             <div>
