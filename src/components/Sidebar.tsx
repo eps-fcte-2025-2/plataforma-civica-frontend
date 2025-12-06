@@ -17,6 +17,7 @@ export default function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean, setIsO
     { name: 'Faça sua denúncia', icon: <FaUserSecret />, href: '/denuncia', active: false },
     { name: 'Perguntas frequentes', icon: <TbMessageQuestion width={25.6} height={24}/>, href: '/perguntas-frequentes' },
     { name: 'Glossário', icon: <Image src="/icons/glossario.svg" alt="Glossário" width={25.6} height={24}/>, href: '/glossario' },
+    { name: 'Normas legislativas', icon: <Image src="/icons/normasLegislativas.svg" alt="Normas legislativas" width={25.6} height={24}/>, href: '/normas-legislativas' },
     { name: 'Portal de dados', icon: <Image src="/Chart.svg" alt="Portal de dados" width={25.6} height={24}/>, href: '/portal' },
     { name: 'Acessibilidade', icon: <FaUniversalAccess/>, href: '/acessibilidade' },
     { name: 'Sobre', icon: <Image src="/Activity.svg" alt="Sobre" width={25.6} height={24}/>, href: '/sobre' }
