@@ -475,150 +475,154 @@ const FormWrapper: React.FC = () => {
   };
 
   if (response) {
-    return <SuccessScreen response={response} onNewReport={resetForm} />;
+    return <SuccessScreen response={response} />;
   }
 
   const maxSteps = getMaxStepsForType();
 
-
   return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-card-bg p-6 shadow-lg">
-      <StepHeader currentStep={currentStep} maxSteps={getMaxStepsForType()} error={error} />
+    <>
+      <div className="mb-8 text-center">
+        <h1 className="text-foreground mb-2 text-3xl font-bold">Sistema de Denúncias de Apostas</h1>
+        <p className="text-muted">Registre denúncias sobre manipulação de resultados esportivos</p>
+      </div>
+      <div className="bg-card-bg mx-auto max-w-4xl rounded-lg p-6 shadow-lg">
+        <StepHeader currentStep={currentStep} maxSteps={getMaxStepsForType()} error={error} />
 
-      {/* Etapa 1: Tipo de Denúncia */}
-      {currentStep === 1 && (
-        <div>
-          <TipoDenunciaStep
-            tipoDenuncia={formData.tipoDenuncia}
-            onUpdate={updateFormData}
-            hasFieldError={hasFieldError}
-            getFieldError={getFieldError}
-          />
-        </div>
-      )}
+        {/* Etapa 1: Tipo de Denúncia */}
+        {currentStep === 1 && (
+          <div>
+            <TipoDenunciaStep
+              tipoDenuncia={formData.tipoDenuncia}
+              onUpdate={updateFormData}
+              hasFieldError={hasFieldError}
+              getFieldError={getFieldError}
+            />
+          </div>
+        )}
 
-      {/* Etapa 2: Dados da Partida (Partida Específica) */}
-      {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
-        <PartidaDadosStep
-          torneio={formData.torneio || ""}
-          localPartida={formData.localPartida || ""}
-          dataPartida={formData.dataPartida || ""}
-          municipio={formData.municipio}
-          uf={formData.uf}
-          timeA={formData.timeA || ""}
-          timeB={formData.timeB || ""}
-          ufs={ufs}
-          ufsLoading={ufsLoading}
-          onUpdate={updateFormData}
-          hasFieldError={hasFieldError}
-          getFieldError={getFieldError}
-        />
-      )}
-
-      {/* Etapa 3: Envolvidos (Partida Específica) */}
-      {currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
-        <PartidaEnvolvidosStep
-          pessoasEnvolvidas={formData.pessoasEnvolvidas}
-          clubesEnvolvidos={formData.clubesEnvolvidos || []}
-          onAddPessoa={addPessoaEnvolvida}
-          onUpdatePessoa={updatePessoaEnvolvida}
-          onRemovePessoa={removePessoaEnvolvida}
-          onAddClube={addClubeEnvolvido}
-          onUpdateClube={updateClubeEnvolvido}
-          onRemoveClube={removeClubeEnvolvido}
-          hasFieldError={hasFieldError}
-          getFieldError={getFieldError}
-        />
-      )}
-
-      {/* Etapa 4: Descrição (Partida Específica) */}
-      {currentStep === 4 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
-        <DescricaoStep
-          descricao={formData.descricao}
-          titulo="O que aconteceu?"
-          placeholder="Descreva o que aconteceu na partida. Seja claro e objetivo. Informações pessoais, inclusive identificação, não devem ser inseridas a não ser que sejam essenciais para a caracterização da manifestação"
-          onUpdate={(descricao) => updateFormData({ descricao })}
-          hasFieldError={hasFieldError}
-          getFieldError={getFieldError}
-        />
-      )}
-
-      {/* Etapa 2: Informações Básicas (Esquema de Manipulação) */}
-      {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
-        <div>
-          <EsquemaInfoBasicaStep
-            comoSoube={formData.comoSoube || ComoSoube.OUTROS}
-            pontualOuDisseminado={formData.pontualOuDisseminado || PontualOuDisseminado.PONTUAL}
-            frequencia={formData.frequencia || Frequencia.ISOLADO}
+        {/* Etapa 2: Dados da Partida (Partida Específica) */}
+        {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
+          <PartidaDadosStep
+            torneio={formData.torneio || ""}
+            localPartida={formData.localPartida || ""}
+            dataPartida={formData.dataPartida || ""}
             municipio={formData.municipio}
             uf={formData.uf}
+            timeA={formData.timeA || ""}
+            timeB={formData.timeB || ""}
             ufs={ufs}
             ufsLoading={ufsLoading}
             onUpdate={updateFormData}
             hasFieldError={hasFieldError}
             getFieldError={getFieldError}
           />
-        </div>
-      )}
+        )}
 
-      {/* Etapa 3: Foco do Esquema (Esquema de Manipulação) */}
-      {currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
-        <EsquemaFocoStep
-          focosManipulacao={formData.focosManipulacao}
-          onUpdate={(focosManipulacao) => updateFormData({ focosManipulacao })}
-          hasFieldError={hasFieldError}
-          getFieldError={getFieldError}
+        {/* Etapa 3: Envolvidos (Partida Específica) */}
+        {currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
+          <PartidaEnvolvidosStep
+            pessoasEnvolvidas={formData.pessoasEnvolvidas}
+            clubesEnvolvidos={formData.clubesEnvolvidos || []}
+            onAddPessoa={addPessoaEnvolvida}
+            onUpdatePessoa={updatePessoaEnvolvida}
+            onRemovePessoa={removePessoaEnvolvida}
+            onAddClube={addClubeEnvolvido}
+            onUpdateClube={updateClubeEnvolvido}
+            onRemoveClube={removeClubeEnvolvido}
+            hasFieldError={hasFieldError}
+            getFieldError={getFieldError}
+          />
+        )}
+
+        {/* Etapa 4: Descrição (Partida Específica) */}
+        {currentStep === 4 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
+          <DescricaoStep
+            descricao={formData.descricao}
+            titulo="O que aconteceu?"
+            placeholder="Descreva o que aconteceu na partida. Seja claro e objetivo. Informações pessoais, inclusive identificação, não devem ser inseridas a não ser que sejam essenciais para a caracterização da manifestação"
+            onUpdate={(descricao) => updateFormData({ descricao })}
+            hasFieldError={hasFieldError}
+            getFieldError={getFieldError}
+          />
+        )}
+
+        {/* Etapa 2: Informações Básicas (Esquema de Manipulação) */}
+        {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
+          <div>
+            <EsquemaInfoBasicaStep
+              comoSoube={formData.comoSoube || ComoSoube.OUTROS}
+              pontualOuDisseminado={formData.pontualOuDisseminado || PontualOuDisseminado.PONTUAL}
+              frequencia={formData.frequencia || Frequencia.ISOLADO}
+              municipio={formData.municipio}
+              uf={formData.uf}
+              ufs={ufs}
+              ufsLoading={ufsLoading}
+              onUpdate={updateFormData}
+              hasFieldError={hasFieldError}
+              getFieldError={getFieldError}
+            />
+          </div>
+        )}
+
+        {/* Etapa 3: Foco do Esquema (Esquema de Manipulação) */}
+        {currentStep === 3 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
+          <EsquemaFocoStep
+            focosManipulacao={formData.focosManipulacao}
+            onUpdate={(focosManipulacao) => updateFormData({ focosManipulacao })}
+            hasFieldError={hasFieldError}
+            getFieldError={getFieldError}
+          />
+        )}
+
+        {/* Etapa 4: Detalhes Condicionais (Esquema de Manipulação) */}
+        {currentStep === 4 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
+          <EsquemaDetalhesStep
+            focosManipulacao={formData.focosManipulacao}
+            pessoasEnvolvidas={formData.pessoasEnvolvidas}
+            clubesEnvolvidos={formData.clubesEnvolvidos || []}
+            partidasSuspeitas={formData.partidasSuspeitas || []}
+            descricao={formData.descricao}
+            onUpdatePessoas={(pessoasEnvolvidas) => updateFormData({ pessoasEnvolvidas })}
+            onUpdateClubes={(clubesEnvolvidos) => updateFormData({ clubesEnvolvidos })}
+            onUpdatePartidas={(partidasSuspeitas) => updateFormData({ partidasSuspeitas })}
+            onUpdateDescricao={(descricao) => updateFormData({ descricao })}
+            hasFieldError={hasFieldError}
+            getFieldError={getFieldError}
+          />
+        )}
+
+        {/* Mensagem de Erro */}
+        {submitError && (
+          <div className="bg-destructive mt-4 rounded-lg border border-red-200 p-4">
+            <p className="text-destructive flex items-center">
+              <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
+              </svg>
+              {submitError}
+            </p>
+          </div>
+        )}
+
+        {/* Botões de Navegação */}
+        <NavigationButtons
+          currentStep={currentStep}
+          maxSteps={maxSteps}
+          isSubmitting={isSubmitting}
+          loading={loading}
+          isLastStep={currentStep === getMaxStepsForType()}
+          onPrevious={prevStep}
+          onNext={nextStep}
+          onSubmit={handleSubmit}
         />
-      )}
-
-      {/* Etapa 4: Detalhes Condicionais (Esquema de Manipulação) */}
-      {currentStep === 4 && formData.tipoDenuncia === TipoDenuncia.ESQUEMA_DE_MANIPULACAO && (
-        <EsquemaDetalhesStep
-          focosManipulacao={formData.focosManipulacao}
-          pessoasEnvolvidas={formData.pessoasEnvolvidas}
-          clubesEnvolvidos={formData.clubesEnvolvidos || []}
-          partidasSuspeitas={formData.partidasSuspeitas || []}
-          descricao={formData.descricao}
-          onUpdatePessoas={(pessoasEnvolvidas) => updateFormData({ pessoasEnvolvidas })}
-          onUpdateClubes={(clubesEnvolvidos) => updateFormData({ clubesEnvolvidos })}
-          onUpdatePartidas={(partidasSuspeitas) => updateFormData({ partidasSuspeitas })}
-          onUpdateDescricao={(descricao) => updateFormData({ descricao })}
-          hasFieldError={hasFieldError}
-          getFieldError={getFieldError}
-        />
-      )}
-
-      {/* Mensagem de Erro */}
-      {submitError && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-destructive p-4">
-          <p className="flex items-center text-destructive">
-            <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
-            {submitError}
-          </p>
-        </div>
-      )}
-
-      {/* Botões de Navegação */}
-      <NavigationButtons
-        currentStep={currentStep}
-        maxSteps={maxSteps} 
-        isSubmitting={isSubmitting}
-        loading={loading}
-        isLastStep={currentStep === getMaxStepsForType()}
-        onPrevious={prevStep}
-        onNext={nextStep}
-        onSubmit={handleSubmit}
-      />
-    </div>
+      </div>
+    </>
   );
 };
 
 export default FormWrapper;
-
