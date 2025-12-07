@@ -590,8 +590,11 @@ const FormWrapper: React.FC = () => {
 
       {/* Mensagem de Erro */}
       {submitError && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-destructive p-4">
-          <p className="flex items-center text-destructive">
+        <div 
+          className="mt-4 rounded-lg border border-red-200 bg-[var(--color-red-600)] p-4"
+        >
+          {/* Texto branco para contrastar com o vermelho escuro */}
+          <p className="flex items-center text-white font-medium">
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
