@@ -2,8 +2,23 @@
 
 import { useState } from 'react';
 
+interface Denuncia {
+  id: string;
+  idCurto: string;
+  risco: number;
+  status: string;
+  local: string;
+  municipio: string;
+  data: string;
+  tipo: string;
+  descricao: string;
+  pessoas: number;
+  clubes: number;
+  evidencias: number;
+}
+
 export default function PaginaPortalDeDados() {
-  const [selectedDenuncia, setSelectedDenuncia] = useState<any>(null);
+  const [selectedDenuncia, setSelectedDenuncia] = useState<Denuncia | null>(null);
   
   const denuncias = [
     { 
