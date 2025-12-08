@@ -1,13 +1,67 @@
-// app/portal-de-dados/page.tsx
+'use client';
+
+import { useState } from 'react';
 
 export default function PaginaPortalDeDados() {
+  const [selectedDenuncia, setSelectedDenuncia] = useState<any>(null);
   
-  // Dados de exemplo para a tabela
   const denuncias = [
-    { id: '#878784', risco: 50, status: 'NOVO', local: 'SP', data: '02/09 20:15' },
-    { id: '#876388', risco: 70, status: 'VERIFICADA', local: 'SP', data: '28/08 2:16' },
-    { id: '#876412', risco: 10, status: 'EM ANÁLISE', local: 'DF', data: '17/08 19:28' },
-    { id: '#876621', risco: 100, status: 'VERIFICADA', local: 'RJ', data: '01/08 10:02' },
+    { 
+      id: '35577d1d-beb3-4e4d-b8be-e0f71aac7034', 
+      idCurto: '#878784', 
+      risco: 50, 
+      status: 'NOVO', 
+      local: 'SP', 
+      municipio: 'São Paulo',
+      data: '02/09 20:15',
+      tipo: 'PARTIDA_ESPECIFICA',
+      descricao: 'Denúncia número 1 sobre possível manipulação',
+      pessoas: 0,
+      clubes: 0,
+      evidencias: 0
+    },
+    { 
+      id: '35577d1d-beb3-4e4d-b8be-e0f71aac7035', 
+      idCurto: '#876388', 
+      risco: 70, 
+      status: 'VERIFICADA', 
+      local: 'SP', 
+      municipio: 'São Paulo',
+      data: '28/08 2:16',
+      tipo: 'ESQUEMA_DE_MANIPULACAO',
+      descricao: 'Denúncia número 2 sobre possível manipulação',
+      pessoas: 2,
+      clubes: 1,
+      evidencias: 3
+    },
+    { 
+      id: '35577d1d-beb3-4e4d-b8be-e0f71aac7036', 
+      idCurto: '#876412', 
+      risco: 10, 
+      status: 'EM ANÁLISE', 
+      local: 'DF', 
+      municipio: 'Brasília',
+      data: '17/08 19:28',
+      tipo: 'PARTIDA_ESPECIFICA',
+      descricao: 'Denúncia número 3 sobre possível manipulação',
+      pessoas: 1,
+      clubes: 2,
+      evidencias: 1
+    },
+    { 
+      id: '35577d1d-beb3-4e4d-b8be-e0f71aac7037', 
+      idCurto: '#876621', 
+      risco: 100, 
+      status: 'VERIFICADA', 
+      local: 'RJ', 
+      municipio: 'Rio de Janeiro',
+      data: '01/08 10:02',
+      tipo: 'ESQUEMA_DE_MANIPULACAO',
+      descricao: 'Denúncia número 4 sobre possível manipulação',
+      pessoas: 5,
+      clubes: 3,
+      evidencias: 10
+    },
   ];
 
   // Função para retornar a cor do "badge" de status (Aproximei do Figma)
@@ -135,8 +189,12 @@ export default function PaginaPortalDeDados() {
 
             <tbody>
               {denuncias.map((denuncia) => (
-                <tr key={denuncia.id} className="bg-card-bg border-b border-border hover:bg-accent">
-                  <td className="px-6 py-4 font-medium text-foreground">{denuncia.id}</td>
+                <tr 
+                  key={denuncia.id} 
+                  className="bg-card-bg border-b border-border hover:bg-accent cursor-pointer"
+                  onClick={() => setSelectedDenuncia(denuncia)}
+                >
+                  <td className="px-6 py-4 font-medium text-foreground">{denuncia.idCurto}</td>
                   <td className="px-6 py-4 text-muted">{denuncia.risco}</td>
                   <td className="px-6 py-4 font-medium">
                     <span className={getStatusClass(denuncia.status)}>
@@ -144,7 +202,6 @@ export default function PaginaPortalDeDados() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                     {/* Badge de Localização (como no Figma) */}
                     <span className="bg-accent text-foreground px-3 py-1 rounded-md text-xs font-medium">
                       {denuncia.local}
                     </span>
@@ -157,6 +214,85 @@ export default function PaginaPortalDeDados() {
           </table>
         </div>
       </div>
+
+      {selectedDenuncia && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedDenuncia(null)}
+        >
+          <div 
+            className="bg-white rounded-lg max-w-2xl w-full shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center p-6 border-b">
+              <h2 className="text-xl font-bold text-gray-900">Detalhes da Denuncia</h2>
+              <button
+                onClick={() => setSelectedDenuncia(null)}
+                className="text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">ID</label>
+                  <p className="font-medium text-gray-900">{selectedDenuncia.id}</p>
+                </div>
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Tipo</label>
+                  <p className="font-medium text-gray-900">{selectedDenuncia.tipo}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Status</label>
+                  <p className="font-medium text-gray-900">{selectedDenuncia.status}</p>
+                </div>
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Data</label>
+                  <p className="font-medium text-gray-900">{selectedDenuncia.data}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">Municipio</label>
+                  <p className="font-medium text-gray-900">{selectedDenuncia.municipio}</p>
+                </div>
+                <div>
+                  <label className="text-sm text-gray-500 block mb-1">UF</label>
+                  <p className="font-medium text-gray-900">{selectedDenuncia.local}</p>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm text-gray-500 block mb-1">Descricao</label>
+                <p className="font-medium text-gray-900">{selectedDenuncia.descricao}</p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 pt-4 border-t">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gray-900">{selectedDenuncia.pessoas}</div>
+                  <div className="text-sm text-gray-500 mt-1">Pessoas</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gray-900">{selectedDenuncia.clubes}</div>
+                  <div className="text-sm text-gray-500 mt-1">Clubes</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gray-900">{selectedDenuncia.evidencias}</div>
+                  <div className="text-sm text-gray-500 mt-1">Evidencias</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
