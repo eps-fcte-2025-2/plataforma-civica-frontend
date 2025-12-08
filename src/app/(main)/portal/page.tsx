@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3333';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3333';
 
 interface Report {
   id: string;
