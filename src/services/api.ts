@@ -19,7 +19,7 @@ class ApiService {
   private apiKey?: string;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+    this.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3333";
     this.apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
     this.axiosInstance = axios.create({
