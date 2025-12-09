@@ -92,6 +92,13 @@ docker run -p 3000:3000 -e NODE_ENV=production plataforma-civica-frontend
 - `npm run lint` - Verificação de código
 - `npm run format` - Formatação de código
 
+## Diagrama de Casos de Uso
+
+- Atores e seus papéis
+- Fluxos de interação
+
+![Diagrama de Casos de Uso](./use-cases-diagram-hq.png)
+
 ## Docker
 
 A aplicação está configurada com Docker multi-stage para otimização:

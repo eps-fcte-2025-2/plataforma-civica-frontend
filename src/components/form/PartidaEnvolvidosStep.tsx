@@ -69,9 +69,10 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
         <button
           type="button"
           onClick={onAddClube}
-          className="mt-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center"
+          className="mt-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center gap-2 w-full md:w-52"
         >
-          ➕ Adicionar Clube
+          <span>➕</span>
+          <span>Adicionar Clube</span>
         </button>
       </div>
 
@@ -120,9 +121,10 @@ const PartidaEnvolvidosStep: React.FC<PartidaEnvolvidosStepProps> = ({
         <button
           type="button"
           onClick={onAddPessoa}
-          className="mt-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center"
+          className="mt-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center gap-2 w-full md:w-52"
         >
-          ➕ Adicionar Pessoa
+          <span>➕</span>
+          <span>Adicionar Pessoa</span>
         </button>
       </div>
     </div>

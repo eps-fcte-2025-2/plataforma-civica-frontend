@@ -106,8 +106,6 @@ export const useReports = () => {
         }
 
         const response = await DenunciaService.createReport(data);
-        // Atualizar lista após criação
-        await fetchReports();
         return response;
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : "Erro ao criar denúncia";
@@ -117,7 +115,7 @@ export const useReports = () => {
         setLoading(false);
       }
     },
-    [setLoading, clearError, setError, fetchReports],
+    [setLoading, clearError, setError],
   );
 
   // Atualizar status da denúncia
@@ -128,8 +126,6 @@ export const useReports = () => {
 
       try {
         const response = await DenunciaService.updateReportStatus(id, data);
-        // Atualizar lista após atualização
-        await fetchReports();
         return response;
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : "Erro ao atualizar status";
@@ -139,7 +135,7 @@ export const useReports = () => {
         setLoading(false);
       }
     },
-    [setLoading, clearError, setError, fetchReports],
+    [setLoading, clearError, setError],
   );
 
   return {
