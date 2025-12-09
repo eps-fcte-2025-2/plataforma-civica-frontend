@@ -621,16 +621,11 @@ const FormWrapper: React.FC = () => {
           onSubmit={handleSubmit}
         />
       </div>
-    </>
-      )}
-
       {/* Mensagem de Erro */}
       {submitError && (
-        <div 
-          className="mt-4 rounded-lg border border-red-200 bg-[var(--color-red-600)] p-4"
-        >
+        <div className="mt-4 rounded-lg border border-red-200 bg-[var(--color-red-600)] p-4">
           {/* Texto branco para contrastar com o vermelho escuro */}
-          <p className="flex items-center text-white font-medium">
+          <p className="flex items-center font-medium text-white">
             <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -647,7 +642,7 @@ const FormWrapper: React.FC = () => {
       {/* Botões de Navegação */}
       <NavigationButtons
         currentStep={currentStep}
-        maxSteps={maxSteps} 
+        maxSteps={maxSteps}
         isSubmitting={isSubmitting}
         loading={loading}
         isLastStep={currentStep === getMaxStepsForType()}
@@ -655,7 +650,7 @@ const FormWrapper: React.FC = () => {
         onNext={nextStep}
         onSubmit={handleSubmit}
       />
-    </div>
+    </>
   );
 };
 
