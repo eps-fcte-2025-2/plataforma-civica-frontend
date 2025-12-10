@@ -18,7 +18,8 @@ export default function Footer() {
             />
           </Link>
           <p className="mt-2 text-muted text-lg text-center max-w-4xl mx-auto">
-             Uma iniciativa da Polícia Federal para combater a corrupção no esporte brasileiro
+             iniciativa do Grupo Interministerial instituído pela Portaria MESP/MF/MJSP 
+             n. º 1, de 15 de agosto de 2025, publicado no Diário Oficial da União para combater a Manipulação de Resultados Esportivos.
           </p>
 
         </div>
