@@ -13,59 +13,53 @@ export default function Glossario() {
       cards: [
         {
           color: "blue",
-          title: "Manipulação de resultados",
-          description: "Quando alguém altera de forma irregular o resultado de uma partida ou competição, prejudicando a lisura do esporte."
+          title: "Manipulação de Resultados Esportivos",
+          description: "Acordo, ação ou omissão intencional destinada a alterar indevidamente o resultado ou o curso de uma competição esportiva, eliminando sua imprevisibilidade para obter vantagem indevida."
         },
         {
           color: "green",
-          title: "Jurisprudência",
-          description: "Decisões anteriores da Justiça que são referência para novos casos semelhantes."
+          title: "Integridade Esportiva",
+          description: "Princípio que assegura que competições esportivas ocorram sem interferências indevidas, preservando a incerteza do resultado, a igualdade entre competidores e a lisura das práticas esportivas."
         },
         {
           color: "yellow",
-          title: "LGPD (Lei Geral de Proteção de Dados)",
-          description: "Lei que garante a proteção das informações pessoais e define como elas podem ser usadas."
+          title: "Match-Fixing",
+          description: "Manipulação do resultado final de uma competição esportiva, geralmente vinculada a esquemas de apostas e organizada por grupos criminosos ou intermediários."
         },
         {
           color: "red",
-          title: "Corrupção no esporte",
-          description: "Práticas ilegais, como manipulação de resultados, compra de árbitros ou dirigentes, que prejudicam a honestidade do jogo."
+          title: "Spot-Fixing",
+          description: "Manipulação de eventos específicos dentro de uma partida — como faltas, cartões ou escanteios — sem necessariamente alterar o resultado final."
         },
         {
           color: "blue",
-          quote: "Eu nunca joguei para ser a segunda ou a terceira. Eu jogo para ser a melhor.",
-          author: "Marta, brasileira seis vezes melhor jogadora do mundo."
+          title: "Mercado de Apostas de Quota Fixa (AQF)",
+          description: "Modalidade lotérica em que o apostador sabe previamente quanto pode ganhar no momento da aposta, sendo regulamentada pela Lei nº 14.790/2023 e sujeita a controles de integridade."
         },
         {
           color: "green",
-          quote: "O jogo muda quando você acredita no coletivo.",
-          author: "Bernardinho, Ex-técnico das seleções brasileira masculina e feminina de vôlei"
+          title: "Organismos de Integridade Esportiva",
+          description: "Entidades nacionais ou internacionais responsáveis pelo monitoramento da integridade das competições e apostas, pela detecção de padrões atípicos e pelo envio de relatórios de suspeita."
         },
         {
           color: "yellow",
-          quote: "A dor faz parte da rotina de um atleta.",
-          author: "Daiane dos Santos, ginasta brasileira"
+          title: "Red Flags (Indicadores de Risco)",
+          description: "Sinais ou padrões atípicos, estatísticos ou comportamentais, que indicam possível manipulação, como fluxos anormais de apostas, contas múltiplas ou eventos esportivos desproporcionais."
         },
         {
           color: "red",
-          quote: "O importante não é vencer todos os dias, mas lutar sempre.",
-          author: "Ayrton Senna, piloto brasileiro de Fórmula 1"
+          title: "Operadores de Apostas (Bets)",
+          description: "Pessoas jurídicas autorizadas pelo Ministério da Fazenda a explorar apostas de quota fixa, devendo implementar políticas de prevenção à manipulação, controles internos e comunicação obrigatória de suspeitas."
         },
         {
           color: "blue",
-          stat: "72% das denúncias de manipulação vêm do futebol"
+          title: "Organização Criminosa no Contexto Esportivo",
+          description: "Estrutura coordenada para manipular resultados, explorar mercados de apostas e praticar crimes correlatos, como corrupção, coação, fraudes e lavagem de dinheiro."
         },
         {
           color: "green",
-          stat: "O esporte limpo é um direito de todos."
-        },
-        {
-          color: "yellow",
-          stat: "Sua denúncia ajuda a proteger a integridade esportiva."
-        },
-        {
-          color: "red",
-          stat: "Apenas 4% da cobertura da mídia esportiva é feminina."
+          title: "Crime Contra a Incerteza do Resultado Esportivo",
+          description: "Conjunto de tipos penais previstos nos arts. 198 a 200 da Lei Geral do Esporte que punem solicitações, ofertas ou práticas destinadas a alterar ou falsear resultados de competições esportivas."
         }
       ]
     }
