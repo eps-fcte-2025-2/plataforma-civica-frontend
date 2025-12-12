@@ -60,6 +60,8 @@ jobs:
       - name: Run lint
         run: ${{ steps.detect-package-manager.outputs.runner }} lint
 
+      - name: Run unit tests
+        run: ${{ steps.detect-package-manager.outputs.runner }} test
+
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-
