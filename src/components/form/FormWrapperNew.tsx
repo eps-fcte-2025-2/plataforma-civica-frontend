@@ -1,28 +1,34 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useReports, useUFs } from '@/hooks/useReports';
-import { TipoDenuncia, PessoaEnvolvida, ComoSoube, PontualOuDisseminado, Frequencia } from '@/types/api';
+import React from "react";
+import { useReports, useUFs } from "@/hooks/useReports";
+import {
+  TipoDenuncia,
+  PessoaEnvolvida,
+  ComoSoube,
+  PontualOuDisseminado,
+  Frequencia,
+} from "@/types/api";
 
 // Context Providers
-import { FormProvider, useFormData } from './FormDataContext';
-import { StepNavigationProvider, useStepNavigation } from './StepNavigationContext';
+import { FormProvider, useFormData } from "./FormDataContext";
+import { StepNavigationProvider, useStepNavigation } from "./StepNavigationContext";
 
 // Components
-import StepHeader from './StepHeader';
-import TipoDenunciaStep from './TipoDenunciaStep';
-import PartidaDadosStep from './PartidaDadosStep';
-import PartidaEnvolvidosStep from './PartidaEnvolvidosStep';
-import DescricaoStep from './DescricaoStep';
-import EsquemaInfoBasicaStep from './EsquemaInfoBasicaStep';
-import EsquemaFocoStep from './EsquemaFocoStep';
-import EsquemaDetalhesStep from './EsquemaDetalhesStep';
-import NavigationButtons from './NavigationButtons';
-import SuccessScreen from './SuccessScreen';
+import StepHeader from "./StepHeader";
+import TipoDenunciaStep from "./TipoDenunciaStep";
+import PartidaDadosStep from "./PartidaDadosStep";
+import PartidaEnvolvidosStep from "./PartidaEnvolvidosStep";
+import DescricaoStep from "./DescricaoStep";
+import EsquemaInfoBasicaStep from "./EsquemaInfoBasicaStep";
+import EsquemaFocoStep from "./EsquemaFocoStep";
+import EsquemaDetalhesStep from "./EsquemaDetalhesStep";
+import NavigationButtons from "./NavigationButtons";
+import SuccessScreen from "./SuccessScreen";
 
 // Hooks and Utils
-import { useFormSubmission } from './useFormSubmission';
-import { FormValidator } from './FormValidator';
+import { useFormSubmission } from "./useFormSubmission";
+import { FormValidator } from "./FormValidator";
 
 const FormSteps: React.FC = () => {
   const { ufs, loading: ufsLoading, fetchUFs } = useUFs();
@@ -49,20 +55,20 @@ const FormSteps: React.FC = () => {
         clubesEnvolvidos: [],
         focosManipulacao: [],
         partidasSuspeitas: [],
-        descricao: '',
-        municipio: '',
-        uf: '',
+        descricao: "",
+        municipio: "",
+        uf: "",
       });
       return;
     }
 
     updateFormData({
       tipoDenuncia,
-      pessoasEnvolvidas: [{ nomePessoa: '', funcaoPessoa: '' }],
+      pessoasEnvolvidas: [{ nomePessoa: "", funcaoPessoa: "" }],
       clubesEnvolvidos: [],
       focosManipulacao: [],
       partidasSuspeitas: [],
-      descricao: '',
+      descricao: "",
     });
   };
 
@@ -71,20 +77,20 @@ const FormSteps: React.FC = () => {
       formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA &&
       formData.pessoasEnvolvidas.length === 0
     ) {
-      updateFormData({ pessoasEnvolvidas: [{ nomePessoa: '', funcaoPessoa: '' }] });
+      updateFormData({ pessoasEnvolvidas: [{ nomePessoa: "", funcaoPessoa: "" }] });
     }
   }, [formData.tipoDenuncia, formData.pessoasEnvolvidas.length, updateFormData]);
 
   // People management functions
   const addPessoaEnvolvida = () => {
     updateFormData({
-      pessoasEnvolvidas: [...formData.pessoasEnvolvidas, { nomePessoa: '', funcaoPessoa: '' }]
+      pessoasEnvolvidas: [...formData.pessoasEnvolvidas, { nomePessoa: "", funcaoPessoa: "" }],
     });
   };
 
   const updatePessoaEnvolvida = (index: number, field: keyof PessoaEnvolvida, value: string) => {
-    const novasPessoas = formData.pessoasEnvolvidas.map((pessoa, i) => 
-      i === index ? { ...pessoa, [field]: value } : pessoa
+    const novasPessoas = formData.pessoasEnvolvidas.map((pessoa, i) =>
+      i === index ? { ...pessoa, [field]: value } : pessoa,
     );
     updateFormData({ pessoasEnvolvidas: novasPessoas });
   };
@@ -97,13 +103,13 @@ const FormSteps: React.FC = () => {
   // Club management functions
   const addClubeEnvolvido = () => {
     updateFormData({
-      clubesEnvolvidos: [...(formData.clubesEnvolvidos || []), { nomeClube: '' }]
+      clubesEnvolvidos: [...(formData.clubesEnvolvidos || []), { nomeClube: "" }],
     });
   };
 
   const updateClubeEnvolvido = (index: number, value: string) => {
-    const novosClubes = (formData.clubesEnvolvidos || []).map((clube, i) => 
-      i === index ? { ...clube, nomeClube: value } : clube
+    const novosClubes = (formData.clubesEnvolvidos || []).map((clube, i) =>
+      i === index ? { ...clube, nomeClube: value } : clube,
     );
     updateFormData({ clubesEnvolvidos: novosClubes });
   };
@@ -133,16 +139,12 @@ const FormSteps: React.FC = () => {
   };
 
   if (response) {
-    return <SuccessScreen response={response} onNewReport={resetForm} />;
+    return <SuccessScreen response={response} />;
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-card-bg rounded-lg shadow-lg">
-      <StepHeader 
-        currentStep={currentStep} 
-        maxSteps={maxSteps} 
-        error={error} 
-      />
+    <div className="bg-card-bg mx-auto max-w-4xl rounded-lg p-6 shadow-lg">
+      <StepHeader currentStep={currentStep} maxSteps={maxSteps} error={error} />
 
       {/* Step 1: Tipo de Denúncia */}
       {currentStep === 1 && (
@@ -155,13 +157,13 @@ const FormSteps: React.FC = () => {
       {/* Step 2: Dados da Partida */}
       {currentStep === 2 && formData.tipoDenuncia === TipoDenuncia.PARTIDA_ESPECIFICA && (
         <PartidaDadosStep
-          torneio={formData.torneio || ''}
-          localPartida={formData.localPartida || ''}
-          dataPartida={formData.dataPartida || ''}
+          torneio={formData.torneio || ""}
+          localPartida={formData.localPartida || ""}
+          dataPartida={formData.dataPartida || ""}
           municipio={formData.municipio}
           uf={formData.uf}
-          timeA={formData.timeA || ''}
-          timeB={formData.timeB || ''}
+          timeA={formData.timeA || ""}
+          timeB={formData.timeB || ""}
           ufs={ufs}
           ufsLoading={ufsLoading}
           onUpdate={updateFormData}
@@ -230,10 +232,15 @@ const FormSteps: React.FC = () => {
 
       {/* Error Message */}
       {submitError && (
-        <div className="mt-4 p-4 bg-destructive border border-red-200 rounded-lg">
+        <div className="bg-destructive mt-4 rounded-lg border border-red-200 p-4">
           <p className="text-destructive flex items-center">
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+              />
             </svg>
             {submitError}
           </p>
@@ -257,7 +264,7 @@ const FormSteps: React.FC = () => {
 
 const FormWithNavigation: React.FC = () => {
   const { formData } = useFormData();
-  
+
   return (
     <StepNavigationProvider tipoDenuncia={formData.tipoDenuncia}>
       <FormSteps />
@@ -274,4 +281,3 @@ const FormWrapperNew: React.FC = () => {
 };
 
 export default FormWrapperNew;
-
